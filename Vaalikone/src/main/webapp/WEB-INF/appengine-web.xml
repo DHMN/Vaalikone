@@ -12,7 +12,7 @@
     <property name="password" value="MyNewPass"/>
     <property name="localusername" value="eemi"/>
     <property name="localpassword" value="kukkuu"/>
-    <property name="databasename" value="gamedb"/>
+    <property name="databasename" value="vaalikone"/>
   </system-properties>
 
 </appengine-web-app>
