@@ -37,6 +37,10 @@ public class Vaittama {
 		return String.valueOf(id);
 	}
 	
+	public String getTeksti() {
+		return teksti;
+	}
+	
 	//Olion tulostamiseen toString
 	public String toString() {
 		return id+""+teksti;
