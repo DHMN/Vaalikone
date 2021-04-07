@@ -12,7 +12,7 @@ import data.Vaittama;
 
 //Yhteyden luominen
 public class Dao {
-	private static Connection conn;
+	private Connection conn;
 	public Dao() {
 		try {
 			conn=Connections.getConnection();
@@ -31,7 +31,7 @@ public class Dao {
 		}
 	}
 	//Väittämien listaaminen
-	public static  ArrayList<Vaittama> listAllVaittama() throws SQLException{
+	public ArrayList<Vaittama> listAllVaittama() throws SQLException{
 		ArrayList<Vaittama> list=new ArrayList<>();
 		
 			Statement stmt=conn.createStatement();
@@ -48,7 +48,7 @@ public class Dao {
 		
 	}
 	//Väittämän luominen
-	public static void createVaittama(Vaittama f) {
+	public void createVaittama(Vaittama f) {
 		try {
 			String sql="insert into vaittamat (teksti) values (?)";
 			 PreparedStatement preparedStmt = conn.prepareStatement(sql);

@@ -24,6 +24,7 @@ public class ControllerServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Dao dao;
 
 @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -58,7 +59,7 @@ public class ControllerServlet extends HttpServlet {
   }
   public void listVaittama(HttpServletRequest request, HttpServletResponse response)
           throws SQLException, IOException, ServletException {
-      List<Vaittama> list = Dao.listAllVaittama();
+      List<Vaittama> list = dao.listAllVaittama();
       request.setAttribute("list", list);
       RequestDispatcher dispatcher = request.getRequestDispatcher("VaittamaList.jsp");
       dispatcher.forward(request, response);
@@ -69,7 +70,7 @@ public class ControllerServlet extends HttpServlet {
           throws SQLException, IOException {
       String teksti = request.getParameter("teksti");
       Vaittama newVaittama = new Vaittama(teksti);
-      Dao.createVaittama(newVaittama);
+      dao.createVaittama(newVaittama);
       response.sendRedirect("list");
   }
 
