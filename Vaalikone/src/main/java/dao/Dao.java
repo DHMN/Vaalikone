@@ -31,20 +31,23 @@ public class Dao {
 		}
 	}
 	//Väittämien listaaminen
-	public ArrayList<Vaittama> listAllVaittama() throws SQLException{
+	public ArrayList<Vaittama> listVaittama(){
 		ArrayList<Vaittama> list=new ArrayList<>();
-		
+		try {
 			Statement stmt=conn.createStatement();
 			ResultSet RS=stmt.executeQuery("select * from vaittamat");
 			while (RS.next()){
-				int id = RS.getInt("id");
-				String teksti = RS.getString("teksti");
-				Vaittama vaittama=new Vaittama(id, teksti);
+				Vaittama vaittama=new Vaittama();
+				vaittama.setID(RS.getInt("id"));
+				vaittama.setTeksti(RS.getString("teksti"));
 				list.add(vaittama);
 			}
-			
-			RS.close();
 			return list;
+			
+	}
+	catch(SQLException e) {
+		return null;
+	}
 		
 	}
 	//Väittämän luominen

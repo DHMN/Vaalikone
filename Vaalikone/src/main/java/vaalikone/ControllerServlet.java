@@ -2,6 +2,7 @@ package vaalikone;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -24,12 +25,12 @@ public class ControllerServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Dao dao;
+	Dao dao=new Dao();
+	
 
 @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException, ServletException {
-
 	  String action = request.getServletPath();
 	  
       try {
@@ -59,11 +60,13 @@ public class ControllerServlet extends HttpServlet {
   }
   public void listVaittama(HttpServletRequest request, HttpServletResponse response)
           throws SQLException, IOException, ServletException {
-      List<Vaittama> list = dao.listAllVaittama();
+	  ArrayList<Vaittama> list =new ArrayList<>();
+      list = dao.listVaittama();
       request.setAttribute("list", list);
-      RequestDispatcher dispatcher = request.getRequestDispatcher("VaittamaList.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
       dispatcher.forward(request, response);
   }
+
 
 
   private void createVaittama(HttpServletRequest request, HttpServletResponse response)

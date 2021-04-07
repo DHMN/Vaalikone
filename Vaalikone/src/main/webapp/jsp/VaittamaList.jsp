@@ -21,7 +21,7 @@
                 <th>ID</th>
                 <th>Teksti</th>
             </tr>
-            <c:forEach var="vaittama" items="${listVaittama}">
+            <c:forEach var="vaittama" items="${list}">
                 <tr>
                     <td><c:out value="${vaittama.id}" /></td>
                     <td><c:out value="${vaittama.teksti}" /></td>
