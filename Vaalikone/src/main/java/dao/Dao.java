@@ -12,7 +12,7 @@ import data.Vaittama;
 
 //Yhteyden luominen
 public class Dao {
-	private Connection conn;
+	private static Connection conn;
 	public Dao() {
 		try {
 			conn=Connections.getConnection();
@@ -31,25 +31,24 @@ public class Dao {
 		}
 	}
 	//Väittämien listaaminen
-	public ArrayList<Vaittama> readAllVaittama() {
+	public static  ArrayList<Vaittama> listAllVaittama() throws SQLException{
 		ArrayList<Vaittama> list=new ArrayList<>();
-		try {
+		
 			Statement stmt=conn.createStatement();
 			ResultSet RS=stmt.executeQuery("select * from vaittamat");
 			while (RS.next()){
-				Vaittama f=new Vaittama();
-				f.setID(RS.getInt("id"));
-				f.setTeksti(RS.getString("teksti"));
-				list.add(f);
+				int id = RS.getInt("id");
+				String teksti = RS.getString("teksti");
+				Vaittama vaittama=new Vaittama(id, teksti);
+				list.add(vaittama);
 			}
+			
+			RS.close();
 			return list;
-		}
-		catch(SQLException e) {
-			return null;
-		}
+		
 	}
 	//Väittämän luominen
-	public void CreateVaittama(Vaittama f) {
+	public static void createVaittama(Vaittama f) {
 		try {
 			String sql="insert into vaittamat (teksti) values (?)";
 			 PreparedStatement preparedStmt = conn.prepareStatement(sql);
