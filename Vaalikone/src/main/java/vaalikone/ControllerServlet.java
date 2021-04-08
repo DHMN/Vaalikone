@@ -43,9 +43,9 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			
 				
-//			 case "/delete":
-//				 deleteVaittama(request, response);
-//				 break; 
+			 case "/delete":
+				 deleteVaittama(request, response);
+				 break; 
 //			 
 //			 case "/edit":
 //			 showEditForm(request, response); break; 
@@ -81,13 +81,8 @@ public class ControllerServlet extends HttpServlet {
 	private void deleteVaittama(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String id=request.getParameter("id");
-		ArrayList<Vaittama> list=null;
-
-		list=dao.deleteVaittama(id);
-
-		request.setAttribute("list", list);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
-		dispatcher.forward(request, response);
+		dao.deleteVaittama(id);
+		listVaittama(request, response);
 	}
 
 	/*

@@ -1,4 +1,4 @@
-package vaalikone;
+/*package vaalikone;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,4 +33,4 @@ public class Delete extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);
 	}
-}
+}*/
