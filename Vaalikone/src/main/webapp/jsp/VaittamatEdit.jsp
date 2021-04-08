@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>Vaalikone</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -67,11 +67,13 @@
 			<div class="col-md-12 article">
 				<article>
 					<h2>Edit Väittämä</h2>
+
 					<form action='update' method='post'>
-						Väittämä ID: <input type='text' name='id' value='${requestScope.list.id}' readonly><br>
-						Väittämä: <input type='text' name='teksti' value='${requestScope.list.teksti}'><br> 
+						<p><b>Väittämä ID: </b>
+						<input type='text' name='id' value='${requestScope.list.id}' readonly></p><br>
+						<p><b>Väittämä: </b>
+						<input type='text' name='teksti' value='${requestScope.list.teksti}'></p><br>
 						<input type='submit' name='ok' value='Send'>
-					</form>
 					<br> 
 					<a href="/new" class="btn">Lisää väittämät</a> 
 					<a href="/list" class="btn">Listaa väittämät</a>
