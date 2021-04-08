@@ -15,7 +15,7 @@ import data.Vaittama;
 
 @WebServlet(
     name = "Delete",
-    urlPatterns = {"/deleteeeee"}
+    urlPatterns = {"/delete"}
 )
 public class Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
