@@ -23,10 +23,15 @@ public class ControllerServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	Dao dao = new Dao();
+	
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String action = request.getServletPath();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getServletPath();
 
 		try {
 			switch (action) {
@@ -38,9 +43,9 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			
 				
-			 case "/delete":
-				 deleteVaittama(request, response);
-				 break; 
+//			 case "/delete":
+//				 deleteVaittama(request, response);
+//				 break; 
 //			 
 //			 case "/edit":
 //			 showEditForm(request, response); break; 
