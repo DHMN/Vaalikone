@@ -90,7 +90,7 @@
 						</c:forEach>
 					</table>
 					<br>
-					<a href="/new" class="btn">Lisää väittämät</a> 
+					<a href="/insert" class="btn">Lisää väittämät</a> 
 					<a href="/list" class="btn">Listaa väittämät</a>
 				</article>
 			</div>

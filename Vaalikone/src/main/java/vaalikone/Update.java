@@ -38,8 +38,9 @@ public class Update extends HttpServlet {
 
 		// LUODAAN TYHJÄ LISTA
 		ArrayList<Vaittama> list = null;
-			// LÄHETETÄÄN DAO LUOKAN UPDATEVAITTAMA METODILLE
-			list = dao.updateVaittama(f);
+		
+		// LÄHETETÄÄN DAO LUOKAN UPDATEVAITTAMA METODILLE
+		list = dao.updateVaittama(f);
 
 		// LAITETAAN LIST ATTRIBUUTIKSI LIST
 		request.setAttribute("list", list);

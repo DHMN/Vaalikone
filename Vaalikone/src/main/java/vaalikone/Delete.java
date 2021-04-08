@@ -15,7 +15,7 @@ import data.Vaittama;
 
 @WebServlet(
     name = "Delete",
-    urlPatterns = {"/delete"}
+    urlPatterns = {"/deleteeeee"}
 )
 public class Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,9 +26,9 @@ public class Delete extends HttpServlet {
 	     throws IOException, ServletException {
 		String id=request.getParameter("id");
 		ArrayList<Vaittama> list=null;
-		
+
 		list=dao.deleteVaittama(id);
-		
+
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);

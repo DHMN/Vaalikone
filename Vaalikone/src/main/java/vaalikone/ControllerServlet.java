@@ -36,11 +36,17 @@ public class ControllerServlet extends HttpServlet {
 			case "/insert":
 				createVaittama(request, response);
 				break;
-			/*
-			 * case "/delete": deleteVaittama(request, response); break; case "/edit":
-			 * showEditForm(request, response); break; case "/update":
-			 * updateVaittama(request, response); break;
-			 */
+			
+//				
+//			 case "/delete":
+//				 deleteVaittama(request, response);
+//				 break; 
+//			 
+//			 case "/edit":
+//			 showEditForm(request, response); break; 
+//			 case "/update": updateVaittama(request, response);
+//			 break;
+			 
 			default:
 				listVaittama(request, response);
 				break;
@@ -66,6 +72,18 @@ public class ControllerServlet extends HttpServlet {
 		dao.createVaittama(newVaittama);
 		response.sendRedirect("list");
 	}
+	
+//	private void deleteVaittama(HttpServletRequest request, HttpServletResponse response)
+//			throws SQLException, IOException, ServletException {
+//		String id=request.getParameter("id");
+//		ArrayList<Vaittama> list=null;
+//
+//		list=dao.deleteVaittama(id);
+//
+//		request.setAttribute("list", list);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
+//		dispatcher.forward(request, response);
+//	}
 
 	/*
 	 * private void updateBook(HttpServletRequest request, HttpServletResponse
@@ -85,6 +103,5 @@ public class ControllerServlet extends HttpServlet {
 	 * Book book = new Book(id); bookDAO.deleteBook(book);
 	 * response.sendRedirect("list");
 	 */
-
 
 }

@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conn.Connections;
-import data.Fish;
 import data.Vaittama;
 
 //Yhteyden luominen
