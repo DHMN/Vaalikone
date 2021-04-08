@@ -10,8 +10,8 @@ public class Vaittama {
 	}
 	
 	//Konstruktori ID:llä ja tekstillä
-	public Vaittama(int id, String teksti) {
-		this.id = id;
+	public Vaittama(String id, String teksti) {
+		setId(id);
 		this.teksti = teksti;
 	}
 	
@@ -23,6 +23,16 @@ public class Vaittama {
 	//Setterit ja getterit
 	public void setID(int id) {
 		this.id = id;
+	}
+	
+	// MUUTTAA LOMAKKEELTA TULLEEN STRING ID:N INTIKSI
+	public void setId(String id) {
+		try {
+			this.id = Integer.parseInt(id);
+		}
+		catch(NumberFormatException | NullPointerException e) {
+			//Do nothing - the value of id won't be changed
+		}
 	}
 	
 	public void setTeksti(String teksti) {

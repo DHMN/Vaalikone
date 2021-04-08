@@ -75,18 +75,24 @@
 							<th></th>
 							<th></th>
 						</tr>
-						<c:forEach var="vaittama" items="${list}">
+
+						<c:forEach var="vaittama" items="${requestScope.list}" >
 							<tr>
 								<th><c:out value="${vaittama.id}" /></th>
 								<th><c:out value="${vaittama.teksti}" /></th>
-								<th><a href="/edit?id=<c:out value='${vaittama.id}' />">Edit</a></th>
+							
+								<th><a href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
 								<th><a href="/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
+								<!--
+								<th><a href="/readtoupdate?id=${vaittama.id}' />">Edit</a></th>
+								<th><a href="/delete?id=${vaittama.id}' />">Delete</a></th>-->
 							</tr>
 						</c:forEach>
 					</table>
 					<br>
 					<a href="/new" class="btn">Lisää väittämät</a> 
 					<a href="/list" class="btn">Listaa väittämät</a>
+				</article>
 			</div>
 			<!-- PÄÄSISÄLTÖ LOPPUU -->
 
