@@ -51,7 +51,7 @@
 							</li>
 							<li class="nav-item"><a class="nav-link" href="/hello">KAIKKI
 									VÄITTÄMÄT</a></li>
-							<li class="nav-item"><a class="nav-link" href="/VaittamatNew.jsp">LISÄÄ
+							<li class="nav-item"><a class="nav-link" href="/new">LISÄÄ
 									VÄITTÄMÄ</a></li>
 							<li class="nav-item"><a class="nav-link" href="/list">LISTAA
 									VÄITTÄMÄT</a></li>
@@ -66,33 +66,18 @@
 		<div class="row narrow">
 			<div class="col-md-12 article">
 				<article>
-					<h1>Kaikki väittämät</h1>
-					<br>
-					<table class="table table-striped">
-						<tr>
-							<th><b>ID</b></th>
-							<th><b>Teksti</b></th>
-							<th></th>
-							<th></th>
-						</tr>
+					<h2>Lisää Väittämä</h2>
 
-						<c:forEach var="vaittama" items="${requestScope.list}" >
-							<tr>
-								<th><c:out value="${vaittama.id}" /></th>
-								<th><c:out value="${vaittama.teksti}" /></th>
-							
-								<th><a href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
-								<th><a href="/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
-								<!--
-								<th><a href="/readtoupdate?id=${vaittama.id}' />">Edit</a></th>
-								<th><a href="/delete?id=${vaittama.id}' />">Delete</a></th>-->
-							</tr>
-						</c:forEach>
-					</table>
-					<br>
-					<a href="/VaittamatNew.jsp" class="btn">Lisää väittämä</a> 
+					<form action='new' method='post'>
+						<p><b>Väittämä ID: </b>
+						<input type='text' name='id' ></p><br>
+						<p><b>Väittämä: </b>
+						<input type='text' name='teksti'> </p><br>
+						<input type='submit' name='ok' value='Send'>
+					<br> 
+					<a href="/new" class="btn">Lisää väittämä</a> 
 					<a href="/list" class="btn">Listaa väittämät</a>
-				</article>
+					</article>
 			</div>
 			<!-- PÄÄSISÄLTÖ LOPPUU -->
 

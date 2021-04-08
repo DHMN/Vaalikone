@@ -35,9 +35,11 @@ public class ControllerServlet extends HttpServlet {
 
 		try {
 			switch (action) {
-			/*
-			 * case "/new": showNewForm(request, response); break;
-			 */
+			
+			 case "/new": 
+				 createVaittama(request, response);
+				 break;
+			 
 			case "/insert":
 				createVaittama(request, response);
 				break;
@@ -71,11 +73,11 @@ public class ControllerServlet extends HttpServlet {
 	}
 
 	private void createVaittama(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 		String teksti = request.getParameter("teksti");
 		Vaittama newVaittama = new Vaittama(teksti);
 		dao.createVaittama(newVaittama);
-		response.sendRedirect("list");
+		response.sendRedirect("hello");
 	}
 	
 	private void deleteVaittama(HttpServletRequest request, HttpServletResponse response)
