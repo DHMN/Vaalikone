@@ -5,6 +5,8 @@
 <html>
 <head>
 <title>Insert title here</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
 	<h1>Väittämien hallinta</h1>
@@ -12,7 +14,6 @@
             <a href="/new">Lisää väittämä</a>
             &nbsp;&nbsp;&nbsp;
             <a href="/list">Listaa väittämät</a>
-             
         </h2>
     <div align="center">
         <table border="1">
