@@ -59,8 +59,8 @@ public class Dao {
 			String sql = "insert into vaittamat (teksti) values (?)";
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, f.getTeksti());
-			preparedStmt.execute();
-			conn.close();
+			preparedStmt.executeUpdate();
+			//conn.close();
 
 		}
 
@@ -79,7 +79,7 @@ public class Dao {
 
 			pstmt.setString(1, vaittama.getTeksti());
 			pstmt.setInt(2, vaittama.getId());
-			pstmt.executeUpdate();
+			pstmt.execute();
 
 			return listVaittama();
 		} catch (SQLException e) {

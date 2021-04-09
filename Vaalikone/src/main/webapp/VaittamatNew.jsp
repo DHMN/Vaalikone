@@ -66,8 +66,8 @@
 		<div class="row narrow">
 			<div class="col-md-12 article">
 				<article>
-					<h2>Lisää Väittämä</h2>
-
+					<h1>Lisää Väittämä</h1>
+					<br>
 					<form action='new' method='post'>
 						<p><b>Väittämä ID: </b>
 						<input type='text' name='id' ></p><br>
@@ -75,6 +75,7 @@
 						<input type='text' name='teksti'> </p><br>
 						<input type='submit' name='ok' value='Send'>
 					<br> 
+					</form>
 					<a href="/new" class="btn">Lisää väittämä</a> 
 					<a href="/list" class="btn">Listaa väittämät</a>
 					</article>

@@ -23,37 +23,39 @@ public class ControllerServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	Dao dao = new Dao();
-	
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getServletPath();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getServletPath();
 
 		try {
 			switch (action) {
-			
-			 case "/new": 
-				 createVaittama(request, response);
-				 break;
-			 
+
+			case "/new":
+				createVaittama(request, response);
+				break;
+
 			case "/insert":
 				createVaittama(request, response);
 				break;
-			
-				
-			 case "/delete":
-				 deleteVaittama(request, response);
-				 break; 
-//			 
-//			 case "/edit":
-//			 showEditForm(request, response); break; 
-//			 case "/update": updateVaittama(request, response);
-//			 break;
-			 
+
+			case "/delete":
+				deleteVaittama(request, response);
+				break;
+
+			case "/update":
+				update(request, response);
+				break;
+
+			case "/readtoupdate":
+				updateVaittama(request, response);
+				break;
+
 			default:
 				listVaittama(request, response);
 				break;
@@ -79,31 +81,39 @@ public class ControllerServlet extends HttpServlet {
 		dao.createVaittama(newVaittama);
 		response.sendRedirect("hello");
 	}
-	
+
 	private void deleteVaittama(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		String id=request.getParameter("id");
+		String id = request.getParameter("id");
 		dao.deleteVaittama(id);
 		listVaittama(request, response);
 	}
 
-	/*
-	 * private void updateBook(HttpServletRequest request, HttpServletResponse
-	 * response) throws SQLException, IOException { int id =
-	 * Integer.parseInt(request.getParameter("id")); String title =
-	 * request.getParameter("title"); String author =
-	 * request.getParameter("author"); float price =
-	 * Float.parseFloat(request.getParameter("price"));
-	 * 
-	 * Book book = new Book(id, title, author, price); bookDAO.updateBook(book);
-	 * response.sendRedirect("list"); }
-	 * 
-	 * private void deleteBook(HttpServletRequest request, HttpServletResponse
-	 * response) throws SQLException, IOException { int id =
-	 * Integer.parseInt(request.getParameter("id"));
-	 * 
-	 * Book book = new Book(id); bookDAO.deleteBook(book);
-	 * response.sendRedirect("list");
-	 */
+	private void updateVaittama(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		String id = request.getParameter("id");
+		Vaittama vaittama = null;
 
+		vaittama = dao.readVaittama(id);
+
+		request.setAttribute("list", vaittama);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamatEdit.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void update(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		String id = request.getParameter("id");
+		String teksti = request.getParameter("teksti");
+
+		Vaittama f = new Vaittama(id, teksti);
+
+		ArrayList<Vaittama> list = null;
+
+		list = dao.updateVaittama(f);
+
+		request.setAttribute("list", list);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
+		dispatcher.forward(request, response);
+	}
 }

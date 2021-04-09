@@ -66,8 +66,8 @@
 		<div class="row narrow">
 			<div class="col-md-12 article">
 				<article>
-					<h2>Edit Väittämä</h2>
-
+					<h1>Edit Väittämä</h1>
+					<br>
 					<form action='update' method='post'>
 						<p><b>Väittämä ID: </b>
 						<input type='text' name='id' value='${requestScope.list.id}' readonly></p><br>
@@ -77,6 +77,7 @@
 					<br> 
 					<a href="/new" class="btn">Lisää väittämät</a> 
 					<a href="/list" class="btn">Listaa väittämät</a>
+					</form>
 					</article>
 			</div>
 			<!-- PÄÄSISÄLTÖ LOPPUU -->
