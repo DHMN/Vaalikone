@@ -51,8 +51,8 @@
 							</li>
 							<li class="nav-item"><a class="nav-link" href="/hello">KAIKKI
 									VÄITTÄMÄT</a></li>
-							<li class="nav-item"><a class="nav-link" href="/VaittamatNew.jsp">LISÄÄ
-									VÄITTÄMÄ</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
 							<li class="nav-item"><a class="nav-link" href="/list">LISTAA
 									VÄITTÄMÄT</a></li>
 						</ul>
@@ -76,12 +76,13 @@
 							<th></th>
 						</tr>
 
-						<c:forEach var="vaittama" items="${requestScope.list}" >
+						<c:forEach var="vaittama" items="${requestScope.list}">
 							<tr>
 								<th><c:out value="${vaittama.id}" /></th>
 								<th><c:out value="${vaittama.teksti}" /></th>
-							
-								<th><a href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
+
+								<th><a
+									href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
 								<th><a href="/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
 								<!--
 								<th><a href="/readtoupdate?id=${vaittama.id}' />">Edit</a></th>
@@ -89,10 +90,56 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<br>
-					<a href="/VaittamatNew.jsp" class="btn">Lisää väittämä</a> 
-					<a href="/list" class="btn">Listaa väittämät</a>
+					<br> <a href="/VaittamatNew.jsp" class="btn">Lisää
+						väittämä</a> <a href="/list" class="btn">Listaa väittämät</a>
 				</article>
+
+
+
+				<article>
+				<h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
+					<br>
+					<form action='answers' method='post'>
+						<fieldset>
+							<c:forEach var="vaittama" items="${requestScope.list}">
+								<table class="table table-striped">
+									<tr>
+										<th><b><c:out value="${vaittama.teksti}" /></b></th>
+									</tr>
+																		<tr>
+										<th><b><c:out value="${vaittama.id}" /></b></th>
+									</tr>
+								</table>
+								<table class="table">
+									<tr>
+										<th><input type='checkbox' name='vastausteksti'
+											value='täysin eri mieltä'> 
+											<label> Täysin eri mieltä</label></th>
+										<th><input type='checkbox' name='vastausteksti' value='eri mieltä'> 
+											<label> Eri mieltä</label></th>
+										<th><input type='checkbox' name='vastausteksti' value='neutraali'> 
+											<label> Neutraali</label></th>
+										<th><input type='checkbox' name='vastausteksti' value='samaa mieltä'> 
+											<label> Samaa mieltä</label></th>
+										<th><input type='checkbox' name='vastausteksti' value='täysin samaa mieltä'>
+											<label> Täysin samaa mieltä</label></th>
+										<th><input type='hidden' name='vaittamaId' value='<c:out value="${vaittama.id}" />'></th>
+									</tr>
+								</table>
+							</c:forEach>
+						</fieldset>
+						<input type='submit' name='ok' value='Send'>
+					</form>
+					<br>
+				</article>
+
+
+
+
+
+
+
+
 			</div>
 			<!-- PÄÄSISÄLTÖ LOPPUU -->
 

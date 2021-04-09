@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.Dao;
 import data.Vaittama;
+import data.Vastaus;
 
 @WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello" })
 public class ControllerServlet extends HttpServlet {
@@ -55,7 +56,9 @@ public class ControllerServlet extends HttpServlet {
 			case "/readtoupdate":
 				updateVaittama(request, response);
 				break;
-
+			case "/answers":
+				addVastaus(request, response);
+				break;
 			default:
 				listVaittama(request, response);
 				break;
@@ -106,14 +109,25 @@ public class ControllerServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String teksti = request.getParameter("teksti");
 
-		Vaittama f = new Vaittama(id, teksti);
+		Vaittama vaittama = new Vaittama(id, teksti);
 
 		ArrayList<Vaittama> list = null;
 
-		list = dao.updateVaittama(f);
+		list = dao.updateVaittama(vaittama);
 
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);
+	}
+	
+	private void addVastaus(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		String vastausteksti = request.getParameter("vastausteksti");
+		String vaittamaId = request.getParameter("vaittamaId");
+
+		Vastaus vastaus = new Vastaus(vaittamaId, vastausteksti);
+
+		dao.addVastaus(vastaus);
+		response.sendRedirect("hello");
 	}
 }

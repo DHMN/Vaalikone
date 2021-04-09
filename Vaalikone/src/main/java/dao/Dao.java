@@ -9,8 +9,9 @@ import java.util.ArrayList;
 
 import conn.Connections;
 import data.Vaittama;
+import data.Vastaus;
 
-//Yhteyden luominen
+// Yhteyden luominen
 public class Dao {
 	private Connection conn;
 
@@ -23,7 +24,7 @@ public class Dao {
 		}
 	}
 
-//Sulkeminen
+	// Sulkeminen
 	public void close() {
 		try {
 			conn.close();
@@ -60,7 +61,8 @@ public class Dao {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, f.getTeksti());
 			preparedStmt.executeUpdate();
-			//conn.close();
+//			preparedStmt.execute();
+//			conn.close();
 
 		}
 
@@ -79,50 +81,63 @@ public class Dao {
 
 			pstmt.setString(1, vaittama.getTeksti());
 			pstmt.setInt(2, vaittama.getId());
-			pstmt.execute();
+			pstmt.executeUpdate();
 
 			return listVaittama();
 		} catch (SQLException e) {
 			return null;
 		}
 	}
-	
+
 	// LUETAAN TIETTY VÄITTÄMÄ TIETOKANNASTA
 	public Vaittama readVaittama(String id) {
-		Vaittama vaittama=null;
+		Vaittama vaittama = null;
 		try {
-			String sql="select * from vaittamat where id=?";
+			String sql = "select * from vaittamat where id=?";
 
-			PreparedStatement pstmt=conn.prepareStatement(sql);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, id);
 
-			ResultSet RS=pstmt.executeQuery();
-			while (RS.next()){
+			ResultSet RS = pstmt.executeQuery();
+			while (RS.next()) {
 
 				vaittama = new Vaittama();
 				vaittama.setID(RS.getInt("id"));
 				vaittama.setTeksti(RS.getString("teksti"));
 			}
 			return vaittama;
-		}
-		catch(SQLException e) {
+		} catch (SQLException e) {
 			return null;
 		}
 	}
-	
+
 	// POISTETAAN VÄITTÄMÄ TIETOKANNASTA
 	public ArrayList<Vaittama> deleteVaittama(String id) {
 		try {
-			String sql="delete from vaittamat where id=?";
-			PreparedStatement pstmt=conn.prepareStatement(sql);
+			String sql = "delete from vaittamat where id=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
 			return listVaittama();
-		}
-		catch(SQLException e) {
+		} catch (SQLException e) {
 			return null;
 		}
+	}
+
+	public void addVastaus(Vastaus vastaus) {
+		try {
+			String sql = "insert into vastaukset (vaittama, vastaus) values (?, ?)";
+			PreparedStatement preparedStmt = conn.prepareStatement(sql);
+			preparedStmt.setInt(1, vastaus.getVaittamaId());
+			preparedStmt.setString(2, vastaus.getVastausteksti());
+			preparedStmt.executeUpdate();
+		}
+
+		catch (SQLException e) {
+
+		}
+		
 	}
 
 }

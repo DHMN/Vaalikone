@@ -139,6 +139,7 @@ th {
     padding: 15px;
     font-weight: normal;
     float: middle;
+    border-top: none !important;
 }
 
 /*---- FOOTER ----*/
