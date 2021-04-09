@@ -81,12 +81,9 @@
 								<th><c:out value="${vaittama.id}" /></th>
 								<th><c:out value="${vaittama.teksti}" /></th>
 
-								<th><a
-									href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
+								<th><a href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
 								<th><a href="/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
-								<!--
-								<th><a href="/readtoupdate?id=${vaittama.id}' />">Edit</a></th>
-								<th><a href="/delete?id=${vaittama.id}' />">Delete</a></th>-->
+
 							</tr>
 						</c:forEach>
 					</table>
@@ -94,20 +91,14 @@
 						väittämä</a> <a href="/list" class="btn">Listaa väittämät</a>
 				</article>
 
-
-
 				<article>
 				<h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
 					<br>
 					<form action='answers' method='post'>
-						<fieldset>
 							<c:forEach var="vaittama" items="${requestScope.list}">
 								<table class="table table-striped">
 									<tr>
 										<th><b><c:out value="${vaittama.teksti}" /></b></th>
-									</tr>
-																		<tr>
-										<th><b><c:out value="${vaittama.id}" /></b></th>
 									</tr>
 								</table>
 								<table class="table">
@@ -127,18 +118,9 @@
 									</tr>
 								</table>
 							</c:forEach>
-						</fieldset>
 						<input type='submit' name='ok' value='Send'>
 					</form>
-					<br>
 				</article>
-
-
-
-
-
-
-
 
 			</div>
 			<!-- PÄÄSISÄLTÖ LOPPUU -->
