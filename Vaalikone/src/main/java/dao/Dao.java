@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conn.Connections;
+import data.Kayttaja;
 import data.Vaittama;
 import data.Vastaus;
 
@@ -139,5 +140,25 @@ public class Dao {
 		}
 		
 	}
+	
+public Kayttaja checkLogin(String email, String password) throws SQLException,
+ ClassNotFoundException {
+	String sql = "Select * from kayttajat where email = ? and password = ?";
+	PreparedStatement pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1, email);
+	pstmt.setString(1, password);
+	
+	ResultSet result = pstmt.executeQuery();
+	Kayttaja kayttaja = null;
+	 
+	  if (result.next()) {
+          kayttaja = new Kayttaja();
+          kayttaja.setName(result.getString("name"));
+          kayttaja.setEmail(email);
+          return kayttaja;
+      }
+
+      return kayttaja;
+  }
 
 }

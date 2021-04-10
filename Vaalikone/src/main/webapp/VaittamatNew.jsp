@@ -69,15 +69,11 @@
 					<h1>Lisää Väittämä</h1>
 					<br>
 					<form action='new' method='post'>
-						<p><b>Väittämä ID: </b>
-						<input type='text' name='id' ></p><br>
 						<p><b>Väittämä: </b>
 						<input type='text' name='teksti'> </p><br>
 						<input type='submit' name='ok' value='Send'>
 					<br> 
 					</form>
-					<a href="/new" class="btn">Lisää väittämä</a> 
-					<a href="/list" class="btn">Listaa väittämät</a>
 					</article>
 			</div>
 			<!-- PÄÄSISÄLTÖ LOPPUU -->
