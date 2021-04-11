@@ -46,26 +46,29 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
          
         Dao newdao = new Dao();
+    
          
-        try {
-            Kayttaja kayttaja = newdao.checkLogin(email, password);
-            String destPage = "login.jsp";
+			try {
+			Kayttaja kayttaja = newdao.checkLogin(email, password);
+            String destPage = "jsp/Login.jsp";
              
             if (kayttaja != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("kayttaja", kayttaja);
+                //HttpSession session = request.getSession();
+                //session.setAttribute("kayttaja", kayttaja);
                 destPage = "/hello";
             } else {
                 String message = "Väärä salasana tai sähköposti";
                 request.setAttribute("message", message);
             }
-             
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
             dispatcher.forward(request, response);
-             
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new ServletException(ex);
+           
+            
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				throw new ServletException(e);
+           
         }
 	}
-
 }

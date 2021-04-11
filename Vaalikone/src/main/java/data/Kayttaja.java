@@ -6,6 +6,13 @@ public class Kayttaja {
 	private String email;
 	private String password;
 	
+	public Kayttaja() {};
+	
+	public Kayttaja(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}

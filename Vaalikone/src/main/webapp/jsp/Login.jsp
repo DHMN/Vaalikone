@@ -3,13 +3,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+  src="https://code.jquery.com/jquery-3.4.1.min.js"</script>
+<script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
 <meta charset="utf-8">
 <title>Sisäänkirjautuminen</title>
 </head>
 <body>
     <div style="text-align: center">
         <h1>Sisäänkirjautuminen</h1>
-        <form action="login" method="post">
+        <form action="/login" method="post">
             <label for="email">Sähköposti:</label>
             <input name="email" size="30" />
             <br><br>
