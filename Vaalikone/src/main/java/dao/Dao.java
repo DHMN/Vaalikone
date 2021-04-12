@@ -152,7 +152,7 @@ public class Dao {
 			while (RS.next()) {
 				Vastausvaihtoehdot v = new Vastausvaihtoehdot();
 				v.setID(RS.getInt("id"));
-				v.setVv(RS.getString("teksti"));
+				v.setVv(RS.getString("vastausvaihtoehto"));
 				list2.add(v);
 			}
 			return list2;

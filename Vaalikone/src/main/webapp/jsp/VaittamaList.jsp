@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="data.Vastausvaihtoehdot" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -76,12 +79,14 @@
 
                             </tr>
                         </c:forEach>
+                                   
                     </table>
-                    <br> <a href="/jsp/VaittamatNew.jsp" class="btn">Lisää
-                        väittämä</a> <a href="/list" class="btn">Listaa väittämät</a>
+                    <br> 
+                    <a href="/jsp/VaittamatNew.jsp" class="btn">Lisää väittämä</a> 
+                    <a href="/list" class="btn">Listaa väittämät</a>
                 </article>
 
-                <article>
+                <article>                
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
 
                     <br>
@@ -89,22 +94,17 @@
                         <c:forEach var="vaittama" items="${requestScope.list}">
                             <table class="table table-striped">
                                 <tr>
-                                    <th><b>
-                                            <c:out value="${vaittama.teksti}" /></b></th>
+                                    <th><b> <c:out value="${vaittama.teksti}" /></b></th>
                                 </tr>
                             </table>
                             <table class="table">
                                 <tr>
-                                    <th><input type='checkbox' name='vastausteksti' value='täysin eri mieltä'>
-                                        <label> Täysin eri mieltä</label></th>
-                                    <th><input type='checkbox' name='vastausteksti' value='eri mieltä'>
-                                        <label> Eri mieltä</label></th>
-                                    <th><input type='checkbox' name='vastausteksti' value='neutraali'>
-                                        <label> Neutraali</label></th>
-                                    <th><input type='checkbox' name='vastausteksti' value='samaa mieltä'>
-                                        <label> Samaa mieltä</label></th>
-                                    <th><input type='checkbox' name='vastausteksti' value='täysin samaa mieltä'>
-                                        <label> Täysin samaa mieltä</label></th>
+                                    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
+                                    	<th>
+                                    		<input type='checkbox' name='vastausteksti' value='${vastausvaihtoehdot.vv}'>
+                                        	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
+                                    	</th>
+                                    </c:forEach> 
                                     <th><input type='hidden' name='vaittamaId' value='<c:out value="${vaittama.id}" />'>
                                     </th>
                                 </tr>
