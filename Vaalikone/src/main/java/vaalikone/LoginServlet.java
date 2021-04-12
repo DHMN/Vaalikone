@@ -1,6 +1,7 @@
 package vaalikone;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -24,17 +25,15 @@ public class LoginServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
-        super();
         // TODO Auto-generated constructor stub
-    }
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doGet(request, response);
 	}
 
 	/**
@@ -46,16 +45,19 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
          
         Dao newdao = new Dao();
-    
+       
+        
          
 			try {
 			Kayttaja kayttaja = newdao.checkLogin(email, password);
-            String destPage = "jsp/Login.jsp";
+            String destPage = "/";
+            HttpSession session = request.getSession(false);
+   
              
             if (kayttaja != null) {
-                //HttpSession session = request.getSession();
-                //session.setAttribute("kayttaja", kayttaja);
-                destPage = "/hello";
+            	String ok = "true";
+                session.setAttribute("kayttajaOk", ok);
+                destPage = "/";
             } else {
                 String message = "Väärä salasana tai sähköposti";
                 request.setAttribute("message", message);

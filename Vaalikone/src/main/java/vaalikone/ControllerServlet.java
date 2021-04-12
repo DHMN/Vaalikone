@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import data.Vaittama;
@@ -33,6 +34,17 @@ public class ControllerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String ok;
+		
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+		ok = (String) session.getAttribute("kayttajaOk");
+		} else {
+			 RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Login.jsp");
+	            dispatcher.forward(request, response);
+		}
+
+		
 		String action = request.getServletPath();
 
 		try {
