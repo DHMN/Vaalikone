@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.Dao;
 import data.Vaittama;
 import data.Vastaus;
+import data.Vastausvaihtoehdot;
 
 @WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello" })
 public class ControllerServlet extends HttpServlet {
@@ -60,6 +61,7 @@ public class ControllerServlet extends HttpServlet {
 				addVastaus(request, response);
 				break;
 			default:
+//				listVastausvaihtoehdot(request, response);
 				listVaittama(request, response);
 				break;
 			}
@@ -72,10 +74,20 @@ public class ControllerServlet extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		ArrayList<Vaittama> list = new ArrayList<>();
 		list = dao.listVaittama();
+		
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+//	public void listVastausvaihtoehdot(HttpServletRequest request, HttpServletResponse response)
+//			throws SQLException, IOException, ServletException {
+//		ArrayList<Vastausvaihtoehdot> list2 = new ArrayList<>();
+//		list2 = dao.listVastausvaihtoehdot();
+//		request.setAttribute("list", list2);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
+//		dispatcher.forward(request, response);
+//	}
 
 	private void createVaittama(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {

@@ -1,8 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="fi">
+<html>
 
 <head>
-    <title>Vaalikone - Löydä sinulle sopiva ehdokas</title>
+    <title>Vaalikone - Uusi väittämä</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -11,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
-    <meta charset=utf-8>
 </head>
 
 <body>
@@ -23,8 +25,8 @@
         <div class="row">
             <div class="col-sm-12 header">
                 <header class="bg-text">
-                    <h1>Vaalikone</h1>
-                    <h2>LÖYDÄ SINULLE SOPIVA EHDOKAS</h2>
+                    <h1>Väittämien hallinta</h1>
+                    <h2>LISÄÄ UUSI VÄITTÄMÄ</h2>
                 </header>
             </div>
         </div>
@@ -55,7 +57,14 @@
         <div class="row narrow">
             <div class="col-md-12 article">
                 <article>
-					<h1>Tervetuloa vaalikoneeseen!</h1>
+                    <h1>Lisää uusi Väittämä</h1>
+                    <br>
+                    <form action='../new' method='post'>
+                        <p><b>Uusi väittämä: </b>
+                            <input type='text' name='teksti'> </p><br>
+                        <input type='submit' name='ok' value='Send'>
+                        <br>
+                    </form>
                 </article>
             </div>
             <!-- PÄÄSISÄLTÖ LOPPUU -->

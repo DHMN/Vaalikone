@@ -11,6 +11,7 @@ import conn.Connections;
 import data.Kayttaja;
 import data.Vaittama;
 import data.Vastaus;
+import data.Vastausvaihtoehdot;
 
 // Yhteyden luominen
 public class Dao {
@@ -47,6 +48,7 @@ public class Dao {
 				vaittama.setTeksti(RS.getString("teksti"));
 				list.add(vaittama);
 			}
+			
 			return list;
 
 		} catch (SQLException e) {
@@ -138,26 +140,45 @@ public class Dao {
 		catch (SQLException e) {
 
 		}
-		
-	}
-	
-public Kayttaja checkLogin(String email, String password) throws SQLException,
- ClassNotFoundException {
-	String sql = "Select * from kayttajat where email = ? and password = ?";
-	PreparedStatement pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1, email);
-	pstmt.setString(2, password);
-	
-	ResultSet result = pstmt.executeQuery();
-	Kayttaja kayttaja = null;
-	 
-	  if (result.next()) {
-          kayttaja = new Kayttaja();
-          kayttaja.setName(result.getString("name"));
-          kayttaja.setEmail(email);
-      }
 
-      return kayttaja;
-  }
+	}
+
+	// VASTAUSVAIHTOEHTOJEN HAKEMINEN TIETOKANNASTA
+	public ArrayList<Vastausvaihtoehdot> listVastausvaihtoehdot() {
+		ArrayList<Vastausvaihtoehdot> list2 = new ArrayList<>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet RS = stmt.executeQuery("select * from vastausvaihtoehdot");
+			while (RS.next()) {
+				Vastausvaihtoehdot v = new Vastausvaihtoehdot();
+				v.setID(RS.getInt("id"));
+				v.setVv(RS.getString("teksti"));
+				list2.add(v);
+			}
+			return list2;
+
+		} catch (SQLException e) {
+			return null;
+		}
+
+	}
+
+	public Kayttaja checkLogin(String email, String password) throws SQLException, ClassNotFoundException {
+		String sql = "Select * from kayttajat where email = ? and password = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, email);
+		pstmt.setString(2, password);
+
+		ResultSet result = pstmt.executeQuery();
+		Kayttaja kayttaja = null;
+
+		if (result.next()) {
+			kayttaja = new Kayttaja();
+			kayttaja.setName(result.getString("name"));
+			kayttaja.setEmail(email);
+		}
+
+		return kayttaja;
+	}
 
 }
