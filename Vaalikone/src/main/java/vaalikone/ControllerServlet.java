@@ -35,16 +35,15 @@ public class ControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String ok;
-		
+
 		HttpSession session = request.getSession(false);
-		if(session != null) {
-		ok = (String) session.getAttribute("kayttajaOk");
+		if (session != null) {
+			ok = (String) session.getAttribute("kayttajaOk");
 		} else {
-			 RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Login.jsp");
-	            dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Login.jsp");
+			dispatcher.forward(request, response);
 		}
 
-		
 		String action = request.getServletPath();
 
 		try {
@@ -69,14 +68,11 @@ public class ControllerServlet extends HttpServlet {
 			case "/readtoupdate":
 				updateVaittama(request, response);
 				break;
-				
+
 			case "/answers":
 				addVastaus(request, response);
 				break;
-				
-			case "/ert":
-				listVastausvaihtoehdot(request, response);
-				break;
+
 			default:
 				listVaittama(request, response);
 				break;
@@ -91,13 +87,13 @@ public class ControllerServlet extends HttpServlet {
 		ArrayList<Vaittama> list = new ArrayList<>();
 		list = dao.listVaittama();
 		request.setAttribute("list", list);
-		
+
 		listVastausvaihtoehdot(request, response);
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);
 	}
-	
+
 	private void listVastausvaihtoehdot(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		ArrayList<Vastausvaihtoehdot> list2 = new ArrayList<>();
@@ -147,7 +143,7 @@ public class ControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);
 	}
-	
+
 	private void addVastaus(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String vastausteksti = request.getParameter("vastausteksti");

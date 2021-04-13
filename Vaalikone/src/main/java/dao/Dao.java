@@ -48,7 +48,7 @@ public class Dao {
 				vaittama.setTeksti(RS.getString("teksti"));
 				list.add(vaittama);
 			}
-			
+
 			return list;
 
 		} catch (SQLException e) {
@@ -64,21 +64,15 @@ public class Dao {
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, f.getTeksti());
 			preparedStmt.executeUpdate();
-//			preparedStmt.execute();
-//			conn.close();
+
+		} catch (SQLException e) {
 
 		}
-
-		catch (SQLException e) {
-
-		}
-
 	}
 
 	// PÄIVITETÄÄN TIETTY VÄITTÄMÄ TIETOKANNASSA
 	public ArrayList<Vaittama> updateVaittama(Vaittama vaittama) {
 		try {
-
 			String sql = "update vaittamat set teksti=? where id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
@@ -87,6 +81,7 @@ public class Dao {
 			pstmt.executeUpdate();
 
 			return listVaittama();
+
 		} catch (SQLException e) {
 			return null;
 		}
@@ -110,6 +105,7 @@ public class Dao {
 				vaittama.setTeksti(RS.getString("teksti"));
 			}
 			return vaittama;
+
 		} catch (SQLException e) {
 			return null;
 		}
@@ -123,6 +119,7 @@ public class Dao {
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
 			return listVaittama();
+
 		} catch (SQLException e) {
 			return null;
 		}
@@ -135,12 +132,10 @@ public class Dao {
 			preparedStmt.setInt(1, vastaus.getVaittamaId());
 			preparedStmt.setString(2, vastaus.getVastausteksti());
 			preparedStmt.executeUpdate();
+
+		} catch (SQLException e) {
+
 		}
-
-		catch (SQLException e) {
-
-		}
-
 	}
 
 	// VASTAUSVAIHTOEHTOJEN HAKEMINEN TIETOKANNASTA
@@ -160,7 +155,6 @@ public class Dao {
 		} catch (SQLException e) {
 			return null;
 		}
-
 	}
 
 	public Kayttaja checkLogin(String email, String password) throws SQLException, ClassNotFoundException {
@@ -180,5 +174,4 @@ public class Dao {
 
 		return kayttaja;
 	}
-
 }
