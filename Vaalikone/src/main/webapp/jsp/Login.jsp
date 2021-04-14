@@ -26,7 +26,7 @@
             <div class="col-sm-12 header">
                 <header class="bg-text">
                     <h1>Väittämien hallinta</h1>
-                    <h2>LISÄÄ, MUOKKAA JA POISTA VÄITTÄMIÄ</h2>
+                    <h2>KIRJAUDU SISÄÄN</h2>
                 </header>
             </div>
         </div>
@@ -46,6 +46,8 @@
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/list">LISTAA VÄITTÄMÄT</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp">login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -74,7 +76,8 @@
                                 <th></th>
                             </tr>
                         </table>
-                        <br>${message}
+                        <span style="color:red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></span>
+                        <br>
                         <br>
                         <button type="submit">Kirjaudu</button>
                     </form>

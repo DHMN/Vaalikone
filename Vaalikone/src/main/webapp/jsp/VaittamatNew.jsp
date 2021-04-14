@@ -14,6 +14,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
+<% //In case, if Admin session is not set, redirect to Login page
+if((request.getSession(false).getAttribute("Admin")== null) )
+{
+%>
+<jsp:forward page="/jsp/login.jsp"></jsp:forward>
+<%} %>
 </head>
 
 <body>
@@ -46,6 +52,8 @@
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/list">LISTAA VÄITTÄMÄT</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp">login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
                         </ul>
                     </div>
                 </nav>

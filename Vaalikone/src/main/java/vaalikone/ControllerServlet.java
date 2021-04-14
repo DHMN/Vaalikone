@@ -1,6 +1,7 @@
 package vaalikone;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Dao;
+import data.Kayttaja;
 import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
@@ -34,15 +36,6 @@ public class ControllerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String ok;
-
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			ok = (String) session.getAttribute("kayttajaOk");
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Login.jsp");
-			dispatcher.forward(request, response);
-		}
 
 		String action = request.getServletPath();
 
@@ -73,12 +66,23 @@ public class ControllerServlet extends HttpServlet {
 				addVastaus(request, response);
 				break;
 
+			case "/login":
+				login(request, response);
+				break;
+
+			case "/logout":
+				logout(request, response);
+				break;
+
 			default:
 				listVaittama(request, response);
 				break;
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -153,5 +157,57 @@ public class ControllerServlet extends HttpServlet {
 
 		dao.addVastaus(vastaus);
 		response.sendRedirect("hello");
+	}
+
+	private void login(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException, ClassNotFoundException {
+
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		Kayttaja kayttaja = new Kayttaja();
+
+		kayttaja.setEmail(email);
+		kayttaja.setPassword(password);
+
+		try {
+			String userValidate = dao.checkLogin(kayttaja);
+
+			if (userValidate.equals("Admin_Role")) {
+
+				HttpSession session = request.getSession(); // Creating a session
+				session.setAttribute("Admin", email); // setting session attribute
+				request.setAttribute("userName", email);
+
+				// request.getRequestDispatcher("../home").forward(request, response);
+				request.getRequestDispatcher("/hello").forward(request, response);
+			}
+
+			else {
+				// System.out.println("Error message = "+userValidate);
+				request.setAttribute("errMessage", userValidate);
+
+				request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+
+	}
+
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false); // Fetch session object
+
+		if (session != null) // If session is not null
+		{
+			session.invalidate(); // removes all session attributes bound to the session
+			request.setAttribute("errMessage", "You have logged out successfully");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/hello");
+			requestDispatcher.forward(request, response);
+			System.out.println("Logged out");
+		}
+
 	}
 }

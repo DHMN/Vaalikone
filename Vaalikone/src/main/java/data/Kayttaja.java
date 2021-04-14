@@ -7,7 +7,7 @@ public class Kayttaja {
 	private String password;
 
 	public Kayttaja() {
-		
+
 	}
 
 	public Kayttaja(String email, String password) {
@@ -37,5 +37,12 @@ public class Kayttaja {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public boolean isOK() {
+		if (this.name == null || this.email == null) {
+			return false;
+		}
+		return true;
 	}
 }

@@ -155,23 +155,44 @@ public class Dao {
 		} catch (SQLException e) {
 			return null;
 		}
+
+//		finally {
+//			try {
+//				conn.close();
+//			}
+//			
+//			catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
-
-	public Kayttaja checkLogin(String email, String password) throws SQLException, ClassNotFoundException {
-		String sql = "Select * from kayttajat where email = ? and password = ?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, email);
-		pstmt.setString(2, password);
-
-		ResultSet result = pstmt.executeQuery();
-		Kayttaja kayttaja = null;
-
-		if (result.next()) {
-			kayttaja = new Kayttaja();
-			kayttaja.setName(result.getString("name"));
-			kayttaja.setEmail(email);
-		}
-
-		return kayttaja;
+	
+	// SALASANAN JA SÄHKÖPOSTIN TARKISTUS
+	public String checkLogin(Kayttaja kayttaja) throws SQLException, ClassNotFoundException {
+		String email = kayttaja.getEmail();
+	    String password = kayttaja.getPassword();
+	 
+	    String emailDB = "";
+	    String passwordDB = "";
+	 
+	    try
+	    {
+			Statement stmt = conn.createStatement();
+			ResultSet RS = stmt.executeQuery("select email,password from kayttajat");
+	 
+	        while(RS.next())
+	        {
+	            emailDB = RS.getString("email");
+	            passwordDB = RS.getString("password");
+	 
+	            if(email.equals(emailDB) && password.equals(passwordDB))
+					return "Admin_Role";
+	        }
+	    }
+	    catch(SQLException e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return "Invalid user credentials";
 	}
 }
