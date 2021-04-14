@@ -55,8 +55,8 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/list">LISTAA VÄITTÄMÄT</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp">login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp">LOGIN</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">LOGIN</a></li>
                         </ul>
                     </div>
                 </nav>

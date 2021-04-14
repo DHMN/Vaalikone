@@ -46,8 +46,8 @@
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/list">LISTAA VÄITTÄMÄT</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp">login <%=(request.getAttribute("userName") == null) ? "" : request.getAttribute("userName")%></a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp">LOGIN <%=(request.getAttribute("userName") == null) ? "" : request.getAttribute("userName")%></a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
                         </ul>
                     </div>
                 </nav>
