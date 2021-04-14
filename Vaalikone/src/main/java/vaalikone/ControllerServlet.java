@@ -1,11 +1,8 @@
 package vaalikone;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -85,7 +82,8 @@ public class ControllerServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// VÄITTÄMIEN LISTAUS
 	public void listVaittama(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		ArrayList<Vaittama> list = new ArrayList<>();
@@ -97,14 +95,16 @@ public class ControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);
 	}
-
+	
+	// VASTAUSVAIHTOEHTOJEN LISTAUS
 	private void listVastausvaihtoehdot(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		ArrayList<Vastausvaihtoehdot> list2 = new ArrayList<>();
 		list2 = dao.listVastausvaihtoehdot();
 		request.setAttribute("list2", list2);
 	}
-
+	
+	// VÄITTÄMÄN LUONTI
 	private void createVaittama(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String teksti = request.getParameter("teksti");
@@ -112,14 +112,16 @@ public class ControllerServlet extends HttpServlet {
 		dao.createVaittama(newVaittama);
 		response.sendRedirect("hello");
 	}
-
+	
+	// VÄITTÄMÄN POISTAMINEN
 	private void deleteVaittama(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String id = request.getParameter("id");
 		dao.deleteVaittama(id);
 		listVaittama(request, response);
 	}
-
+	
+	// VÄITTÄMÄN HAKEMINEN MUOKKAUSTA VARTEN
 	private void updateVaittama(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String id = request.getParameter("id");
@@ -131,7 +133,8 @@ public class ControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamatEdit.jsp");
 		dispatcher.forward(request, response);
 	}
-
+	
+	// VÄITTÄMÄN MUOKKAUS
 	private void update(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String id = request.getParameter("id");
@@ -147,7 +150,8 @@ public class ControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/VaittamaList.jsp");
 		dispatcher.forward(request, response);
 	}
-
+	
+	// VASTAUKSET TIETOKANTAAN
 	private void addVastaus(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String vastausteksti = request.getParameter("vastausteksti");
@@ -159,6 +163,7 @@ public class ControllerServlet extends HttpServlet {
 		response.sendRedirect("hello");
 	}
 
+	// SISÄÄNKIRJAUTUMINEN
 	private void login(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException, ClassNotFoundException {
 
@@ -181,12 +186,11 @@ public class ControllerServlet extends HttpServlet {
 
 				// request.getRequestDispatcher("../home").forward(request, response);
 				request.getRequestDispatcher("/hello").forward(request, response);
-			}
+				System.out.println("Logged in as " + email);
 
-			else {
+			} else {
 				// System.out.println("Error message = "+userValidate);
 				request.setAttribute("errMessage", userValidate);
-
 				request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
 			}
 		} catch (IOException e1) {
@@ -197,11 +201,12 @@ public class ControllerServlet extends HttpServlet {
 
 	}
 
+	// KIRJAUDUTAAN ULOS
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false); // Fetch session object
 
-		if (session != null) // If session is not null
-		{
+		if (session != null) {
+
 			session.invalidate(); // removes all session attributes bound to the session
 			request.setAttribute("errMessage", "You have logged out successfully");
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/hello");
