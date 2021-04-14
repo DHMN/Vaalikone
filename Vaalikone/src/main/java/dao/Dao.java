@@ -48,7 +48,7 @@ public class Dao {
 				vaittama.setTeksti(RS.getString("teksti"));
 				list.add(vaittama);
 			}
-
+			RS.close();
 			return list;
 
 		} catch (SQLException e) {
@@ -104,7 +104,7 @@ public class Dao {
 				vaittama.setID(RS.getInt("id"));
 				vaittama.setTeksti(RS.getString("teksti"));
 			}
-
+			RS.close();
 			return vaittama;
 
 		} catch (SQLException e) {
@@ -153,7 +153,7 @@ public class Dao {
 				v.setVv(RS.getString("vastausvaihtoehto"));
 				list2.add(v);
 			}
-	        
+			RS.close();
 			return list2;
 
 		} catch (SQLException e) {
@@ -190,7 +190,7 @@ public class Dao {
 	            passwordDB = RS.getString("password");
 	 
 	            if(email.equals(emailDB) && password.equals(passwordDB))
-	            	
+	            	RS.close();
 					return "Admin_Role";
 	        }
 
