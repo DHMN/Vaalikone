@@ -18,10 +18,10 @@
 
     <link rel="stylesheet" href="css/styles.css">
 <% //In case, if Admin session is not set, redirect to Login page
-if((request.getSession(false).getAttribute("Admin")== null) )
+if((request.getSession(false).getAttribute("Admin")!= null) )
 {
 %>
-<jsp:forward page="/jsp/BasicList.jsp"></jsp:forward>
+<jsp:forward page="/jsp/VaittamaList.jsp"></jsp:forward>
 <%} %>
 </head>
 
@@ -82,10 +82,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                             <tr>
                                 <th><c:out value="${vaittama.id}" /></th>
                                 <th><c:out value="${vaittama.teksti}" /></th>
-                                <th><a href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
-                                <th><a href="/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
-
-                            </tr>
+                                                            </tr>
                         </c:forEach>
                                    
                     </table>
