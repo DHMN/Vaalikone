@@ -79,7 +79,7 @@ public class Dao {
 			pstmt.setString(1, vaittama.getTeksti());
 			pstmt.setInt(2, vaittama.getId());
 			pstmt.executeUpdate();
-
+			
 			return listVaittama();
 
 		} catch (SQLException e) {
@@ -104,6 +104,7 @@ public class Dao {
 				vaittama.setID(RS.getInt("id"));
 				vaittama.setTeksti(RS.getString("teksti"));
 			}
+
 			return vaittama;
 
 		} catch (SQLException e) {
@@ -118,8 +119,9 @@ public class Dao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
+	        
 			return listVaittama();
-
+			
 		} catch (SQLException e) {
 			return null;
 		}
@@ -141,6 +143,7 @@ public class Dao {
 	// VASTAUSVAIHTOEHTOJEN HAKEMINEN TIETOKANNASTA
 	public ArrayList<Vastausvaihtoehdot> listVastausvaihtoehdot() {
 		ArrayList<Vastausvaihtoehdot> list2 = new ArrayList<>();
+		
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet RS = stmt.executeQuery("select * from vastausvaihtoehdot");
@@ -150,6 +153,7 @@ public class Dao {
 				v.setVv(RS.getString("vastausvaihtoehto"));
 				list2.add(v);
 			}
+	        
 			return list2;
 
 		} catch (SQLException e) {
@@ -186,11 +190,11 @@ public class Dao {
 	            passwordDB = RS.getString("password");
 	 
 	            if(email.equals(emailDB) && password.equals(passwordDB))
+	            	
 					return "Admin_Role";
 	        }
-	    }
-	    catch(SQLException e)
-	    {
+
+	    } catch(SQLException e) {
 	        e.printStackTrace();
 	    }
 	    return "Invalid user credentials";
