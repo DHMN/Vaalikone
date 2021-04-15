@@ -51,7 +51,6 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                             <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/list">LISTAA VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
