@@ -209,7 +209,7 @@ public class ControllerServlet extends HttpServlet {
 
 			session.invalidate(); // removes all session attributes bound to the session
 			request.setAttribute("errMessage", "You have logged out successfully");
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/hello");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/jsp/login.jsp");
 			requestDispatcher.forward(request, response);
 			System.out.println("Logged out");
 		}
