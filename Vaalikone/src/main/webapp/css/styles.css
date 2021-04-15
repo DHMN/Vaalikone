@@ -50,7 +50,7 @@
 .navigointi a {
     font-family: 'Oswald', sans-serif;
     font-weight: 500; 
-    font-size: 18px;
+    font-size: 16px;
     line-height: 40px;
     text-align: center; 
 }
@@ -61,8 +61,8 @@
 }
 
 .navbar-nav li {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .navbar-light .navbar-nav .nav-link {

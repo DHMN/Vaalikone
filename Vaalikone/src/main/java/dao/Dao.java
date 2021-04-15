@@ -159,16 +159,6 @@ public class Dao {
 		} catch (SQLException e) {
 			return null;
 		}
-
-//		finally {
-//			try {
-//				conn.close();
-//			}
-//			
-//			catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
 	}
 	
 	// SALASANAN JA SÄHKÖPOSTIN TARKISTUS

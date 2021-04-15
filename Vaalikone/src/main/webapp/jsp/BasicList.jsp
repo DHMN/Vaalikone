@@ -35,13 +35,13 @@ if((request.getSession(false).getAttribute("Admin")!= null) )
             <div class="col-sm-12 header">
                 <header class="bg-text">
                     <h1>Väittämien hallinta</h1>
-                    <h2>LISÄÄ, MUOKKAA JA POISTA VÄITTÄMIÄ</h2>
+                    <h2>ESIKATSELE VÄITTÄMIÄ</h2>
                 </header>
             </div>
         </div>
         <!-- HEADER LOPPUU -->
 
-        <!-- NAVIGOINTI ALKAA -->
+        <!-- NAVIGOINTI ALKAA -->      
         <div class="row">
             <div class="col-md-12 fw">
                 <nav class="navigointi navbar navbar-expand-md navbar-light">
@@ -55,7 +55,9 @@ if((request.getSession(false).getAttribute("Admin")!= null) )
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/list">LISTAA VÄITTÄMÄT</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp">LOGIN</a></li>
+                            <li class="nav-item"><a class="nav-link" href=""></a></li>
+                            <li class="nav-item"><a class="nav-link" href=""></a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
                             <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
                         </ul>
                     </div>
@@ -67,30 +69,7 @@ if((request.getSession(false).getAttribute("Admin")!= null) )
         <!-- PÄÄSISÄLTÖ ALKAA -->
         <div class="row narrow">
             <div class="col-md-12 article">
-                <article>
-                    <h1>Kaikki väittämät</h1>
-                    <br>
-                    <table class="table table-striped">
-                        <tr>
-                            <th><b>ID</b></th>
-                            <th><b>Teksti</b></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-
-                        <c:forEach var="vaittama" items="${requestScope.list}">
-                            <tr>
-                                <th><c:out value="${vaittama.id}" /></th>
-                                <th><c:out value="${vaittama.teksti}" /></th>
-                                                            </tr>
-                        </c:forEach>
-                                   
-                    </table>
-                    <br> 
-                    <a href="/jsp/VaittamatNew.jsp" class="btn">Lisää väittämä</a> 
-                    <a href="/list" class="btn">Listaa väittämät</a>
-                </article>
-
+            
                 <article>                
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
 
