@@ -163,7 +163,7 @@ public class ControllerServlet extends HttpServlet {
 		response.sendRedirect("hello");
 	}
 
-	// SISÄÄNKIRJAUTUMINEN
+	// SISÄÄNKIRJAUTUMINEN 
 	private void login(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException, ClassNotFoundException {
 
