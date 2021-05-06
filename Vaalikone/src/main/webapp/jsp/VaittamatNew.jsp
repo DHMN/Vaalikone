@@ -51,6 +51,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                             <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/EhdokasNew.jsp">LISÄÄ EHDOKAS</a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
@@ -68,26 +69,11 @@ if((request.getSession(false).getAttribute("Admin")== null) )
         <div class="row narrow">
             <div class="col-md-12 article">
                 <article>
-                    <h1>Lisää uusi ehdokas</h1>
+                 <h1>Lisää uusi Väittämä</h1>
                     <br>
-                    <form action='../newEhdokas' method='post'>
-                        <p><b>Ehdokasnumero: </b>
-                            <input type='number' name='ehdokasNro'> </p><br>
-                         <p><b>Puolue: </b>
-                            <input type='text' name='puolues'> </p><br>
-                         <p><b>Etunimi: </b>
-                            <input type='text' name='etuNimi'> </p><br>
-                         <p><b>Sukunimi: </b>
-                            <input type='text' name='sukuNimi'> </p><br>
-                         <p><b>Osoite: </b>
-                            <input type='text' name='osoite'> </p><br>
-                         <p><b>Postinumero: </b>
-                            <input type='text' name='postiNro'> </p><br>
-                         <p><b>Postitoimipaikka: </b>
-                            <input type='text' name='postiPka'> </p><br>
-                         <p><b>Miksi eduskuntaan?: </b>
-                            <input type='text' name='postiNro'> </p><br>
-                             
+                    <form action='../new' method='post'>
+                        <p><b>Uusi väittämä: </b>
+                            <input type='text' name='teksti'> </p><br>                             
                         <input type='submit' name='ok' value='Send'>
                         <br>
                     </form>
