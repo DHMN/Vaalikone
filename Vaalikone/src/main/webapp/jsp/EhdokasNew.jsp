@@ -5,7 +5,7 @@
 <html>
 
 <head>
-    <title>Vaalikone - Uusi ehdokas</title>
+    <title>Vaalikone - Uusi väittämä</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -31,8 +31,8 @@ if((request.getSession(false).getAttribute("Admin")== null) )
         <div class="row">
             <div class="col-sm-12 header">
                 <header class="bg-text">
-                    <h1>Ehdokkaiden hallinta</h1>
-                    <h2>LISÄÄ UUSI EHDOKAS</h2>
+                    <h1>Väittämien hallinta</h1>
+                    <h2>LISÄÄ UUSI VÄITTÄMÄ</h2>
                 </header>
             </div>
         </div>
@@ -68,26 +68,11 @@ if((request.getSession(false).getAttribute("Admin")== null) )
         <div class="row narrow">
             <div class="col-md-12 article">
                 <article>
-                    <h1>Lisää uusi ehdokas</h1>
+                    <h1>Lisää uusi Väittämä</h1>
                     <br>
-                    <form action='../newEhdokas' method='post'>
-                        <p><b>Ehdokasnumero: </b>
-                            <input type='number' name='ehdokasNro'> </p><br>
-                         <p><b>Puolue: </b>
-                            <input type='text' name='puolues'> </p><br>
-                         <p><b>Etunimi: </b>
-                            <input type='text' name='etuNimi'> </p><br>
-                         <p><b>Sukunimi: </b>
-                            <input type='text' name='sukuNimi'> </p><br>
-                         <p><b>Osoite: </b>
-                            <input type='text' name='osoite'> </p><br>
-                         <p><b>Postinumero: </b>
-                            <input type='text' name='postiNro'> </p><br>
-                         <p><b>Postitoimipaikka: </b>
-                            <input type='text' name='postiPka'> </p><br>
-                         <p><b>Miksi eduskuntaan?: </b>
-                            <input type='text' name='postiNro'> </p><br>
-                             
+                    <form action='../new' method='post'>
+                        <p><b>Uusi väittämä: </b>
+                            <input type='text' name='teksti'> </p><br>
                         <input type='submit' name='ok' value='Send'>
                         <br>
                     </form>
