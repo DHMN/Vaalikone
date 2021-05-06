@@ -108,6 +108,34 @@
 	<artifactId>HikariCP</artifactId>
 	<version>3.3.0</version>
 </dependency>
+
+<!-- This is needed that your server can handle REST-class as a servlet.
+		e.g. the class org.glassfish.jersey.servlet.ServletContainer 
+		in the project's web.xml file can be found from this library --> 
+	<dependency>
+		<groupId>org.glassfish.jersey.containers</groupId>
+		<artifactId>jersey-container-servlet</artifactId>
+		<version>2.27</version>
+	</dependency>
+
+<!-- This is needed because of injections  - server can inject our extra classes into resource -->	
+	<dependency>
+		<groupId>org.glassfish.jersey.inject</groupId>
+		<artifactId>jersey-hk2</artifactId>
+		<version>2.27</version>
+	</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink 
+	Eclipselink JPA Implementation 
+-->
+<dependency>
+    <groupId>org.eclipse.persistence</groupId>
+    <artifactId>eclipselink</artifactId>
+    <version>2.5.0</version>
+</dependency>
+
+
         <!-- Test Dependencies -->
             
         <dependency>
