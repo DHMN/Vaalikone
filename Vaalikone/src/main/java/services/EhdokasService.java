@@ -69,7 +69,8 @@ public class EhdokasService {
         	
     		//Read all the rows from table prey. Here the Prey must start with capital, 
     		//because class's name starts. This returns a List of Prey objects.
-    		List<Ehdokas> list=(List<Ehdokas>) em.createQuery("select a from ehdokas a").getResultList();
+    		@SuppressWarnings("unchecked")
+			List<Ehdokas> list=(List<Ehdokas>) em.createQuery("select a from Ehdokas a").getResultList();
     		return list;      
     }
 

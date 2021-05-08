@@ -25,7 +25,7 @@ import data.*;
 
 @WebServlet(
 	    name = "EhdokasClient",
-	    urlPatterns = {"/ehdokasclient"}
+	    urlPatterns = { "/ehdokasclient" }
 	)
 public class EhdokasClient extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -49,7 +49,7 @@ public class EhdokasClient extends HttpServlet {
         String deleteId=request.getParameter("deleteId");
        
         //Including an HTML form + start of the html page
-        RequestDispatcher rd=request.getRequestDispatcher("./form.html");
+        RequestDispatcher rd=request.getRequestDispatcher("form.html");
         rd.include(request,  response);
        
         boolean deleteOk=false;
