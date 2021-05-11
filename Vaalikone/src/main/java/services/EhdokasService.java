@@ -27,14 +27,14 @@ import data.Ehdokas;
 
 @Path("/ehdokasservice")
 public class EhdokasService {
+	//Create an EntityManagerFactory by the name of persistence unit - see persistence.xml
+ 	EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
 
     @POST
     @Path("/saveehdokas")
     @Consumes(MediaType.APPLICATION_JSON) //Method can receive POSTed data from an html form
     @Produces(MediaType.APPLICATION_JSON)
     public List<Ehdokas> saveEhdokas(Ehdokas ehdokas) {
-         	 //Create an EntityManagerFactory by the name of persistence unit - see persistence.xml
-         	EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
          	//And then EntityManager, which can manage the entities.
          	EntityManager em=emf.createEntityManager();
          	//When using default (RESOURCE-LOCAL) transaction typemy
@@ -57,8 +57,6 @@ public class EhdokasService {
     		@FormParam("osoite") String osoite, @FormParam("postiNro") String postiNro, @FormParam("postiPka") String postiPka, @FormParam("miksi") String miksi ){
         Ehdokas ehdokas=new Ehdokas(ehdokasNro, puolue, etuNimi, sukuNimi, osoite, postiNro, postiPka, miksi);
        
-        	 //Create an EntityManagerFactory by the name of persistence unit - see persistence.xml
-        	EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
         	//And then EntityManager, which can manage the entities.
         	EntityManager em=emf.createEntityManager();
         	//When using default (RESOURCE-LOCAL) transaction typemy
@@ -99,7 +97,6 @@ public class EhdokasService {
     public boolean deleteBook(@PathParam("ehdokasNro") int ehdokasNro) {
         List<Ehdokas> list=this.readEhdokas();
         try {
-        	EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
         	EntityManager em=emf.createEntityManager();
     		em.getTransaction().begin();
     		Ehdokas f=em.find(Ehdokas.class, ehdokasNro);
@@ -115,7 +112,6 @@ public class EhdokasService {
     }
     private List<Ehdokas> readEhdokas(){
         List<Ehdokas> list = new ArrayList<Ehdokas>();
-                EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
             	EntityManager em=emf.createEntityManager();
             	list=(List<Ehdokas>) em.createQuery("select a from Ehdokas a").getResultList();
         		return list;      
