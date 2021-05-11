@@ -50,7 +50,7 @@ public class EhdokasClient extends HttpServlet {
        
         //Including an HTML form + start of the html page
         RequestDispatcher rd=request.getRequestDispatcher("form.html");
-        rd.include(request,  response);
+        rd.include(request, response);
        
         boolean deleteOk=false;
         if (deleteId!=null) {
