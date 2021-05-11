@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Vaalikone - Uusi väittämä</title>
+    <title>Vaalikone - Uusi vï¿½ittï¿½mï¿½</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -22,8 +22,8 @@
         <div class="row">
             <div class="col-sm-12 header">
                 <header class="bg-text">
-                    <h1>Väittämien hallinta</h1>
-                    <h2>LISÄÄ UUSI VÄITTÄMÄ</h2>
+                    <h1>Vï¿½ittï¿½mien hallinta</h1>
+                    <h2>LISï¿½ï¿½ UUSI Vï¿½ITTï¿½Mï¿½</h2>
                 </header>
             </div>
         </div>
@@ -40,9 +40,9 @@
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/rest/ehdokasservice/ehdokasclient">LISÄÄ EHDOKAS</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI Vï¿½ITTï¿½Mï¿½T</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISï¿½ï¿½ Vï¿½ITTï¿½Mï¿½</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/rest/ehdokasservice/ehdokasclient">LISï¿½ï¿½ EHDOKAS</a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
@@ -56,13 +56,13 @@
         </div>
         <!-- NAVIGOINTI LOPPUU -->
 
-        <!-- PÄÄSISÄLTÖ ALKAA -->
+        <!-- Pï¿½ï¿½SISï¿½LTï¿½ ALKAA -->
         <div class="row narrow">
             <div class="col-md-12 article">
                 <article>
-                  <h1>Lisää uusi ehdokas</h1>
+                  <h1>Lisï¿½ï¿½ uusi ehdokas</h1>
                     <br>
-                    <form action='http://localhost:8080/rest/ehdokasservice/addehdokas' method='post'>
+                    <form action=../addfish' method='post'>
                         <p><b>Ehdokasnumero: </b>
                             <input type='number' name='ehdokasNro'> </p><br>
                          <p><b>Puolue: </b>
@@ -84,13 +84,13 @@
                     </form>
                 </article>
             </div>
-            <!-- PÄÄSISÄLTÖ LOPPUU -->
+            <!-- Pï¿½ï¿½SISï¿½LTï¿½ LOPPUU -->
 
             <!-- FOOTER ALKAA-->
             <div class="row">
                 <div class="col-md-12">
                     <footer>
-                        <p>© Tomi Lehto / Eemi Karhu 2021</p>
+                        <p>ï¿½ Tomi Lehto / Eemi Karhu 2021</p>
                     </footer>
                 </div>
             </div>

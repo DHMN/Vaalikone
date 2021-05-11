@@ -71,7 +71,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
 				<article>
                   <h1>Lisää uusi ehdokas</h1>
                     <br>
-                    <form action='http://localhost:8080/rest/ehdokasservice/addehdokas' method='post'>
+                    <form action='../addfish' method='post'>
                         <p><b>Ehdokasnumero: </b>
                             <input type='number' name='ehdokasNro'> </p><br>
                          <p><b>Puolue: </b>
@@ -91,6 +91,11 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                         <input type='submit' name='ok' value='Send'>
                         <br>
                     </form>
+<ol>
+<c:forEach var="fish" items="${requestScope.fishlist }">
+	<li>${fish} <a href='../deletefish?id=${fish.id}'>Delete</a> <a href='../readtoupdatefish?id=${fish.id}'>Update</a>
+</c:forEach>
+</ol>
                 </article>
             </div>
             <!-- PÄÄSISÄLTÖ LOPPUU -->

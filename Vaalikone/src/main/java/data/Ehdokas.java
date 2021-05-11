@@ -36,8 +36,9 @@ public class Ehdokas implements Serializable{
         this.pathPic=pathPic;
     }
     
+    // TÄMÄ TAI SEURAAVA METODI ON TURHA. KATSOTAAN MYÖHEMMIN KUNTOON
     public Ehdokas(int ehdokasNro, String puolue, String etuNimi, String sukuNimi, String osoite, String postiNro, String postiPka, String miksi) {
-        this.ehdokasNro=ehdokasNro;
+    	this.setEhdokasNro(ehdokasNro);
         this.puolue=puolue;
         this.etuNimi=etuNimi;
         this.sukuNimi=sukuNimi;
@@ -46,8 +47,20 @@ public class Ehdokas implements Serializable{
         this.postiPka=postiPka;
         this.miksi=miksi;
         this.pathPic = "Not defined";
-
     }
+    
+    public Ehdokas(String ehdokasNro, String puolue, String etuNimi, String sukuNimi, String osoite, String postiNro, String postiPka, String miksi) {
+        this.setEhdokasNro(ehdokasNro);
+        this.puolue=puolue;
+        this.etuNimi=etuNimi;
+        this.sukuNimi=sukuNimi;
+        this.osoite=osoite;
+        this.postiNro=postiNro;
+        this.postiPka=postiPka;
+        this.miksi=miksi;
+        this.pathPic = "Not defined";
+    }
+    
     
     
     public int getId() {

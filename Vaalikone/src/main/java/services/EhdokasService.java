@@ -71,6 +71,39 @@ public class EhdokasService {
 			List<Ehdokas> list=(List<Ehdokas>) em.createQuery("select a from Ehdokas a").getResultList();
     		return list;      
     }
+    
+	// TÄMÄ HAKEE KAIKKI KALAT
+	@GET
+	@Path("/readfish")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Ehdokas> readFish() {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		// XYX VOI OLLA VAIKKA TADAA, KUN VAAN JÄLKIMMÄINEN ON SAMA
+		// FISH VIITTAA JAVA LUOKKAAN JA SE PITÄÄ OLLA KIRJOITETTU SAMALLA TAVALLA KUIN
+		// LUOKKA
+		// TÄMÄ LISTAA KERRALLA KAIKKI LUOKAN TIEDOT
+		List<Ehdokas> list = em.createQuery("select xyx from Ehdokas xyx").getResultList();
+		em.getTransaction().commit();
+		return list;
+	}
+
+	// TÄMÄ LISÄÄ KALAN
+	@POST
+	@Path("/addfish")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Ehdokas> addFish(Ehdokas ehdokas) {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(ehdokas);// The actual insertion line
+		em.getTransaction().commit();
+		// Calling the method readFish() of this service
+		List<Ehdokas> list = readFish();
+		return list;
+	}
 
     @GET
     @Path("/getall")
