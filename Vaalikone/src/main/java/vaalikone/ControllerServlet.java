@@ -27,13 +27,9 @@ import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
 
-@WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello" })
+@WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello", "/addfish" })
 public class ControllerServlet extends HttpServlet {
-	//Test comment
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	Dao dao = new Dao();
 
@@ -51,8 +47,9 @@ public class ControllerServlet extends HttpServlet {
 		try {
 			switch (action) {
 			
-			case "/addfish":
-				list=addfish(request);break;
+			  case "/addfish":
+				  list=addfish(request);break;
+			
 			case "/new":
 				createVaittama(request, response);
 				break;
@@ -95,6 +92,10 @@ public class ControllerServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		  request.setAttribute("fishlist", list);
+		  RequestDispatcher rd=request.getRequestDispatcher("./jsp/EhdokasNew.jsp");
+		  rd.forward(request, response);
 	}
 	
 	// VÄITTÄMIEN LISTAUS
@@ -236,10 +237,9 @@ public class ControllerServlet extends HttpServlet {
 	}
 	
 	private List<Ehdokas> addfish(HttpServletRequest request) {
-		//A Fish object to send to our web-service 
 		Ehdokas ehdokas=new Ehdokas(request.getParameter("ehdokasNro"), request.getParameter("puolue"), request.getParameter("etuNimi"), request.getParameter("sukuNimi"), request.getParameter("osoite"), request.getParameter("postiNro"), request.getParameter("postiPka"), request.getParameter("miksi"));
 		System.out.println(ehdokas);
-		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/addfish";
+		String uri = "http://localhost:8080/rest/ehdokasservice/addfish";
 		Client c=ClientBuilder.newClient();
 		WebTarget wt=c.target(uri);
 		Builder b=wt.request();
@@ -251,20 +251,6 @@ public class ControllerServlet extends HttpServlet {
 		
 		//Posting data (Entity<ArrayList<DogBreed>> e) to the given address
 		List<Ehdokas> returnedList=b.post(e, genericList);
-		return returnedList;
-	}
-	
-	private List<Ehdokas> readfish(HttpServletRequest request) {
-		String id=request.getParameter("id");
-		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/readfish";
-		Client c=ClientBuilder.newClient();
-		WebTarget wt=c.target(uri);
-		Builder b=wt.request();
-		//Create a GenericType to be able to get List of objects
-		//This will be the second parameter of post method
-		GenericType<List<Ehdokas>> genericList = new GenericType<List<Ehdokas>>() {};
-		
-		List<Ehdokas> returnedList=b.get(genericList);
 		return returnedList;
 	}
 }

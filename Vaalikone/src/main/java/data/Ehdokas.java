@@ -8,6 +8,10 @@ import java.io.Serializable;
 
 @Entity
 public class Ehdokas implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
     private int id;
@@ -19,7 +23,7 @@ public class Ehdokas implements Serializable{
     private String postiNro;
     private String postiPka;
     private String miksi;
-    private String pathPic;
+    //private String pathPic;
    
     public Ehdokas() {
        
@@ -33,7 +37,7 @@ public class Ehdokas implements Serializable{
         this.postiNro=postiNro;
         this.postiPka=postiPka;
         this.miksi=miksi;
-        this.pathPic=pathPic;
+        //this.pathPic=pathPic;
     }
     
     // TÄMÄ TAI SEURAAVA METODI ON TURHA. KATSOTAAN MYÖHEMMIN KUNTOON
@@ -46,7 +50,7 @@ public class Ehdokas implements Serializable{
         this.postiNro=postiNro;
         this.postiPka=postiPka;
         this.miksi=miksi;
-        this.pathPic = "Not defined";
+        //this.pathPic = "Not defined";
     }
     
     public Ehdokas(String ehdokasNro, String puolue, String etuNimi, String sukuNimi, String osoite, String postiNro, String postiPka, String miksi) {
@@ -58,7 +62,7 @@ public class Ehdokas implements Serializable{
         this.postiNro=postiNro;
         this.postiPka=postiPka;
         this.miksi=miksi;
-        this.pathPic = "Not defined";
+        //this.pathPic = "Not defined";
     }
     
     
@@ -153,15 +157,15 @@ public class Ehdokas implements Serializable{
         this.miksi=miksi;
         }
     
-    public String getPathPic() {
-        return pathPic;
-    }
+ //   public String getPathPic() {
+ //       return pathPic;
+ //   }
     
-    public void setPathPic(String pathPic) {
-        this.pathPic=pathPic;
-        }
+ //   public void setPathPic(String pathPic) {
+ //       this.pathPic=pathPic;
+ //       }
   
     public String toString() {
-        return this.id+": "+this.ehdokasNro+"/"+this.puolue+"/"+this.etuNimi+"/"+this.sukuNimi+"/"+this.osoite+"/"+this.postiNro+"/"+this.postiPka+"/"+this.miksi+"/"+this.pathPic;
+        return this.id+": "+this.ehdokasNro+"/"+this.puolue+"/"+this.etuNimi+"/"+this.sukuNimi+"/"+this.osoite+"/"+this.postiNro+"/"+this.postiPka+"/"+this.miksi;
     }
 }
