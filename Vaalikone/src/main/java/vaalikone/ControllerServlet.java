@@ -48,7 +48,7 @@ public class ControllerServlet extends HttpServlet {
 			switch (action) {
 			
 			  case "/addfish":
-				  list=addfish(request);break;
+				  list=addfish(request, response);break;
 			
 			case "/new":
 				createVaittama(request, response);
@@ -94,7 +94,7 @@ public class ControllerServlet extends HttpServlet {
 		}
 		
 		  request.setAttribute("fishlist", list);
-		  RequestDispatcher rd=request.getRequestDispatcher("./jsp/EhdokasNew.jsp");
+		  RequestDispatcher rd=request.getRequestDispatcher("form.html");
 		  rd.forward(request, response);
 	}
 	
@@ -236,9 +236,9 @@ public class ControllerServlet extends HttpServlet {
 
 	}
 	
-	private List<Ehdokas> addfish(HttpServletRequest request) {
+	private List<Ehdokas> addfish(HttpServletRequest request, HttpServletResponse response) {
 		Ehdokas ehdokas=new Ehdokas(request.getParameter("ehdokasNro"), request.getParameter("puolue"), request.getParameter("etuNimi"), request.getParameter("sukuNimi"), request.getParameter("osoite"), request.getParameter("postiNro"), request.getParameter("postiPka"), request.getParameter("miksi"));
-		System.out.println(ehdokas);
+		System.out.println("Tähän asti tulee"+ehdokas);
 		String uri = "http://localhost:8080/rest/ehdokasservice/addfish";
 		Client c=ClientBuilder.newClient();
 		WebTarget wt=c.target(uri);

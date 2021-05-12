@@ -25,7 +25,7 @@
 		-->
 		<init-param>
 		  <param-name>jersey.config.server.provider.packages</param-name>
-		  <param-value>services,data,vaalikone,exceptions</param-value>
+		  <param-value>services,data,vaalikone,client</param-value>
 		</init-param>
 		
 		
