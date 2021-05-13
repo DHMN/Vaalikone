@@ -48,7 +48,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                     </button>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
+                         <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/EhdokasNew.jsp">LISÄÄ EHDOKAS</a></li>
@@ -71,7 +71,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                 <article>
                  <h1>Lisää uusi Väittämä</h1>
                     <br>
-                    <form action='../new' method='post'>
+                    <form action='../jsa/new' method='post'>
                         <p><b>Uusi väittämä: </b>
                             <input type='text' name='teksti'> </p><br>                             
                         <input type='submit' name='ok' value='Send'>

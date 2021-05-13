@@ -22,7 +22,7 @@ public class Ehdokas implements Serializable{
     private String pathPic;
    
     public Ehdokas() {
-       
+    	super();
     }
     public Ehdokas(int ehdokasNro, String puolue, String etuNimi, String sukuNimi, String osoite, String postiNro, String postiPka, String miksi, String pathPic) {
         this.ehdokasNro=ehdokasNro;

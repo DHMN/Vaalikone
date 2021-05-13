@@ -97,10 +97,7 @@ public class ControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
-	public void toClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/ehdokasclient1");
-		dispatcher.forward(request, response);
-	}
+
 	
 	// VASTAUSVAIHTOEHTOJEN LISTAUS
 	private void listVastausvaihtoehdot(HttpServletRequest request, HttpServletResponse response)

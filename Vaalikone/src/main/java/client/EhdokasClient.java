@@ -23,10 +23,6 @@ import data.*;
  * Servlet implementation class Ehdokas
  */
 
-@WebServlet(
-	    name = "EhdokasClient",
-	    urlPatterns = { "/ehdokasclient" }
-	)
 public class EhdokasClient extends HttpServlet {
     private static final long serialVersionUID = 1L;
       
@@ -35,21 +31,19 @@ public class EhdokasClient extends HttpServlet {
      */
     public EhdokasClient() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        response.setContentType("text/html");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out=response.getWriter();
        
         String deleteId=request.getParameter("deleteId");
        
         //Including an HTML form + start of the html page
-        RequestDispatcher rd=request.getRequestDispatcher("form.html");
+        RequestDispatcher rd=request.getRequestDispatcher("./form.html");
         rd.include(request,  response);
        
         boolean deleteOk=false;
@@ -72,22 +66,23 @@ public class EhdokasClient extends HttpServlet {
         GenericType<List<Ehdokas>> genericList = new GenericType<List<Ehdokas>>() {};
        
         //Posting data (Entity<ArrayList<DogBreed>> e) to the given address
-        //List<Ehdokas> returnedList=b.get(genericList);
+        List<Ehdokas> returnedList=b.get(genericList);
        
         //And print the objects
-        //for (int i=0;i<returnedList.size();i++) {
-            //Ehdokas ehdokas=returnedList.get(i);
-            //out.println(ehdokas+" <a href='./ehdokasclient?deleteId="+ehdokas.getEhdokasNro()+"'>Remove</a><br>");
-        //}
+        for (int i=0;i<returnedList.size();i++) {
+            Ehdokas ehdokas=returnedList.get(i);
+            out.println(ehdokas+" <a href='./client?deleteId="+ehdokas.getId()+"'>Remove</a><br>");
+        }
        
         //Printing the end of an html document
-        //out.println("</body></html>");
+        out.println("</body></html>");
     }
+
 
     private boolean deleteEhdokas(String deleteId) {
         // TODO Auto-generated method stub
         // TODO Auto-generated method stub
-        String uri = "http://127.0.0.1:8080/rest/bookservice/delete/"+deleteId;
+        String uri = "http://127.0.0.1:8080/rest/ehdokasservice/delete/"+deleteId;
 
         Client asiakas=ClientBuilder.newClient();
         WebTarget wt=asiakas.target(uri);
@@ -101,8 +96,30 @@ public class EhdokasClient extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   doGet(request, response);
+    	  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	        // TODO Auto-generated method stub
+    	        String uri = "http://127.0.0.1:8080/rest/ehdokasservice/saveehdokas";
 
-}
+    	        //A Book object to send to our web-service
+    	        int ehdokasNro=Integer.parseInt(request.getParameter("ehdokasNro"));
+    	        String puolue=request.getParameter("puolue");
+    	        String etuNimi = request.getParameter("etuNimi");
+    	        String sukuNimi = request.getParameter("sukuNimi");
+    	        String osoite = request.getParameter("osoite");
+    	        String postiNro = request.getParameter("postiNro");
+    	        String postiPka = request.getParameter("postiPka");
+    	        String miksi = request.getParameter("miksi");
+    	        Ehdokas Ehdokas=new Ehdokas(ehdokasNro, puolue, etuNimi, sukuNimi, osoite, postiNro, postiPka, miksi);
+    	       
+    	        Client c=ClientBuilder.newClient();
+    	        WebTarget wt=c.target(uri);
+    	        Builder b=wt.request();
+    	        Entity<Ehdokas> e=Entity.entity(Ehdokas,MediaType.APPLICATION_JSON);
+    	       
+    	        b.post(e);
+
+    	       
+    	        doGet(request, response);
+    	    }
+
 }

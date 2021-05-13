@@ -45,7 +45,7 @@
                             <li class="nav-item"><a class="nav-link" href="/rest/ehdokasservice/ehdokasclient">LISÄÄ EHDOKAS</a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
-                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
+                            <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"></a></li>
                             <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
                         </ul>
                     </div>
@@ -62,7 +62,7 @@
                 <article>
                   <h1>Lisää uusi ehdokas</h1>
                     <br>
-                    <form action='http://localhost:8080/rest/ehdokasservice/addehdokas' method='post'>
+                    <form action='./client' method='post'>
                         <p><b>Ehdokasnumero: </b>
                             <input type='number' name='ehdokasNro'> </p><br>
                          <p><b>Puolue: </b>
@@ -111,6 +111,3 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-</body>
-
-</html>

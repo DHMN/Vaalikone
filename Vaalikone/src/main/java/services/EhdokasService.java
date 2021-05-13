@@ -22,6 +22,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import data.Ehdokas;
 
@@ -70,7 +72,7 @@ public class EhdokasService {
     		//Read all the rows from table prey. Here the Prey must start with capital, 
     		//because class's name starts. This returns a List of Prey objects.
     		@SuppressWarnings("unchecked")
-			List<Ehdokas> list=(List<Ehdokas>) em.createQuery("select a from Ehdokas a").getResultList();
+			List<Ehdokas> list=em.createQuery("select a from Ehdokas a").getResultList();
     		return list;      
     }
 
@@ -78,7 +80,7 @@ public class EhdokasService {
     @Path("/getall")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Ehdokas> getAll(){
-        return this.readEhdokas();
+    	return this.readEhdokas();
     }
 
     @GET
@@ -96,15 +98,15 @@ public class EhdokasService {
    
     @DELETE
     @Path("/delete/{id}")
-    public boolean deleteBook(@PathParam("ehdokasNro") int ehdokasNro) {
+    public boolean deleteBook(@PathParam("id") int id) {
         List<Ehdokas> list=this.readEhdokas();
         try {
         	EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
         	EntityManager em=emf.createEntityManager();
     		em.getTransaction().begin();
-    		Ehdokas f=em.find(Ehdokas.class, ehdokasNro);
+    		Ehdokas f=em.find(Ehdokas.class, id);
     		if (f!=null) {
-    			em.remove(f);//The actual insertion line
+    			em.remove(f);//The actual insertion lined
     		}
     		em.getTransaction().commit();
             return true;
@@ -113,11 +115,11 @@ public class EhdokasService {
             return false;
         }
     }
-    private List<Ehdokas> readEhdokas(){
-        List<Ehdokas> list = new ArrayList<Ehdokas>();
+    public static List<Ehdokas> readEhdokas(){
                 EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
             	EntityManager em=emf.createEntityManager();
-            	list=(List<Ehdokas>) em.createQuery("select a from Ehdokas a").getResultList();
+            	@SuppressWarnings("unchecked")
+            	List<Ehdokas> list=em.createQuery("select a from Ehdokas a").getResultList();
         		return list;      
         
     }

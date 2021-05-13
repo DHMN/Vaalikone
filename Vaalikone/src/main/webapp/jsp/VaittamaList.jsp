@@ -51,7 +51,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                     </button>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
+                           <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/EhdokasNew.jsp">LISÄÄ EHDOKAS</a></li>
@@ -84,8 +84,8 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                             <tr>
                                 <th><c:out value="${vaittama.id}" /></th>
                                 <th><c:out value="${vaittama.teksti}" /></th>
-                                <th><a href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
-                                <th><a href="/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
+                                <th><a href="/jsa/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
+                                <th><a href="/jsa/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
 
                             </tr>
                         </c:forEach>
@@ -100,7 +100,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
 
                     <br>
-                    <form action='answers' method='post'>
+                    <form action='/answers' method='post'>
                         <c:forEach var="vaittama" items="${requestScope.list}">
                             <table class="table table-striped">
                                 <tr>

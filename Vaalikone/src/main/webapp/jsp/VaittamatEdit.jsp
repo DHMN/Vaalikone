@@ -69,7 +69,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                 <article>
                     <h1>Edit Väittämä</h1>
                     <br>
-                    <form action='update' method='post'>
+                    <form action='jsa/update' method='post'>
                         <table>
                             <tr>
                                 <th><b>Väittämä ID: </b></th>
