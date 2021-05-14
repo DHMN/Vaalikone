@@ -3,6 +3,8 @@ package vaalikone;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,14 +12,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 
 import dao.Dao;
+import data.Ehdokas;
 import data.Kayttaja;
 import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
 
-@WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello" })
+@WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello", "/addfish" })
 public class ControllerServlet extends HttpServlet {
 	//Test comment
 
@@ -36,10 +46,14 @@ public class ControllerServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getServletPath();
+		List<Ehdokas> list=null;
 
 		try {
 			switch (action) {
-
+			
+			  case "/addfish":
+				  list=addfish(request, response);break;
+			
 			case "/new":
 				createVaittama(request, response);
 				break;
@@ -82,6 +96,10 @@ public class ControllerServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		  request.setAttribute("fishlist", list);
+		  RequestDispatcher rd=request.getRequestDispatcher("form.html");
+		  rd.forward(request, response);
 	}
 	
 	// VÄITTÄMIEN LISTAUS
@@ -217,5 +235,23 @@ public class ControllerServlet extends HttpServlet {
 			System.out.println("Logged out");
 		}
 
+	}
+	
+	private List<Ehdokas> addfish(HttpServletRequest request, HttpServletResponse response) {
+		Ehdokas ehdokas=new Ehdokas(request.getParameter("ehdokasNro"), request.getParameter("puolue"), request.getParameter("etuNimi"), request.getParameter("sukuNimi"), request.getParameter("osoite"), request.getParameter("postiNro"), request.getParameter("postiPka"), request.getParameter("miksi"));
+		System.out.println("Tähän asti tulee"+ehdokas);
+		String uri = "http://localhost:8080/rest/ehdokasservice/addfish";
+		Client c=ClientBuilder.newClient();
+		WebTarget wt=c.target(uri);
+		Builder b=wt.request();
+		//Here we create an Entity of a Fish object as JSON string format
+		Entity<Ehdokas> e=Entity.entity(ehdokas,MediaType.APPLICATION_JSON);
+		//Create a GenericType to be able to get List of objects
+		//This will be the second parameter of post method
+		GenericType<List<Ehdokas>> genericList = new GenericType<List<Ehdokas>>() {};
+		
+		//Posting data (Entity<ArrayList<DogBreed>> e) to the given address
+		List<Ehdokas> returnedList=b.post(e, genericList);
+		return returnedList;
 	}
 }

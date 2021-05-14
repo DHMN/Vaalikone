@@ -43,8 +43,13 @@ public class EhdokasClient extends HttpServlet {
         String deleteId=request.getParameter("deleteId");
        
         //Including an HTML form + start of the html page
+<<<<<<< HEAD
         RequestDispatcher rd=request.getRequestDispatcher("./form.html");
         rd.include(request,  response);
+=======
+        RequestDispatcher rd=request.getRequestDispatcher("form.html");
+        rd.include(request, response);
+>>>>>>> refs/remotes/origin/main
        
         boolean deleteOk=false;
         if (deleteId!=null) {
