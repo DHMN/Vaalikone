@@ -112,13 +112,9 @@ public class EhdokasService {
             return false;
         }
     }
-<<<<<<< HEAD
+
     public static List<Ehdokas> readEhdokas(){
                 EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa");
-=======
-    private List<Ehdokas> readEhdokas(){
-        List<Ehdokas> list = new ArrayList<Ehdokas>();
->>>>>>> refs/remotes/origin/main
             	EntityManager em=emf.createEntityManager();
             	@SuppressWarnings("unchecked")
             	List<Ehdokas> list=em.createQuery("select a from Ehdokas a").getResultList();
