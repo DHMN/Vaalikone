@@ -55,7 +55,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li></li>
                         </ul>
                     </div>
                 </nav>
@@ -69,7 +69,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                 <article>
                     <h1>Edit Väittämä</h1>
                     <br>
-                    <form action='jsa/update' method='post'>
+                    <form action='update' method='post'>
                         <table>
                             <tr>
                                 <th><b>Väittämä ID: </b></th>

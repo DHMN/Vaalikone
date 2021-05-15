@@ -5,7 +5,7 @@
 <html>
 
 <head>
-    <title>Vaalikone - Uusi ehdokas</title>
+    <title>Vaalikone - Uusi väittämä</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -31,8 +31,8 @@ if((request.getSession(false).getAttribute("Admin")== null) )
         <div class="row">
             <div class="col-sm-12 header">
                 <header class="bg-text">
-                    <h1>Ehdokkaiden hallinta</h1>
-                    <h2>LISÄÄ UUSI EHDOKAS</h2>
+                    <h1>Väittämien hallinta</h1>
+                    <h2>LISÄÄ UUSI VÄITTÄMÄ</h2>
                 </header>
             </div>
         </div>
@@ -48,7 +48,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                     </button>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
-                         <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/EhdokasNew.jsp">LISÄÄ EHDOKAS</a></li>
@@ -69,11 +69,11 @@ if((request.getSession(false).getAttribute("Admin")== null) )
         <div class="row narrow">
             <div class="col-md-12 article">
                 <article>
-                 <h1>Lisää uusi Väittämä</h1>
+                    <h1>Lisää uusi Väittämä</h1>
                     <br>
-                    <form action='../jsa/new' method='post'>
+                    <form action='../new' method='post'>
                         <p><b>Uusi väittämä: </b>
-                            <input type='text' name='teksti'> </p><br>                             
+                            <input type='text' name='teksti'> </p><br>
                         <input type='submit' name='ok' value='Send'>
                         <br>
                     </form>
