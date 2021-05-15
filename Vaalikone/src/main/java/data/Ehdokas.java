@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class Ehdokas {
+public class Ehdokas implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
