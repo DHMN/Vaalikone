@@ -20,7 +20,7 @@ import data.Ehdokas;
 @Path("/ehdokasservice")
 public class EhdokasService {
 	
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("vaalikonejpa");
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
 
 	// TÄMÄ HAKEE KAIKKI KALAT
 	@GET
