@@ -42,8 +42,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
-                      <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
+                            <li class="nav-item"><a class="nav-link" href="../index.html">ETUSIVU</a></li>
                             <li class="nav-item"><a class="nav-link" href="/hello">KAIKKI VÄITTÄMÄT</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/VaittamatNew.jsp">LISÄÄ VÄITTÄMÄ</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/EhdokasNew.jsp">LISÄÄ EHDOKAS</a></li>

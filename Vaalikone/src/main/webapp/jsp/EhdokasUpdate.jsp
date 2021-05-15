@@ -14,12 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
-<% //In case, if Admin session is not set, redirect to Login page
-if((request.getSession(false).getAttribute("Admin")== null) )
-{
-%>
-<jsp:forward page="/jsp/login.jsp"></jsp:forward>
-<%} %>
+
 </head>
 
 <body>
@@ -55,7 +50,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -67,22 +62,20 @@ if((request.getSession(false).getAttribute("Admin")== null) )
         <div class="row narrow">
             <div class="col-md-12 article">
                 <article>
-                    <h1>Edit Väittämä</h1>
+                    <h1>Edit Ehdokas</h1>
                     <br>
-                    <form action='update' method='post'>
-                        <table>
-                            <tr>
-                                <th><b>Väittämä ID: </b></th>
-                                <th><input type='text' name='id' value='${requestScope.list.id}' readonly><br></th>
-                            </tr>
-                            <tr>
-                                <th><b>Väittämä: </b></th>
-                                <th><input type='text' name='teksti' value='${requestScope.list.teksti}'><br></th>
-                            </tr>
-                        </table>
-                        <br>
-                        <input type='submit' name='ok' value='Send'>
-                    </form>
+<form action='../updateehdokas' method='post'>
+<input type='text' name='id' value='${requestScope.ehdokas.id }'>
+<input type='number' name='ehdokasNro' value='${requestScope.ehdokas.ehdokasNro }'>
+<input type='text' name='puolue' value='${requestScope.ehdokas.puolue }'>
+<input type='text' name='etuNimi' value='${requestScope.ehdokas.etuNimi }'>
+<input type='text' name='sukuNimi' value='${requestScope.ehdokas.sukuNimi }'>
+<input type='text' name='osoite' value='${requestScope.ehdokas.osoite }'>
+<input type='text' name='postiNro' value='${requestScope.ehdokas.postiNro }'>
+<input type='text' name='postiPka' value='${requestScope.ehdokas.postiPka }'>
+<input type='text' name='miksi' value='${requestScope.ehdokas.miksi }'>
+<input type='submit' name='ok' value='OK'>
+</form>
                 </article>
             </div>
             <!-- PÄÄSISÄLTÖ LOPPUU -->

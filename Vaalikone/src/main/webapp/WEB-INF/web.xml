@@ -7,35 +7,27 @@
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  		<servlet>
-        <servlet-name>EhdokasClient</servlet-name>
-        <servlet-class>client.EhdokasClient</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EhdokasClient</servlet-name>
-        <url-pattern>/client/*</url-pattern>
-    </servlet-mapping>
-    <servlet>
+  <servlet>
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>vaalikone.ControllerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/jsa/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <servlet>
-		<servlet-name>vaalikone</servlet-name>
+    
+      	<servlet>
+		<servlet-name>jersey-servlet</servlet-name>
 		<servlet-class>
-			org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+			org.glassfish.jersey.servlet.ServletContainer
+		</servlet-class>
 		<!--
-			init-param tells in which package REST services are
+			init-param tells in which package(s) REST services are (comma separated list if necessary)
 		-->
 		<init-param>
 		  <param-name>jersey.config.server.provider.packages</param-name>
-		  <param-value>services</param-value>
+		  <param-value>rest</param-value>
 		</init-param>
-		
-		
 		<!--
 			This tells the server to load REST service when the server starts
 		-->
@@ -47,7 +39,7 @@
 	the REST class and in its methods
 	-->
 	<servlet-mapping>
-		<servlet-name>vaalikone</servlet-name>
+		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 </web-app>

@@ -14,12 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
-<% //In case, if Admin session is not set, redirect to Login page
-if((request.getSession(false).getAttribute("Admin")== null) )
-{
-%>
-<jsp:forward page="/jsp/login.jsp"></jsp:forward>
-<%} %>
+
 </head>
 
 <body>
@@ -71,7 +66,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
 				<article>
                   <h1>Lisää uusi ehdokas</h1>
                     <br>
-                    <form action='../addfish' method='post'>
+                    <form action='../addehdokas' method='post'>
                         <p><b>Ehdokasnumero: </b>
                             <input type='number' name='ehdokasNro'> </p><br>
                          <p><b>Puolue: </b>
@@ -92,8 +87,8 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                         <br>
                     </form>
 <ol>
-<c:forEach var="fish" items="${requestScope.fishlist }">
-	<li>${fish} <a href='../deletefish?id=${fish.id}'>Delete</a> <a href='../readtoupdatefish?id=${fish.id}'>Update</a>
+<c:forEach var="ehdokas" items="${requestScope.ehdokaslist }">
+	<li>${ehdokas} <a href='../deleteehdokas?id=${ehdokas.id}'>Delete</a> <a href='../readtoupdateehdokas?id=${ehdokas.id}'>Update</a>
 </c:forEach>
 </ol>
                 </article>
