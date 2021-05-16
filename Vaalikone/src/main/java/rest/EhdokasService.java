@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import data.Ehdokas;
 import data.Vastaus;
+import data.Yhdistys;
 import data.Vaittama;
 
 @Path("/ehdokasservice")
@@ -44,13 +45,25 @@ public class EhdokasService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Ehdokas> addEhdokas(Ehdokas ehdokas) {
-		EntityManager em = emf.createEntityManager();
-		System.out.println("Ehdokas servicelle asti tulee");
-		em.getTransaction().begin();
-		em.persist(ehdokas);
-		em.getTransaction().commit();
-		List<Ehdokas> list = readEhdokas();
-		return list;
+        Vastaus vastaus = new Vastaus("Vastaus");
+        Vaittama vaittama = new Vaittama("Vaittama");
+        Yhdistys f1 = new Yhdistys(ehdokas, vastaus, vaittama);
+        EntityManager em = emf.createEntityManager();
+        System.out.println("Ehdokas servicelle asti tulee");
+        em.getTransaction().begin();
+        em.persist(ehdokas);
+        em.getTransaction().commit();
+        em.getTransaction().begin();
+        em.persist(vastaus);
+        em.getTransaction().commit();
+        em.getTransaction().begin();
+        em.persist(vaittama);
+        em.getTransaction().commit();
+        em.getTransaction().begin();
+        em.persist(f1);
+        em.getTransaction().commit();
+        List<Ehdokas> list = readEhdokas();
+        return list;
 	}
 
 	// TÄMÄ PÄIVITTÄÄ KALAN

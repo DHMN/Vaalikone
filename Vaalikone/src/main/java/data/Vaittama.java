@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NamedQuery(name="Vaittama.findAll", query="SELECT f FROM Vaittama f")
 public class Vaittama implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -15,8 +14,8 @@ public class Vaittama implements Serializable {
 	private String teksti;
 	
 	//bi-directional many-to-many association to vastaukset
-		@ManyToMany(mappedBy="vaittamat", cascade = CascadeType.PERSIST)
-		private List<Vastaus> vastaukset;
+	@OneToMany(mappedBy = "vaittama", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	List<Yhdistys> liitokset;
 
 	// Peruskonstruktori
 	public Vaittama() {
@@ -63,18 +62,12 @@ public class Vaittama implements Serializable {
 		return id + "" + teksti;
 	}
 	
-	public List<Vastaus> getVastaukset() {
-		return this.vastaukset;
+	public List<Yhdistys> getLiitokset() {
+		return this.liitokset;
 	}
 	
-	public void addVastaus(Vastaus vastaus) {
-		if (vastaukset==null) {
-			vastaukset=new ArrayList<>();
-		}
-		vastaukset.add(vastaus);
-	}
 	
-	public void setVastaukset(List<Vastaus> vastaukset) {
-		this.vastaukset = vastaukset;
+	public void setLiitokset(List<Yhdistys> liitokset) {
+		this.liitokset = liitokset;
 	}
 }

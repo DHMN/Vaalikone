@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NamedQuery(name="Vastaus.findAll", query="SELECT l FROM Vastaus l")
 public class Vastaus implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -17,18 +16,11 @@ public class Vastaus implements Serializable {
 	private String vastausteksti;
 
 
-	//bi-directional many-to-many association to Fishbreed
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(
-		name="vaittamabyvastaus"
-		, joinColumns={
-			@JoinColumn(name="vastausid")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="vaittamaid")
-			}
-		)
-	private List<Vaittama> vaittamat;
+	//bi-directional one-to-many association to Fishbreed
+	@OneToMany(mappedBy = "vastaus", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	List<Yhdistys> liitokset;
+	
+	
 	// Peruskonstruktori
 	public Vastaus() {
 
@@ -71,19 +63,13 @@ public class Vastaus implements Serializable {
 		return String.valueOf(id);
 	}
 	
-	public List<Vaittama> getVaittamat() {
-		return this.vaittamat;
+	public List<Yhdistys> getLiitokset() {
+		return this.liitokset;
 	}
 	
-	public void addVaittama(Vaittama vaittama) {
-		if (vaittamat==null) {
-			vaittamat=new ArrayList<>();
-		}
-		vaittamat.add(vaittama);
-	}
 	
-	public void setVaittamat(List<Vaittama> vaittamat) {
-		this.vaittamat = vaittamat;
+	public void setLiitokset(List<Yhdistys> liitokset) {
+		this.liitokset = liitokset;
 	}
 
 	// Olion tulostamiseen toString

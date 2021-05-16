@@ -1,10 +1,14 @@
 package data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Ehdokas implements Serializable{
@@ -21,6 +25,8 @@ public class Ehdokas implements Serializable{
 	private String postiPka;
     private String miksi;
     private String pathPic;
+    @OneToMany(mappedBy = "ehdokas", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	List<Yhdistys> liitokset;
    
     public Ehdokas() {
 
@@ -140,6 +146,13 @@ public class Ehdokas implements Serializable{
 		this.pathPic = pathPic;
 	}
     
+	public List<Yhdistys> getLiitokset() {
+		return this.liitokset;
+	}
+	
+	public void setLiitokset(List<Yhdistys> liitokset) {
+		this.liitokset = liitokset;
+	}
   
     public String toString() {
         return this.id+": "+this.ehdokasNro+"/"+this.puolue+"/"+this.etuNimi+"/"+this.sukuNimi+"/"+this.osoite+"/"+this.postiNro+"/"+this.postiPka+"/"+this.miksi+"/"+pathPic;

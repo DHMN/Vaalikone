@@ -4,6 +4,7 @@
 		<class>data.Ehdokas</class>
 		<class>data.Vaittama</class>
 		<class>data.Vastaus</class>
+		<class>data.Yhdistys</class>
 		
 	
 <!-- If using MySQL 5.7 or newer -->
