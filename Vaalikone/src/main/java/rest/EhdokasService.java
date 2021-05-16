@@ -16,6 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import data.Ehdokas;
+import data.Vastaus;
+import data.Vaittama;
 
 @Path("/ehdokasservice")
 public class EhdokasService {
@@ -30,6 +32,7 @@ public class EhdokasService {
 	public List<Ehdokas> readEhdokas() {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
+		@SuppressWarnings("unchecked")
 		List<Ehdokas> list = em.createQuery("select xyx from Ehdokas xyx").getResultList();
 		em.getTransaction().commit();
 		return list;
@@ -64,7 +67,6 @@ public class EhdokasService {
 		if (f != null) {
 			em.merge(ehdokas);
 		}
-		em.getTransaction().commit();
 		List<Ehdokas> list = readEhdokas();
 		return list;
 	}

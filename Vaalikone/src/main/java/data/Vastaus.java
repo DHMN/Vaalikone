@@ -1,35 +1,47 @@
 package data;
 
-public class Vastaus {
-	String vastausteksti;
-	int id;
-	int vaittamaId;
+import java.io.Serializable;
+import javax.persistence.*;
 
+import data.Vaittama;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@NamedQuery(name="Vastaus.findAll", query="SELECT l FROM Vastaus l")
+public class Vastaus implements Serializable {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	private String vastausteksti;
+
+
+	//bi-directional many-to-many association to Fishbreed
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(
+		name="vaittamabyvastaus"
+		, joinColumns={
+			@JoinColumn(name="vastausid")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="vaittamaid")
+			}
+		)
+	private List<Vaittama> vaittamat;
 	// Peruskonstruktori
 	public Vastaus() {
 
 	}
 
-	// Konstruktori ID:llä, vastausid:llä ja tekstillä
-	public Vastaus(String id, String vaittamaId, String vastausteksti) {
-		setId(id);
-		setVaittamaId(id);
-		this.vastausteksti = vastausteksti;
-	}
-
-	// Konstruktori ID:llä ja tekstillä
-	public Vastaus(String vaittamaId, String vastausteksti) {
-		setVaittamaId(vaittamaId);
-		this.vastausteksti = vastausteksti;
-	}
-
-	// Konstruktori tekstillä
+	//Konstruktori vastausid:llä ja tekstillä
 	public Vastaus(String vastausteksti) {
 		this.vastausteksti = vastausteksti;
 	}
 
+
 	// Setterit ja getterit
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -37,20 +49,6 @@ public class Vastaus {
 	public void setId(String id) {
 		try {
 			this.id = Integer.parseInt(id);
-		} catch (NumberFormatException | NullPointerException e) {
-			// Do nothing - the value of id won't be changed
-		}
-	}
-
-	// Setterit ja getterit
-	public void setVaittamaId(int id) {
-		this.vaittamaId = id;
-	}
-
-	// MUUTTAA LOMAKKEELTA TULLEEN STRING ID:N INTIKSI
-	public void setVaittamaId(String id) {
-		try {
-			this.vaittamaId = Integer.parseInt(id);
 		} catch (NumberFormatException | NullPointerException e) {
 			// Do nothing - the value of id won't be changed
 		}
@@ -64,9 +62,6 @@ public class Vastaus {
 		return id;
 	}
 
-	public int getVaittamaId() {
-		return vaittamaId;
-	}
 
 	public String getVastausteksti() {
 		return vastausteksti;
@@ -74,6 +69,21 @@ public class Vastaus {
 
 	public String getIdString() {
 		return String.valueOf(id);
+	}
+	
+	public List<Vaittama> getVaittamat() {
+		return this.vaittamat;
+	}
+	
+	public void addVaittama(Vaittama vaittama) {
+		if (vaittamat==null) {
+			vaittamat=new ArrayList<>();
+		}
+		vaittamat.add(vaittama);
+	}
+	
+	public void setVaittamat(List<Vaittama> vaittamat) {
+		this.vaittamat = vaittamat;
 	}
 
 	// Olion tulostamiseen toString

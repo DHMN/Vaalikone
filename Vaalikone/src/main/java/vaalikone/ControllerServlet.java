@@ -162,10 +162,9 @@ public class ControllerServlet extends HttpServlet {
 	// VÄITTÄMÄN MUOKKAUS
 	private void update(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		String id = request.getParameter("id");
 		String teksti = request.getParameter("teksti");
 
-		Vaittama vaittama = new Vaittama(id, teksti);
+		Vaittama vaittama = new Vaittama(teksti);
 
 		ArrayList<Vaittama> list = null;
 
@@ -180,9 +179,8 @@ public class ControllerServlet extends HttpServlet {
 	private void addVastaus(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String vastausteksti = request.getParameter("vastausteksti");
-		String vaittamaId = request.getParameter("vaittamaId");
 
-		Vastaus vastaus = new Vastaus(vaittamaId, vastausteksti);
+		Vastaus vastaus = new Vastaus(vastausteksti);
 
 		dao.addVastaus(vastaus);
 		response.sendRedirect("hello");
@@ -271,7 +269,6 @@ public class ControllerServlet extends HttpServlet {
 	}
 
 	private List<Ehdokas> readehdokas(HttpServletRequest request) {
-		String id = request.getParameter("id");
 		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/readehdokas";
 		Client c = ClientBuilder.newClient();
 		WebTarget wt = c.target(uri);

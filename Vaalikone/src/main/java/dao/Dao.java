@@ -44,7 +44,7 @@ public class Dao {
 			ResultSet RS = stmt.executeQuery("select * from vaittamat");
 			while (RS.next()) {
 				Vaittama vaittama = new Vaittama();
-				vaittama.setID(RS.getInt("id"));
+				vaittama.setId(RS.getInt("id"));
 				vaittama.setTeksti(RS.getString("teksti"));
 				list.add(vaittama);
 			}
@@ -101,7 +101,7 @@ public class Dao {
 			while (RS.next()) {
 
 				vaittama = new Vaittama();
-				vaittama.setID(RS.getInt("id"));
+				vaittama.setId(RS.getInt("id"));
 				vaittama.setTeksti(RS.getString("teksti"));
 			}
 			RS.close();
@@ -131,7 +131,7 @@ public class Dao {
 		try {
 			String sql = "insert into vastaukset (vaittama, vastaus) values (?, ?)";
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
-			preparedStmt.setInt(1, vastaus.getVaittamaId());
+			preparedStmt.setInt(1, vastaus.getId());
 			preparedStmt.setString(2, vastaus.getVastausteksti());
 			preparedStmt.executeUpdate();
 
