@@ -58,7 +58,6 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href=""></a></li>
                             <li class="nav-item"><a class="nav-link" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>ink" href="/jsp/login.jsp"><%=(request.getSession(false).getAttribute("Admin") == null) ? "LOGIN" : "LOGGED IN AS " + session.getAttribute("Admin")%></a></li>
                             <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
                         </ul>
                     </div>
