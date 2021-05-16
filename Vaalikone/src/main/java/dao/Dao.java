@@ -41,7 +41,7 @@ public class Dao {
 		ArrayList<Vaittama> list = new ArrayList<>();
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet RS = stmt.executeQuery("select * from vaittamat");
+			ResultSet RS = stmt.executeQuery("select * from vaittama");
 			while (RS.next()) {
 				Vaittama vaittama = new Vaittama();
 				vaittama.setId(RS.getInt("id"));
@@ -60,7 +60,7 @@ public class Dao {
 	// Väittämän luominen
 	public void createVaittama(Vaittama f) {
 		try {
-			String sql = "insert into vaittamat (teksti) values (?)";
+			String sql = "insert into vaittama (teksti) values (?)";
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setString(1, f.getTeksti());
 			preparedStmt.executeUpdate();
@@ -73,7 +73,7 @@ public class Dao {
 	// PÄIVITETÄÄN TIETTY VÄITTÄMÄ TIETOKANNASSA
 	public ArrayList<Vaittama> updateVaittama(Vaittama vaittama) {
 		try {
-			String sql = "update vaittamat set teksti=? where id=?";
+			String sql = "update vaittama set teksti=? where id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, vaittama.getTeksti());
@@ -91,7 +91,7 @@ public class Dao {
 	public Vaittama readVaittama(String id) {
 		Vaittama vaittama = null;
 		try {
-			String sql = "select * from vaittamat where id=?";
+			String sql = "select * from vaittama where id=?";
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
@@ -115,7 +115,7 @@ public class Dao {
 	// POISTETAAN VÄITTÄMÄ TIETOKANNASTA
 	public ArrayList<Vaittama> deleteVaittama(String id) {
 		try {
-			String sql = "delete from vaittamat where id=?";
+			String sql = "delete from vaittama where id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
@@ -129,7 +129,7 @@ public class Dao {
 
 	public void addVastaus(Vastaus vastaus) {
 		try {
-			String sql = "insert into vastaukset (vaittama, vastaus) values (?, ?)";
+			String sql = "insert into vastaus (vaittama, vastaus) values (?, ?)";
 			PreparedStatement preparedStmt = conn.prepareStatement(sql);
 			preparedStmt.setInt(1, vastaus.getId());
 			preparedStmt.setString(2, vastaus.getVastausteksti());
