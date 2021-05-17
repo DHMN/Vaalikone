@@ -28,7 +28,6 @@ import data.Kayttaja;
 import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
-import data.Yhdistys;
 
 @WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas", "/readtoupdateehdokas" })
 public class ControllerServlet extends HttpServlet {
@@ -179,8 +178,6 @@ public class ControllerServlet extends HttpServlet {
 	// VASTAUKSET TIETOKANTAAN
 	private void addVastaus(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		
-		
 		String vastausteksti = request.getParameter("vastausteksti");
 
 		Vastaus vastaus = new Vastaus(vastausteksti);
