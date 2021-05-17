@@ -165,6 +165,8 @@ public class Dao {
 	public String checkLogin(Kayttaja kayttaja) throws SQLException, ClassNotFoundException {
 		String email = kayttaja.getEmail();
 	    String password = kayttaja.getPassword();
+	    System.out.println("Tähän tuleva email on: " + email);
+	    System.out.println("Tähän tuleva salasana on: " + password);
 	 
 	    String emailDB = "";
 	    String passwordDB = "";
@@ -178,15 +180,20 @@ public class Dao {
 	        {
 	            emailDB = RS.getString("email");
 	            passwordDB = RS.getString("password");
+	    	    System.out.println("Tietokannassa oleva salasana on: " + passwordDB);
+	    	    System.out.println("Tietokannassa oleva email on: " + emailDB);
 	 
-	            if(email.equals(emailDB) && password.equals(passwordDB))
+	            if(email.equals(emailDB) && password.equals(passwordDB)) {
 	            	RS.close();
+	    	    System.out.println("Admin rooli");
 					return "Admin_Role";
+	            }
 	        }
 
 	    } catch(SQLException e) {
 	        e.printStackTrace();
 	    }
+	    System.out.println("virheellinen kt tai ss");
 	    return "Invalid user credentials";
 	}
 }
