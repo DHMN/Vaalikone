@@ -33,34 +33,21 @@ public class EhdokasService {
 	public List<Ehdokas> readEhdokas() {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		@SuppressWarnings("unchecked")
 		List<Ehdokas> list = em.createQuery("select xyx from Ehdokas xyx").getResultList();
 		em.getTransaction().commit();
 		return list;
 	}
 
-	// TÄMÄ LISÄÄ KALAN	
+	// TÄMÄ LISÄÄ KALAN
 	@POST
 	@Path("/addehdokas")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Ehdokas> addEhdokas(Ehdokas ehdokas) {
-        Vastaus vastaus = new Vastaus("Vastaus");
-        Vaittama vaittama = new Vaittama("Vaittama");
-        Yhdistys f1 = new Yhdistys(ehdokas, vastaus, vaittama);
         EntityManager em = emf.createEntityManager();
         System.out.println("Ehdokas servicelle asti tulee");
         em.getTransaction().begin();
         em.persist(ehdokas);
-        em.getTransaction().commit();
-        em.getTransaction().begin();
-        em.persist(vastaus);
-        em.getTransaction().commit();
-        em.getTransaction().begin();
-        em.persist(vaittama);
-        em.getTransaction().commit();
-        em.getTransaction().begin();
-        em.persist(f1);
         em.getTransaction().commit();
         List<Ehdokas> list = readEhdokas();
         return list;

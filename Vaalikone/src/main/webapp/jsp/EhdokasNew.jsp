@@ -87,8 +87,8 @@
                         <br>
                     </form>
 <ol>
-<c:forEach var="ehdokas" items="${requestScope.ehdokaslist }">
-	<li>${ehdokas} <a href='../deleteehdokas?id=${ehdokas.id}'>Delete</a> <a href='../readtoupdateehdokas?id=${ehdokas.id}'>Update</a>
+<c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
+	<li>${ehdokas} <a href='../deleteehdokas?id=${ehdokas.id}'>Delete</a> <a href='../readtoupdateehdokas?id=${ehdokas.id}'>Update</a></li>
 </c:forEach>
 </ol>
                 </article>
