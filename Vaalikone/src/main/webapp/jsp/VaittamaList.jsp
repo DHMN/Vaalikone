@@ -98,7 +98,6 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 
                 <article>                
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
-
                     <br>
                     <form action='answers' method='post'>
                         <c:forEach var="vaittama" items="${requestScope.list}">
