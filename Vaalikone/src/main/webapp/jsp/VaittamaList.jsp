@@ -113,6 +113,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                                     	<th>
                                     		<input type='checkbox' name='vastausteksti' value='${vastausvaihtoehdot.vv}'>
                                         	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
+                                        	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
                                     	</th>
                                     </c:forEach> 
                                     <th><input type='hidden' name='vaittamaId' value='<c:out value="${vaittama.id}" />'>
