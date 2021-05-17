@@ -65,6 +65,36 @@ public class EhdokasService {
         List<Ehdokas> list = readEhdokas();
         return list;
 	}
+	
+	// TÄMÄ YHDISTÄÄ EHDOKKAAN JA VASTAUKSEN
+	@POST
+	@Path("/yhdistavastaus")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Yhdistys> addEhdokas(Ehdokas ehdokas, Vastaus vastaus, Vaittama vaittama) {
+
+        Yhdistys f1 = new Yhdistys(ehdokas, vastaus, vaittama);
+        EntityManager em = emf.createEntityManager();
+        System.out.println("Ehdokas servicelle asti tulee");
+        em.getTransaction().begin();
+        em.persist(f1);
+        em.getTransaction().commit();
+        List<Yhdistys> list = readYhdistys();
+        return list;
+	}
+
+	@GET
+	@Path("/readyhdistys")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Yhdistys> readYhdistys() {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		@SuppressWarnings("unchecked")
+		List<Yhdistys> list = em.createQuery("select xyx from Yhdistys xyx").getResultList();
+		em.getTransaction().commit();
+		return list;
+	}
 
 	// TÄMÄ PÄIVITTÄÄ KALAN
 	@PUT

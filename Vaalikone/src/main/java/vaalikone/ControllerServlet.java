@@ -28,6 +28,7 @@ import data.Kayttaja;
 import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
+import data.Yhdistys;
 
 @WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas", "/readtoupdateehdokas" })
 public class ControllerServlet extends HttpServlet {
@@ -310,23 +311,6 @@ public class ControllerServlet extends HttpServlet {
 		};
 
 		List<Ehdokas> returnedList = b.delete(genericList);
-		return returnedList;
-	}
-	
-	private List<Ehdokas> addVastaus(HttpServletRequest request) {
-		Ehdokas f = new Ehdokas(request.getParameter("ehdokasNro"), request.getParameter("puolue"),
-				request.getParameter("etuNimi"), request.getParameter("sukuNimi"), request.getParameter("osoite"),
-				request.getParameter("postiNro"), request.getParameter("postiPka"), request.getParameter("miksi"));
-		System.out.println("Tähän asti tullaan heittämällä " + f);
-		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/addvastaus";
-		Client c = ClientBuilder.newClient();
-		WebTarget wt = c.target(uri);
-		Builder b = wt.request();
-		Entity<Ehdokas> e = Entity.entity(f, MediaType.APPLICATION_JSON);
-		GenericType<List<Ehdokas>> genericList = new GenericType<List<Ehdokas>>() {
-		};
-
-		List<Ehdokas> returnedList = b.post(e, genericList);
 		return returnedList;
 	}
 }
