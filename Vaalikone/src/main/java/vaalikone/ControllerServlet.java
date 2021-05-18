@@ -28,8 +28,9 @@ import data.Kayttaja;
 import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
+import data.Yhdistys;
 
-@WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas", "/readtoupdateehdokas" })
+@WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas", "/readtoupdateehdokas", "/ehdokasAnswer" })
 public class ControllerServlet extends HttpServlet {
 	Dao dao = new Dao();
 
@@ -317,6 +318,41 @@ public class ControllerServlet extends HttpServlet {
 	}
 	
 	private List<Vastaus> ehdokasAnswers(HttpServletRequest request) {
+		ArrayList<Yhdistys> yhdistyslista= new ArrayList<>();
+		String ehdokasNro = request.getParameter("ehdokasNro");	
+		Ehdokas c = new Ehdokas();
+		c.setId(Integer.parseInt(ehdokasNro));
+		for (int i = 0; i < 2; i++) {
+			String vastaus = request.getParameter("vaittamanArvo"+i);
+			String vaittama = request.getParameter("vaittamaId"+i);
+			Vastaus a = new Vastaus(vastaus);
+			Vaittama b = new Vaittama(vaittama);
+			Yhdistys e = new Yhdistys(c, a, b);
+			yhdistyslista.add(e);
+			System.out.println("Väittämän id " + yhdistyslista);
+		}
+		
+		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/yhdistys";
+
+		//A list of DogBreed objects to send to our web-service 
+		Client asiakas=ClientBuilder.newClient();
+		WebTarget wt=asiakas.target(uri);
+		Builder b=wt.request();
+		
+		//Create an Entity object to send by post method
+		Entity<ArrayList<Yhdistys>> f=Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
+
+		//Create a GenericType to be able to get List of objects
+		//This will be the second parameter of post method
+		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {};
+		
+		//Posting data (Entity<ArrayList<DogBreed>> e) to the given address
+		List<Yhdistys> returnedList=b.post(f, genericList);
+		
+		for (Yhdistys db:returnedList) {
+			System.out.println(db);
+		}
+		
 //		Vastaus f = new Vastaus(request.getParameter("vastausteksti1"), request.getParameter("vastausteksti2"),
 //				request.getParameter("vastausteksti3"));
 		System.out.println("Väittämän id " + request.getParameter("vaittamaId1"));

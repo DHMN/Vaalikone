@@ -100,6 +100,8 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
                     <br>
                     <form action='ehdokasAnswers' method='post'>
+                    <label for="ehdokasNro">Ehdokasnumero:</label>
+                    <input type="number" id="ehdokasNro" name="ehdokasNro"><br>
                     <c:set var="count" value="0" scope="page" />
                         <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counter">
                             <table class="table table-striped">

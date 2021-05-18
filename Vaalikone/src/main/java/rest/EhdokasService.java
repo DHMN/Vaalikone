@@ -1,5 +1,6 @@
 package rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -104,5 +105,21 @@ public class EhdokasService {
 		Ehdokas f = em.find(Ehdokas.class, id);
 		em.getTransaction().commit();
 		return f;
+	}
+	
+	@POST
+	@Path("/yhdistys")
+	@Consumes(MediaType.APPLICATION_JSON)//Method receives object as a JSON string
+	@Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
+	public ArrayList<Yhdistys> yhdistys(ArrayList<Yhdistys> list) {
+		//The parameter list could be saved into a database or a file
+		//but here we just modify it to be sure, that it is usable
+		EntityManager em=emf.createEntityManager();
+		for (Yhdistys db: list) {
+			em.getTransaction().begin();
+			em.persist(db);//The actual insertion line
+			em.getTransaction().commit();
+		}
+		return list;
 	}
 }
