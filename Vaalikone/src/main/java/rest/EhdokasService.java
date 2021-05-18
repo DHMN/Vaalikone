@@ -65,8 +65,12 @@ public class EhdokasService {
 		System.out.println("Ehdokkaan id"+ehdokas.getId());
 		System.out.println("Ehdokas uudet tietdot" + f);
 		if (f != null) {
+			System.out.println("Ehdokas tiedot ennen mergeä: " + f);
 			em.merge(ehdokas);
+			System.out.println("Ehdokas tiedot mergen jälkeen: " + f);
+			System.out.println("Ehdokas tiedot mergen jälkeen: " + ehdokas);
 		}
+		em.getTransaction().commit();
 		List<Ehdokas> list = readEhdokas();
 		return list;
 	}
