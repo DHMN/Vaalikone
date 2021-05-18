@@ -26,6 +26,12 @@ public class Vaittama implements Serializable {
 	public Vaittama(String teksti) {
 		this.teksti = teksti;
 	}
+	
+	// Konstruktori tekstillä
+	public Vaittama(String teksti, String id) {
+		this.teksti = teksti;
+		this.setId(id);
+	}
 
 	// Setterit ja getterit
 	public void setId(int id) {

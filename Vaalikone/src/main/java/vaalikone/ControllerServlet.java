@@ -163,9 +163,11 @@ public class ControllerServlet extends HttpServlet {
 	private void update(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String teksti = request.getParameter("teksti");
+		String id = request.getParameter("id");
 
-		Vaittama vaittama = new Vaittama(teksti);
-
+		Vaittama vaittama = new Vaittama(teksti, id);
+		System.out.println("väittämän teksti update metodiin tultaessa: " + teksti);
+		System.out.println("väittämän id update metodiin tultaessa: " + vaittama.getId());
 		ArrayList<Vaittama> list = null;
 
 		list = dao.updateVaittama(vaittama);
