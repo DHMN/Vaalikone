@@ -84,6 +84,9 @@ public class ControllerServlet extends HttpServlet {
 			case "/readehdokas":
 				list = readehdokas(request);
 				break;
+			case "/ehdokasAnswers":
+				ehdokasAnswers(request);
+				break;
 			case "/readtoupdateehdokas":
 				Ehdokas f = readtoupdateehdokas(request);
 				request.setAttribute("ehdokas", f);
@@ -311,5 +314,32 @@ public class ControllerServlet extends HttpServlet {
 
 		List<Ehdokas> returnedList = b.delete(genericList);
 		return returnedList;
+	}
+	
+	private List<Vastaus> ehdokasAnswers(HttpServletRequest request) {
+//		Vastaus f = new Vastaus(request.getParameter("vastausteksti1"), request.getParameter("vastausteksti2"),
+//				request.getParameter("vastausteksti3"));
+		System.out.println("Väittämän id " + request.getParameter("vaittamaId1"));
+		System.out.println("Vastausteksti2 " + request.getParameter("vastausteksti1"));
+		System.out.println("Vaittaman arvo " + request.getParameter("vaittamanArvo1"));
+		System.out.println();
+		System.out.println("Väittämän id " + request.getParameter("vaittamaId2"));
+		System.out.println("Vastausteksti2 " + request.getParameter("vastausteksti2"));
+		System.out.println("Vaittaman arvo " + request.getParameter("vaittamanArvo2"));
+		System.out.println();
+		System.out.println("Väittämän id " + request.getParameter("vaittamaId3"));
+		System.out.println("Vastausteksti3 " + request.getParameter("vastausteksti3"));
+		System.out.println("Vaittaman arvo " + request.getParameter("vaittamanArvo3"));
+		System.out.println();
+		//String uri = "http://127.0.0.1:8080/rest/ehdokasservice/addehdokas";
+//		Client c = ClientBuilder.newClient();
+//		WebTarget wt = c.target(uri);
+//		Builder b = wt.request();
+//		Entity<Ehdokas> e = Entity.entity(f, MediaType.APPLICATION_JSON);
+//		GenericType<List<Ehdokas>> genericList = new GenericType<List<Ehdokas>>() {
+//		};
+//
+//		List<Ehdokas> returnedList = b.post(e, genericList);
+		return null;
 	}
 }

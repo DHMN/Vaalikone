@@ -99,13 +99,12 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                 <article>                
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
                     <br>
-                    <form action='answers' method='post'>
+                    <form action='ehdokasAnswers' method='post'>
                     <c:set var="count" value="0" scope="page" />
                         <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counter">
                             <table class="table table-striped">
                                 <tr>
-                                    <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /></b></th>
-                                            
+                                    <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /><input type='hidden' name='vaittamaId${counter.count}' value='${vaittama.id}'></b></th>
                                 </tr>
                             </table>
                             <table class="table">
@@ -115,10 +114,9 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                                     		<input type='checkbox' name='vastausteksti${counter.count}' value='${vastausvaihtoehdot.vv}'>
                                         	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
                                         	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
+                                        	<th><input type='hidden' name='vaittamanArvo${counter.count}' value='${vastausvaihtoehdot.id}'></th>
                                     	</th>
                                     </c:forEach> 
-                                    <th><input type='hidden' name='vaittamaId' value='<c:out value="${vaittama.id}" />'>
-                                    </th>
                                 </tr>
                             </table>
                         </c:forEach>
