@@ -100,17 +100,19 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
                     <br>
                     <form action='answers' method='post'>
-                        <c:forEach var="vaittama" items="${requestScope.list}">
+                    <c:set var="count" value="0" scope="page" />
+                        <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counter">
                             <table class="table table-striped">
                                 <tr>
-                                    <th><b> <c:out value="${vaittama.teksti}" /></b></th>
+                                    <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /></b></th>
+                                            
                                 </tr>
                             </table>
                             <table class="table">
                                 <tr>
-                                    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
+                                    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}" varStatus="counter">
                                     	<th>
-                                    		<input type='checkbox' name='vastausteksti' value='${vastausvaihtoehdot.vv}'>
+                                    		<input type='checkbox' name='vastausteksti${counter.count}' value='${vastausvaihtoehdot.vv}'>
                                         	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
                                         	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
                                     	</th>
