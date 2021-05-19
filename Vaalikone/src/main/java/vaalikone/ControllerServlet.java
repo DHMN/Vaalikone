@@ -424,6 +424,10 @@ public class ControllerServlet extends HttpServlet {
 		};
 
 		List<Yhdistys> returnedList = b.post(f, genericList);
+		
+		for (Yhdistys db:returnedList) {
+			System.out.println(db);
+		}
 
 		return returnedList;
 	}

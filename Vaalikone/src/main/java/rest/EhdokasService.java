@@ -128,7 +128,7 @@ public class EhdokasService {
 	@Path("/yhdistys")
 	@Consumes(MediaType.APPLICATION_JSON)//Method receives object as a JSON string
 	@Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
-	public List<Yhdistys> yhdistys(List<Yhdistys> list) {
+	public ArrayList<Yhdistys> yhdistys(ArrayList<Yhdistys> list) {
 		//The parameter list could be saved into a database or a file
 		//but here we just modify it to be sure, that it is usable
 		EntityManager em=emf.createEntityManager();
@@ -137,7 +137,7 @@ public class EhdokasService {
 			em.persist(db);//The actual insertion line
 			em.getTransaction().commit();
 		}
-		list = readYhdistys();
+		//list = readYhdistys();
 		return list;
 	}
 	
