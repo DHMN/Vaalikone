@@ -65,7 +65,7 @@ public class Vaittama implements Serializable {
 
 	// Olion tulostamiseen toString
 	public String toString() {
-		return id + "" + teksti;
+		return id + "/" + teksti;
 	}
 	
 	public List<Yhdistys> getLiitokset() {

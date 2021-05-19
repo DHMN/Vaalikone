@@ -79,7 +79,7 @@ public class Vastaus implements Serializable {
 
 	// Olion tulostamiseen toString
 	public String toString() {
-		return id + "" + vastausteksti;
+		return id + "/" + vastausteksti;
 	}
 
 }
