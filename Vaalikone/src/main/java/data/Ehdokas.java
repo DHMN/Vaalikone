@@ -31,6 +31,10 @@ public class Ehdokas implements Serializable{
     public Ehdokas() {
 
     }
+    
+    public Ehdokas(String id) {
+    	this.setId(id);
+    }
 
     
     public Ehdokas(int ehdokasNro, String puolue, String etuNimi, String sukuNimi, String osoite, String postiNro, String postiPka, String miksi, String pathPic) {

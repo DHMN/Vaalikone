@@ -113,10 +113,10 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                                 <tr>
                                     <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}" varStatus="counter">
                                     	<th>
-                                    		<input type='checkbox' name='vastausteksti${counter.count}' value='${vastausvaihtoehdot.vv}'>
+                                    		<input type='checkbox' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
                                         	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
                                         	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
-                                        	<th><input type='hidden' name='vaittamanArvo${counter.count}' value='${vastausvaihtoehdot.id}'></th>
+                                        	<th><input type='hidden' name='vaittamanArvo${vaittama.id}' value='${vastausvaihtoehdot.id}'></th>
                                     	</th>
                                     </c:forEach> 
                                 </tr>
@@ -124,6 +124,13 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                         </c:forEach>
                         <input type='submit' name='ok' value='Send'>
                     </form>
+                    <c:forEach var="ehdokas" items="${requestScope.yhdistyslist}">
+	<li>${yhdistys} </li>
+</c:forEach>
+                    <c:forEach var="vastaukset" items="${paramValues.vastausteksti}">
+						<li><font color="#008000"><c:out value="${vastaukset}"/></font></li>
+					</c:forEach>
+                    
                 </article>
 
             </div>

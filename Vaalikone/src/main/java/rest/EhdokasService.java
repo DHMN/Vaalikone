@@ -107,11 +107,28 @@ public class EhdokasService {
 		return f;
 	}
 	
+//	@POST
+//	@Path("/yhdistys")
+//	@Consumes(MediaType.APPLICATION_JSON)//Method receives object as a JSON string
+//	@Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
+//	public ArrayList<Yhdistys> yhdistys(ArrayList<Yhdistys> list) {
+//		//The parameter list could be saved into a database or a file
+//		//but here we just modify it to be sure, that it is usable
+//		EntityManager em=emf.createEntityManager();
+//		for (Yhdistys db: list) {
+//			em.getTransaction().begin();
+//			em.persist(db);//The actual insertion line
+//			em.getTransaction().commit();
+//		}
+//
+//		return list;
+//	}
+	
 	@POST
 	@Path("/yhdistys")
 	@Consumes(MediaType.APPLICATION_JSON)//Method receives object as a JSON string
 	@Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
-	public ArrayList<Yhdistys> yhdistys(ArrayList<Yhdistys> list) {
+	public List<Yhdistys> yhdistys(List<Yhdistys> list) {
 		//The parameter list could be saved into a database or a file
 		//but here we just modify it to be sure, that it is usable
 		EntityManager em=emf.createEntityManager();
@@ -120,6 +137,36 @@ public class EhdokasService {
 			em.persist(db);//The actual insertion line
 			em.getTransaction().commit();
 		}
+		list = readYhdistys();
 		return list;
 	}
+	
+	// TÄMÄ HAKEE KAIKKI KALAT
+	@GET
+	@Path("/readyhdistys")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Yhdistys> readYhdistys() {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		List<Yhdistys> list = em.createQuery("select xyx from Yhdistys xyx").getResultList();
+		em.getTransaction().commit();
+		return list;
+	}
+	
+	// TÄMÄ LISÄÄ KALAN
+	@POST
+	@Path("/addyhdistys")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Yhdistys> addyhdistys(Yhdistys yhdistys) {
+        EntityManager em = emf.createEntityManager();
+        System.out.println("Ehdokas servicelle asti tulee");
+        em.getTransaction().begin();
+        em.persist(yhdistys);
+        em.getTransaction().commit();
+        List<Yhdistys> list = readYhdistys();
+        return list;
+	}
+	
 }

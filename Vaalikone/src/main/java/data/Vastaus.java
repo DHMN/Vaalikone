@@ -30,6 +30,11 @@ public class Vastaus implements Serializable {
 	public Vastaus(String vastausteksti) {
 		this.vastausteksti = vastausteksti;
 	}
+	
+	//Konstruktori vastausid:llä ja tekstillä
+	public Vastaus(int id) {
+		this.id = id;
+	}
 
 
 	// Setterit ja getterit

@@ -30,7 +30,8 @@ import data.Vastaus;
 import data.Vastausvaihtoehdot;
 import data.Yhdistys;
 
-@WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas", "/readtoupdateehdokas", "/ehdokasAnswer" })
+@WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas",
+		"/readtoupdateehdokas" })
 public class ControllerServlet extends HttpServlet {
 	Dao dao = new Dao();
 
@@ -44,6 +45,7 @@ public class ControllerServlet extends HttpServlet {
 
 		String action = request.getServletPath();
 		List<Ehdokas> list = null;
+		List<Yhdistys> list2 = null;
 
 		try {
 			switch (action) {
@@ -86,7 +88,10 @@ public class ControllerServlet extends HttpServlet {
 				list = readehdokas(request);
 				break;
 			case "/ehdokasAnswers":
-				ehdokasAnswers(request);
+				list2 = ehdokasAnswers(request);
+				request.setAttribute("yhdistyslist", list2);
+				RequestDispatcher rd = request.getRequestDispatcher("./jsp/VaittamaList.jsp");
+				rd.forward(request, response);
 				break;
 			case "/readtoupdateehdokas":
 				Ehdokas f = readtoupdateehdokas(request);
@@ -108,6 +113,7 @@ public class ControllerServlet extends HttpServlet {
 		request.setAttribute("ehdokaslist", list);
 		RequestDispatcher rd = request.getRequestDispatcher("./jsp/EhdokasNew.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/********* VANHAT METODIT **********/
@@ -316,66 +322,110 @@ public class ControllerServlet extends HttpServlet {
 		List<Ehdokas> returnedList = b.delete(genericList);
 		return returnedList;
 	}
-	
-	private List<Vastaus> ehdokasAnswers(HttpServletRequest request) {
-		ArrayList<Yhdistys> yhdistyslista= new ArrayList<>();
-		String ehdokasNro = request.getParameter("ehdokasNro");	
-		Ehdokas c = new Ehdokas();
-		c.setId(Integer.parseInt(ehdokasNro));
-		for (int i = 0; i < 2; i++) {
-			String vastaus = request.getParameter("vaittamanArvo"+i);
-			String vaittama = request.getParameter("vaittamaId"+i);
-			Vastaus a = new Vastaus(vastaus);
-			Vaittama b = new Vaittama(vaittama);
-			Yhdistys e = new Yhdistys(c, a, b);
-			yhdistyslista.add(e);
-			System.out.println("Väittämän id " + yhdistyslista);
+
+	private List<Yhdistys> ehdokasAnswers(HttpServletRequest request) {
+//		ArrayList<Yhdistys> yhdistyslista= new ArrayList<>();
+//		String ehdokasNro = request.getParameter("ehdokasNro");	
+//		Ehdokas c = new Ehdokas();
+//		c.setId(Integer.parseInt(ehdokasNro));
+//		for (int i = 0; i < 2; i++) {
+//			String vastaus = request.getParameter("vaittamanArvo"+i);
+//			String vaittama = request.getParameter("vaittamaId"+i);
+//			Vastaus a = new Vastaus(vastaus);
+//			Vaittama b = new Vaittama(vaittama);
+//			Yhdistys e = new Yhdistys(c, a, b);
+//			yhdistyslista.add(e);
+//			System.out.println("Väittämän id " + yhdistyslista);
+//		}
+//		
+//		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/yhdistys";
+//
+//		//A list of DogBreed objects to send to our web-service 
+//		Client asiakas=ClientBuilder.newClient();
+//		WebTarget wt=asiakas.target(uri);
+//		Builder b=wt.request();
+//		
+//		//Create an Entity object to send by post method
+//		Entity<ArrayList<Yhdistys>> f=Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
+//
+//		//Create a GenericType to be able to get List of objects
+//		//This will be the second parameter of post method
+//		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {};
+//		
+//		//Posting data (Entity<ArrayList<DogBreed>> e) to the given address
+//		List<Yhdistys> returnedList=b.post(f, genericList);
+//		
+//		for (Yhdistys db:returnedList) {
+//			System.out.println(db);
+//		}
+
+		ArrayList<Vaittama> vaittamalist = new ArrayList<>();
+		ArrayList<Yhdistys> yhdistyslista = new ArrayList<>();
+		
+		vaittamalist = dao.listVaittama();
+		int arvo = 0;
+
+		for (int i = 0; i < vaittamalist.size(); i++) {
+
+			System.out.println(vaittamalist.get(i).getId());
+
+			System.out.println("Väittämän id " + request.getParameter("vaittamaId" + (i + 1)));
+			System.out.println("Vastausteksti "+ request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))));
+
+			System.out.println(request.getParameter("ehdokasNro"));
+			
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("täysin samaa mieltä")) {
+				arvo = 5;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("samaa mieltä")) {
+				arvo = 4;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("neutraali")) {
+				arvo = 3;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("eri mieltä")) {
+				arvo = 2;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("täysin eri mieltä")) {
+				arvo = 1;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+
+			System.out.println(request.getParameter("ehdokasNro"));
+			
+			//String ehdokasNro = request.getParameter("ehdokasNro");
+
+			Ehdokas ehdokas = new Ehdokas(request.getParameter("ehdokasNro"));
+			Vastaus vastaus = new Vastaus(request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))));
+			Vaittama vaittama = new Vaittama(request.getParameter("vaittamaId" + (i + 1)));
+//			ehdokas.setId(1);
+//			vastaus.setId(1);
+//			vaittama.setId(1);
+			Yhdistys yhdistys = new Yhdistys(ehdokas, vastaus, vaittama);
+			yhdistyslista.add(yhdistys);
+			System.out.println("Yhdistyksen id " + yhdistys.getId());
+			System.out.println("Yhdistyksen ehdokas " + yhdistys.getEhdokas());
+			System.out.println("Yhdistyksen vaittama " + yhdistys.getVaittama());
+			System.out.println("Yhdistyksen vastaus " + yhdistys.getVastaus());
+			System.out.println("Ykhistyslista " + yhdistyslista);
 		}
 		
 		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/yhdistys";
+		Client asiakas = ClientBuilder.newClient();
+		WebTarget wt = asiakas.target(uri);
+		Builder b = wt.request();
 
-		//A list of DogBreed objects to send to our web-service 
-		Client asiakas=ClientBuilder.newClient();
-		WebTarget wt=asiakas.target(uri);
-		Builder b=wt.request();
-		
-		//Create an Entity object to send by post method
-		Entity<ArrayList<Yhdistys>> f=Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
+		Entity<ArrayList<Yhdistys>> f = Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
+		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {
+		};
 
-		//Create a GenericType to be able to get List of objects
-		//This will be the second parameter of post method
-		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {};
-		
-		//Posting data (Entity<ArrayList<DogBreed>> e) to the given address
-		List<Yhdistys> returnedList=b.post(f, genericList);
-		
-		for (Yhdistys db:returnedList) {
-			System.out.println(db);
-		}
-		
-//		Vastaus f = new Vastaus(request.getParameter("vastausteksti1"), request.getParameter("vastausteksti2"),
-//				request.getParameter("vastausteksti3"));
-		System.out.println("Väittämän id " + request.getParameter("vaittamaId1"));
-		System.out.println("Vastausteksti2 " + request.getParameter("vastausteksti1"));
-		System.out.println("Vaittaman arvo " + request.getParameter("vaittamanArvo1"));
-		System.out.println();
-		System.out.println("Väittämän id " + request.getParameter("vaittamaId2"));
-		System.out.println("Vastausteksti2 " + request.getParameter("vastausteksti2"));
-		System.out.println("Vaittaman arvo " + request.getParameter("vaittamanArvo2"));
-		System.out.println();
-		System.out.println("Väittämän id " + request.getParameter("vaittamaId3"));
-		System.out.println("Vastausteksti3 " + request.getParameter("vastausteksti3"));
-		System.out.println("Vaittaman arvo " + request.getParameter("vaittamanArvo3"));
-		System.out.println();
-		//String uri = "http://127.0.0.1:8080/rest/ehdokasservice/addehdokas";
-//		Client c = ClientBuilder.newClient();
-//		WebTarget wt = c.target(uri);
-//		Builder b = wt.request();
-//		Entity<Ehdokas> e = Entity.entity(f, MediaType.APPLICATION_JSON);
-//		GenericType<List<Ehdokas>> genericList = new GenericType<List<Ehdokas>>() {
-//		};
-//
-//		List<Ehdokas> returnedList = b.post(e, genericList);
-		return null;
+		List<Yhdistys> returnedList = b.post(f, genericList);
+
+		return returnedList;
 	}
+
 }
