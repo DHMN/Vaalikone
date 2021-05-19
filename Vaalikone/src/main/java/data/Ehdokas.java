@@ -32,8 +32,11 @@ public class Ehdokas implements Serializable{
 
     }
     
-    public Ehdokas(String id) {
-    	this.setId(id);
+//    public Ehdokas(String id) {
+//    	this.setId(id);
+//    }
+    public Ehdokas(String ehdokasNro) {
+    	this.setEhdokasNro(ehdokasNro);
     }
 
     
@@ -78,6 +81,8 @@ public class Ehdokas implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
 	// TÄMÄ VARMISTAA, ETTÄ STRINGINÄ TULLUT ID KÄÄNNETÄÄN INTIKSI
 	public void setId(String id) {
 		try {
