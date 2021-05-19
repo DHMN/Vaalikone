@@ -99,7 +99,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                 <article>                
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
                     <br>
-                    <form action='ehdokasAnswers' method='post'>
+                    <form action='../ehdokasAnswers' method='post'>
                     <label for="ehdokasNro">Ehdokasnumero:</label>
                     <input type="number" id="ehdokasNro" name="ehdokasNro"><br>
                     <c:set var="count" value="0" scope="page" />

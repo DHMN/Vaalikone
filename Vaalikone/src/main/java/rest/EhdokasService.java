@@ -15,8 +15,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import data.Ehdokas;
+import data.Kerays;
 import data.Vastaus;
 import data.Yhdistys;
 import data.Vaittama;
@@ -126,19 +129,29 @@ public class EhdokasService {
 	
 	@POST
 	@Path("/yhdistys")
+	//Syö keräyslistaa jolla hakee tarvittavat ja persistaa
 	@Consumes(MediaType.APPLICATION_JSON)//Method receives object as a JSON string
 	@Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
-	public ArrayList<Yhdistys> yhdistys(ArrayList<Yhdistys> list) {
+	public ArrayList<Kerays> yhdistys(ArrayList<Kerays> list) {
 		//The parameter list could be saved into a database or a file
 		//but here we just modify it to be sure, that it is usable
 		EntityManager em=emf.createEntityManager();
-		for (Yhdistys db: list) {
+		for (Kerays db: list) {
+			Ehdokas f = em.find(Ehdokas.class, Integer.parseInt(db.getEhdokasid()));
+			Vaittama g = em.find(Vaittama.class, Integer.parseInt(db.getVaittamaid()));
+			Vastaus h = new Vastaus();
+			h.setVastausteksti(db.getVastausteksti());
 			em.getTransaction().begin();
-			em.persist(db);//The actual insertion line
+			em.persist(h);
+			em.getTransaction().commit();
+			Yhdistys yhdistys = new Yhdistys(f, h, g);
+			System.out.println("Yhdistystiedot service: " + yhdistys);
+			em.getTransaction().begin();
+			em.persist(yhdistys);//The actual insertion line
 			em.getTransaction().commit();
 		}
-		//list = readYhdistys();
 		return list;
+		//list = readYhdistys();
 	}
 	
 	// TÄMÄ HAKEE KAIKKI KALAT

@@ -4,9 +4,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,10 +19,12 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import dao.Dao;
 import data.Ehdokas;
 import data.Kayttaja;
+import data.Kerays;
 import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
@@ -45,7 +45,7 @@ public class ControllerServlet extends HttpServlet {
 
 		String action = request.getServletPath();
 		List<Ehdokas> list = null;
-		List<Yhdistys> list2 = null;
+		List<Kerays> list2 = null;
 
 		try {
 			switch (action) {
@@ -89,9 +89,9 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "/ehdokasAnswers":
 				list2 = ehdokasAnswers(request);
-				request.setAttribute("yhdistyslist", list2);
-				RequestDispatcher rd = request.getRequestDispatcher("./jsp/VaittamaList.jsp");
-				rd.forward(request, response);
+				//request.setAttribute("yhdistyslist", list2);
+				//RequestDispatcher rd = request.getRequestDispatcher("./jsp/VaittamaList.jsp");
+				//rd.forward(request, response);
 				break;
 			case "/readtoupdateehdokas":
 				Ehdokas f = readtoupdateehdokas(request);
@@ -323,7 +323,7 @@ public class ControllerServlet extends HttpServlet {
 		return returnedList;
 	}
 
-	private List<Yhdistys> ehdokasAnswers(HttpServletRequest request) {
+	private List<Kerays> ehdokasAnswers(HttpServletRequest request) {
 //		ArrayList<Yhdistys> yhdistyslista= new ArrayList<>();
 //		String ehdokasNro = request.getParameter("ehdokasNro");	
 //		Ehdokas c = new Ehdokas();
@@ -360,7 +360,7 @@ public class ControllerServlet extends HttpServlet {
 //		}
 
 		ArrayList<Vaittama> vaittamalist = new ArrayList<>();
-		ArrayList<Yhdistys> yhdistyslista = new ArrayList<>();
+		ArrayList<Kerays> yhdistyslista = new ArrayList<>();
 		
 		vaittamalist = dao.listVaittama();
 		int arvo = 0;
@@ -398,20 +398,11 @@ public class ControllerServlet extends HttpServlet {
 			System.out.println(request.getParameter("ehdokasNro"));
 			
 			//String ehdokasNro = request.getParameter("ehdokasNro");
-
-			Ehdokas ehdokas = new Ehdokas(request.getParameter("ehdokasNro"));
-			Vastaus vastaus = new Vastaus(request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))));
-			Vaittama vaittama = new Vaittama(request.getParameter("vaittamaId" + (i + 1)));
-//			ehdokas.setId(1);
-//			vastaus.setId(1);
-//			vaittama.setId(1);
-			Yhdistys yhdistys = new Yhdistys(ehdokas, vastaus, vaittama);
-			yhdistyslista.add(yhdistys);
-			System.out.println("Yhdistyksen id " + yhdistys.getId());
-			System.out.println("Yhdistyksen ehdokas " + yhdistys.getEhdokas());
-			System.out.println("Yhdistyksen vaittama " + yhdistys.getVaittama());
-			System.out.println("Yhdistyksen vastaus " + yhdistys.getVastaus());
-			System.out.println("Ykhistyslista " + yhdistyslista);
+			Kerays kerays = new Kerays();
+			kerays.setEhdokasid(request.getParameter("ehdokasNro"));
+			kerays.setVastausteksti(String.valueOf(arvo));
+			kerays.setVaittamaid(String.valueOf(i+1));
+			yhdistyslista.add(kerays);
 		}
 		
 		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/yhdistys";
@@ -419,13 +410,12 @@ public class ControllerServlet extends HttpServlet {
 		WebTarget wt = asiakas.target(uri);
 		Builder b = wt.request();
 
-		Entity<ArrayList<Yhdistys>> f = Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
-		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {
-		};
+		Entity<ArrayList<Kerays>> f = Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
+		GenericType<List<Kerays>> genericList = new GenericType<List<Kerays>>() {};
 
-		List<Yhdistys> returnedList = b.post(f, genericList);
+		List<Kerays> returnedList = b.post(f, genericList);
 		
-		for (Yhdistys db:returnedList) {
+		for (Kerays db:returnedList) {
 			System.out.println(db);
 		}
 
