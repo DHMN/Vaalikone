@@ -404,6 +404,7 @@ public class ControllerServlet extends HttpServlet {
 			kerays.setVaittamaid(i+1);
 //			kerays.setVastausteksti(String.valueOf(arvo));
 //			kerays.setVaittamaid(String.valueOf(i+1));
+
 			yhdistyslista.add(kerays);
 		}
 		

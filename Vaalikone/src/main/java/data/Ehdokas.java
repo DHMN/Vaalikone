@@ -92,12 +92,6 @@ public class Ehdokas implements Serializable{
 			//Do nothing - the value is not changed
 		}
 	}
-	public int getEhdokasNro() {
-		return ehdokasNro;
-	}
-	public void setEhdokasNro(int ehdokasNro) {
-		this.ehdokasNro = ehdokasNro;
-	}
 	public void setEhdokasNro(String ehdokasNro) {
 		try {
 			this.ehdokasNro = Integer.parseInt(ehdokasNro);
@@ -105,6 +99,12 @@ public class Ehdokas implements Serializable{
 		catch (NumberFormatException | NullPointerException e) {
 			//Do nothing - the value is not changed
 		}
+	}
+	public int getEhdokasNro() {
+		return ehdokasNro;
+	}
+	public void setEhdokasNro(int ehdokasNro) {
+		this.ehdokasNro = ehdokasNro;
 	}
 	public String getPuolue() {
 		return puolue;

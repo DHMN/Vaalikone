@@ -35,6 +35,7 @@ public class Vastaus implements Serializable {
 	public Vastaus(int id) {
 		this.id = id;
 	}
+	
 
 
 	// Setterit ja getterit

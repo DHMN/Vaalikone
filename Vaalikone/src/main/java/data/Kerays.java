@@ -34,7 +34,6 @@ public class Kerays implements Serializable {
 		}
 	}
 
-//	
 	public void setEhdokasid(int ehdokasid) {
 		this.ehdokasid = ehdokasid;
 	}
