@@ -75,7 +75,8 @@ public class Dao {
 		try {
 			String sql = "update vaittama set teksti=? where id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-
+			System.out.println("väittämän teksti DAOn updateVaittama metodiin tultaessa: " + vaittama.getTeksti());
+			System.out.println("väittämän teksti DAOn updateVaittama metodiin tultaessa: " + vaittama.getId());
 			pstmt.setString(1, vaittama.getTeksti());
 			pstmt.setInt(2, vaittama.getId());
 			pstmt.executeUpdate();

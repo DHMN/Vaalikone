@@ -4,9 +4,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,15 +19,19 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import dao.Dao;
 import data.Ehdokas;
 import data.Kayttaja;
+import data.Kerays;
 import data.Vaittama;
 import data.Vastaus;
 import data.Vastausvaihtoehdot;
+import data.Yhdistys;
 
-@WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas", "/readtoupdateehdokas" })
+@WebServlet(urlPatterns = { "/hello", "/addehdokas", "/deleteehdokas", "/updateehdokas", "/readehdokas",
+		"/readtoupdateehdokas" })
 public class ControllerServlet extends HttpServlet {
 	Dao dao = new Dao();
 
@@ -43,6 +45,7 @@ public class ControllerServlet extends HttpServlet {
 
 		String action = request.getServletPath();
 		List<Ehdokas> list = null;
+		List<Kerays> list2 = null;
 
 		try {
 			switch (action) {
@@ -84,6 +87,12 @@ public class ControllerServlet extends HttpServlet {
 			case "/readehdokas":
 				list = readehdokas(request);
 				break;
+			case "/ehdokasAnswers":
+				list2 = ehdokasAnswers(request);
+				//request.setAttribute("yhdistyslist", list2);
+				//RequestDispatcher rd = request.getRequestDispatcher("./jsp/VaittamaList.jsp");
+				//rd.forward(request, response);
+				break;
 			case "/readtoupdateehdokas":
 				Ehdokas f = readtoupdateehdokas(request);
 				request.setAttribute("ehdokas", f);
@@ -104,6 +113,7 @@ public class ControllerServlet extends HttpServlet {
 		request.setAttribute("ehdokaslist", list);
 		RequestDispatcher rd = request.getRequestDispatcher("./jsp/EhdokasNew.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/********* VANHAT METODIT **********/
@@ -163,9 +173,11 @@ public class ControllerServlet extends HttpServlet {
 	private void update(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String teksti = request.getParameter("teksti");
+		String id = request.getParameter("id");
 
-		Vaittama vaittama = new Vaittama(teksti);
-
+		Vaittama vaittama = new Vaittama(teksti, id);
+		System.out.println("väittämän teksti update metodiin tultaessa: " + teksti);
+		System.out.println("väittämän id update metodiin tultaessa: " + vaittama.getId());
 		ArrayList<Vaittama> list = null;
 
 		list = dao.updateVaittama(vaittama);
@@ -310,4 +322,106 @@ public class ControllerServlet extends HttpServlet {
 		List<Ehdokas> returnedList = b.delete(genericList);
 		return returnedList;
 	}
+
+	private List<Kerays> ehdokasAnswers(HttpServletRequest request) {
+//		ArrayList<Yhdistys> yhdistyslista= new ArrayList<>();
+//		String ehdokasNro = request.getParameter("ehdokasNro");	
+//		Ehdokas c = new Ehdokas();
+//		c.setId(Integer.parseInt(ehdokasNro));
+//		for (int i = 0; i < 2; i++) {
+//			String vastaus = request.getParameter("vaittamanArvo"+i);
+//			String vaittama = request.getParameter("vaittamaId"+i);
+//			Vastaus a = new Vastaus(vastaus);
+//			Vaittama b = new Vaittama(vaittama);
+//			Yhdistys e = new Yhdistys(c, a, b);
+//			yhdistyslista.add(e);
+//			System.out.println("Väittämän id " + yhdistyslista);
+//		}
+//		
+//		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/yhdistys";
+//
+//		//A list of DogBreed objects to send to our web-service 
+//		Client asiakas=ClientBuilder.newClient();
+//		WebTarget wt=asiakas.target(uri);
+//		Builder b=wt.request();
+//		
+//		//Create an Entity object to send by post method
+//		Entity<ArrayList<Yhdistys>> f=Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
+//
+//		//Create a GenericType to be able to get List of objects
+//		//This will be the second parameter of post method
+//		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {};
+//		
+//		//Posting data (Entity<ArrayList<DogBreed>> e) to the given address
+//		List<Yhdistys> returnedList=b.post(f, genericList);
+//		
+//		for (Yhdistys db:returnedList) {
+//			System.out.println(db);
+//		}
+
+		ArrayList<Vaittama> vaittamalist = new ArrayList<>();
+		ArrayList<Kerays> yhdistyslista = new ArrayList<>();
+		
+		vaittamalist = dao.listVaittama();
+		int arvo = 0;
+
+		for (int i = 0; i < vaittamalist.size(); i++) {
+
+			System.out.println(vaittamalist.get(i).getId());
+
+			System.out.println("Väittämän id " + request.getParameter("vaittamaId" + (i + 1)));
+			System.out.println("Vastausteksti "+ request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))));
+
+			System.out.println(request.getParameter("ehdokasNro"));
+			
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("täysin samaa mieltä")) {
+				arvo = 5;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("samaa mieltä")) {
+				arvo = 4;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("neutraali")) {
+				arvo = 3;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("eri mieltä")) {
+				arvo = 2;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+			if (request.getParameter("vastausteksti" + request.getParameter("vaittamaId" + (i + 1))).equals("täysin eri mieltä")) {
+				arvo = 1;
+				System.out.println("Vaittaman arvo " + arvo);
+			}
+
+			System.out.println(request.getParameter("ehdokasNro"));
+			
+			//String ehdokasNro = request.getParameter("ehdokasNro");
+			Kerays kerays = new Kerays();
+			kerays.setEhdokasid(request.getParameter("ehdokasNro"));
+			kerays.setVastausteksti(arvo);
+			kerays.setVaittamaid(i+1);
+//			kerays.setVastausteksti(String.valueOf(arvo));
+//			kerays.setVaittamaid(String.valueOf(i+1));
+			yhdistyslista.add(kerays);
+		}
+		
+		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/yhdistys";
+		Client asiakas = ClientBuilder.newClient();
+		WebTarget wt = asiakas.target(uri);
+		Builder b = wt.request();
+
+		Entity<ArrayList<Kerays>> f = Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
+		GenericType<List<Kerays>> genericList = new GenericType<List<Kerays>>() {};
+
+		List<Kerays> returnedList = b.post(f, genericList);
+		
+		for (Kerays db:returnedList) {
+			System.out.println(db);
+		}
+
+		return returnedList;
+	}
+
 }

@@ -99,29 +99,38 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                 <article>                
                     <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
                     <br>
-                    <form action='answers' method='post'>
-                        <c:forEach var="vaittama" items="${requestScope.list}">
+                    <form action='../ehdokasAnswers' method='post'>
+                    <label for="ehdokasNro">Ehdokasnumero:</label>
+                    <input type="number" id="ehdokasNro" name="ehdokasNro"><br>
+                    <c:set var="count" value="0" scope="page" />
+                        <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counter">
                             <table class="table table-striped">
                                 <tr>
-                                    <th><b> <c:out value="${vaittama.teksti}" /></b></th>
+                                    <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /><input type='hidden' name='vaittamaId${counter.count}' value='${vaittama.id}'></b></th>
                                 </tr>
                             </table>
                             <table class="table">
                                 <tr>
-                                    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
+                                    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}" varStatus="counter">
                                     	<th>
-                                    		<input type='checkbox' name='vastausteksti' value='${vastausvaihtoehdot.vv}'>
+                                    		<input type='checkbox' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
                                         	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
                                         	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
+                                        	<th><input type='hidden' name='vaittamanArvo${vaittama.id}' value='${vastausvaihtoehdot.id}'></th>
                                     	</th>
                                     </c:forEach> 
-                                    <th><input type='hidden' name='vaittamaId' value='<c:out value="${vaittama.id}" />'>
-                                    </th>
                                 </tr>
                             </table>
                         </c:forEach>
                         <input type='submit' name='ok' value='Send'>
                     </form>
+                    <c:forEach var="ehdokas" items="${requestScope.yhdistyslist}">
+	<li>${yhdistys} </li>
+</c:forEach>
+                    <c:forEach var="vastaukset" items="${paramValues.vastausteksti}">
+						<li><font color="#008000"><c:out value="${vastaukset}"/></font></li>
+					</c:forEach>
+                    
                 </article>
 
             </div>

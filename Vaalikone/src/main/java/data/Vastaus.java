@@ -13,7 +13,7 @@ public class Vastaus implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String vastausteksti;
+	private int vastausteksti;
 
 
 	//bi-directional one-to-many association to Fishbreed
@@ -28,7 +28,12 @@ public class Vastaus implements Serializable {
 
 	//Konstruktori vastausid:llä ja tekstillä
 	public Vastaus(String vastausteksti) {
-		this.vastausteksti = vastausteksti;
+		this.setVastausteksti(vastausteksti);
+	}
+	
+	//Konstruktori vastausid:llä ja tekstillä
+	public Vastaus(int id) {
+		this.id = id;
 	}
 
 
@@ -45,9 +50,18 @@ public class Vastaus implements Serializable {
 			// Do nothing - the value of id won't be changed
 		}
 	}
-
+	
+	// MUUTTAA LOMAKKEELTA TULLEEN STRING ID:N INTIKSI
 	public void setVastausteksti(String vastausteksti) {
-		this.vastausteksti = vastausteksti;
+		try {
+			this.vastausteksti = Integer.parseInt(vastausteksti);
+		} catch (NumberFormatException | NullPointerException e) {
+			// Do nothing - the value of id won't be changed
+		}
+	}
+
+	public void setVastausteksti(int i) {
+		this.vastausteksti = i;
 	}
 
 	public int getId() {
@@ -56,7 +70,7 @@ public class Vastaus implements Serializable {
 
 
 	public String getVastausteksti() {
-		return vastausteksti;
+		return String.valueOf(vastausteksti);
 	}
 
 	public String getIdString() {
@@ -74,7 +88,7 @@ public class Vastaus implements Serializable {
 
 	// Olion tulostamiseen toString
 	public String toString() {
-		return id + "" + vastausteksti;
+		return id + "/" + vastausteksti;
 	}
 
 }
