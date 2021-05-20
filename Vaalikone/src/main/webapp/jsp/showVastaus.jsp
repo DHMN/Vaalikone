@@ -69,39 +69,8 @@ if((request.getSession(false).getAttribute("Admin") == null) )
         <!-- PÄÄSISÄLTÖ ALKAA -->
         <div class="row narrow">
             <div class="col-md-12 article">
-                <article>
-                    <h1>Kaikki väittämät</h1>
+         <h1>Kiitos vastauksesta!</h1>
                     <br>
-                    <table class="table table-striped">
-                        <tr>
-                            <th><b>ID</b></th>
-                            <th><b>Teksti</b></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-
-                        <c:forEach var="vaittama" items="${requestScope.list}">
-                            <tr>
-                                <th><c:out value="${vaittama.id}" /></th>
-                                <th><c:out value="${vaittama.teksti}" /></th>
-                                <th><a href="/readtoupdate?id=<c:out value='${vaittama.id}' />">Edit</a></th>
-                                <th><a href="/delete?id=<c:out value='${vaittama.id}' />">Delete</a></th>
-
-                            </tr>
-                        </c:forEach>
-                                   
-                    </table>
-                    <br> 
-                    <a href="/jsp/VaittamatNew.jsp" class="btn">Lisää väittämä</a> 
-                    <a href="/list" class="btn">Listaa väittämät</a>
-                </article>
-
-                <article>                
-                    <h1>Kaikki väittämät ja vastausvaihtoehdot</h1>
-                    <br>
-                    <form action='../ehdokasAnswers' method='post'>
-                    <label for="ehdokasNro">Ehdokasnumero:</label>
-                    <input type="number" id="ehdokasNro" name="ehdokasNro"><br>
                     <c:set var="count" value="0" scope="page" />
                         <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counter">
                             <table class="table table-striped">
@@ -113,7 +82,8 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                                 <tr>
                                     <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}" varStatus="counter">
                                     	<th>
-                                    		<input type='checkbox' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
+                                    	<input type='checkbox' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
+
                                         	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
                                         	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
                                         	<th><input type='hidden' name='vaittamanArvo${vaittama.id}' value='${vastausvaihtoehdot.id}'></th>
@@ -122,9 +92,11 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                                 </tr>
                             </table>
                         </c:forEach>
-                        <input type='submit' name='ok' value='Send'>
-                    </form>
-                    
+        
+
+                <article>                
+                    <h1>Vastauksesi</h1>
+                    <br>                    
                     <c:forEach var="kerays" items="${requestScope.yhdistyslist}">
 	<li>Vaittama: <c:out value="${kerays.vaittamaid}"/>  Vastaus: <c:out value="${kerays.vastausteksti}"/></li>
 </c:forEach>

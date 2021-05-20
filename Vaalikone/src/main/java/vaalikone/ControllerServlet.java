@@ -89,9 +89,8 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "/ehdokasAnswers":
 				list2 = ehdokasAnswers(request);
-				//request.setAttribute("yhdistyslist", list2);
-				//RequestDispatcher rd = request.getRequestDispatcher("./jsp/VaittamaList.jsp");
-				//rd.forward(request, response);
+				request.setAttribute("yhdistyslist", list2);
+				listVaittamafor(request, response);
 				break;
 			case "/readtoupdateehdokas":
 				Ehdokas f = readtoupdateehdokas(request);
@@ -249,6 +248,18 @@ public class ControllerServlet extends HttpServlet {
 			System.out.println("Logged out");
 		}
 
+	}
+	//vastauksen tulostamista varten
+	public void listVaittamafor(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		ArrayList<Vaittama> list = new ArrayList<>();
+		list = dao.listVaittama();
+		request.setAttribute("list", list);
+
+		listVastausvaihtoehdot(request, response);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/showVastaus.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/********* EHDOKKAAN KÄSITTELY **********/
@@ -421,7 +432,7 @@ public class ControllerServlet extends HttpServlet {
 		for (Kerays db:returnedList) {
 			System.out.println(db);
 		}
-
+		
 		return returnedList;
 	}
 
