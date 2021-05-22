@@ -64,11 +64,11 @@
         <div class="row narrow">
             <div class="col-md-12 article">
 				<article>
-                  <h1>Lisää uusi ehdokas</h1>
+                  <h1>Ehdokkaat</h1>
                     <br>
 <ul>
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
-	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi}  <a href='../showanswers?id=${ehdokas.id}'>Vastaukset</a></li>
+	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a>  <a href='../showanswers?id=${ehdokas.id}'>Vastaukset</a></li>
 </c:forEach>
 </ul>
                 </article>
