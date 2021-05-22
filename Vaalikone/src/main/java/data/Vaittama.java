@@ -3,6 +3,8 @@ package data;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Vaittama implements Serializable {
 	
 	//bi-directional many-to-many association to vastaukset
 	@OneToMany(mappedBy = "vaittama", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JsonManagedReference(value="yh-vt")
 	List<Yhdistys> liitokset;
 
 	// Peruskonstruktori

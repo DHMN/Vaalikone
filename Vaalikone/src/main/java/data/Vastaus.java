@@ -3,6 +3,8 @@ package data;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import data.Vaittama;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Vastaus implements Serializable {
 
 	//bi-directional one-to-many association to Fishbreed
 	@OneToMany(mappedBy = "vastaus", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JsonManagedReference(value="yh-va")
 	List<Yhdistys> liitokset;
 	
 	

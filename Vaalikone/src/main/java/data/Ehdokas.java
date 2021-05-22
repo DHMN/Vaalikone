@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class Ehdokas implements Serializable{
     private String miksi;
     private String pathPic;
     @OneToMany(mappedBy = "ehdokas", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JsonManagedReference(value="yh-eh")
 	List<Yhdistys> liitokset;
    
     public Ehdokas() {

@@ -15,8 +15,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
+
+
 
 import data.Ehdokas;
 import data.Kerays;
@@ -181,5 +181,20 @@ public class EhdokasService {
         List<Yhdistys> list = readYhdistys();
         return list;
 	}
+	
+	@GET
+	@Path("/showanswers/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Yhdistys> showanswers(@PathParam("id") int id) {
+		 EntityManager em=emf.createEntityManager();
+		    em.getTransaction().begin();
+		    List<Yhdistys> list=em.createQuery("select a from Yhdistys a where a.ehdokas.id = :id").setParameter("id",id).getResultList();
+		    em.getTransaction().commit();
+			return list;
+		
+	}
+	
+	
 	
 }

@@ -3,6 +3,8 @@ package data;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import data.Vastaus;
@@ -22,14 +24,17 @@ public class Yhdistys implements Serializable {
 	private int id;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JsonBackReference(value="yh-eh")
 	@JoinColumn(name = "ehdokasid")
 	Ehdokas ehdokas;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JsonBackReference(value="yh-va")
 	@JoinColumn(name = "vastausid")
 	Vastaus vastaus;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JsonBackReference(value="yh-vt")
 	@JoinColumn(name = "vaittamaid")
 	Vaittama vaittama;
 

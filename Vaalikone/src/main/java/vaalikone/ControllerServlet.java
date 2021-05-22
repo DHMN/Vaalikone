@@ -46,6 +46,7 @@ public class ControllerServlet extends HttpServlet {
 		String action = request.getServletPath();
 		List<Ehdokas> list = null;
 		List<Kerays> list2 = null;
+		List<Yhdistys> list3 = null;
 
 		try {
 			switch (action) {
@@ -104,6 +105,14 @@ public class ControllerServlet extends HttpServlet {
 				request.setAttribute("ehdokaslist", list);
 				RequestDispatcher rn = request.getRequestDispatcher("./jsp/EhdokasList.jsp");
 				rn.forward(request, response);
+				break;
+			
+			case "/showanswers":
+				String id1 = request.getParameter("id1");
+				list3 = showAnswers(request);
+				request.setAttribute("vastauslist", list3);
+				RequestDispatcher rf = request.getRequestDispatcher("./jsp/EhdokasVastaus.jsp");
+				rf.forward(request, response);
 				break;
 
 
@@ -441,6 +450,19 @@ public class ControllerServlet extends HttpServlet {
 			System.out.println(db);
 		}
 		
+		return returnedList;
+	}
+	
+	public List<Yhdistys> showAnswers(HttpServletRequest request) {
+		String id1 = request.getParameter("id1");
+		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/showanswers/"+id1;
+		Client c = ClientBuilder.newClient();
+		WebTarget wt = c.target(uri);
+		Builder b = wt.request();
+		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {
+		};
+
+		List<Yhdistys> returnedList = b.get(genericList);
 		return returnedList;
 	}
 

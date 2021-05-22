@@ -67,8 +67,8 @@
                   <h1>Ehdokkaat</h1>
                     <br>
 <ul>
-<c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
-	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
+<c:forEach var="yhdistys" items="${requestScope.vastauslist}">
+	<li> ${yhdistys.vaittama.id}. ${yhdistys.vastaus.vastausteksti}</li>
 </c:forEach>
 </ul>
 
