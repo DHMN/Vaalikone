@@ -98,6 +98,14 @@ public class ControllerServlet extends HttpServlet {
 				RequestDispatcher rh = request.getRequestDispatcher("./jsp/EhdokasUpdate.jsp");
 				rh.forward(request, response);
 				return;
+				
+			case "/ehdokaslist":
+				list = readehdokas(request);
+				request.setAttribute("ehdokaslist", list);
+				RequestDispatcher rn = request.getRequestDispatcher("./jsp/EhdokasList.jsp");
+				rn.forward(request, response);
+				break;
+
 
 			default:
 				listVaittama(request, response);
