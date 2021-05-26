@@ -113,7 +113,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                                 <tr>
                                     <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}" varStatus="counter">
                                     	<th>
-                                    		<input type='checkbox' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
+                                    		<input type='radio' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
                                         	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
                                         	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
                                         	<th><input type='hidden' name='vaittamanArvo${vaittama.id}' value='${vastausvaihtoehdot.id}'></th>

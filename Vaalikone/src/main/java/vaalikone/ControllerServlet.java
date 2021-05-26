@@ -269,9 +269,24 @@ public class ControllerServlet extends HttpServlet {
 	//vastauksen tulostamista varten
 	public void listVaittamafor(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		ArrayList<Vaittama> list = new ArrayList<>();
-		list = dao.listVaittama();
+
+		List<Yhdistys> yhdistysList = readyhdistys(request);
+		List<Ehdokas> returnedList = readehdokas(request);
+		
+//		System.out.println();
+//		
+//		for (Yhdistys db:yhdistysList) {
+//			System.out.println("Yhdistyslistan ehdokas "+db.);
+//			System.out.println("Yhdistyslistan vaittama "+db.getVaittama().toString());
+//			System.out.println("Yhdistyslistan vastaus "+db.);
+//		}
+		
+		
+		ArrayList<Vaittama> list = dao.listVaittama();
+
 		request.setAttribute("list", list);
+		request.setAttribute("ehdokaslist", returnedList);
+		request.setAttribute("yhdistyslista", yhdistysList);
 
 		listVastausvaihtoehdot(request, response);
 
@@ -319,6 +334,18 @@ public class ControllerServlet extends HttpServlet {
 		List<Ehdokas> returnedList = b.get(genericList);
 		return returnedList;
 	}
+	
+	private List<Yhdistys> readyhdistys(HttpServletRequest request) {
+		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/readyhdistys";
+		Client c = ClientBuilder.newClient();
+		WebTarget wt = c.target(uri);
+		Builder b = wt.request();
+		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {
+		};
+
+		List<Yhdistys> returnedList = b.get(genericList);
+		return returnedList;
+	}
 
 	private List<Ehdokas> updateehdokas(HttpServletRequest request) {
 		Ehdokas f = new Ehdokas(request.getParameter("id"), request.getParameter("ehdokasNro"),
@@ -352,40 +379,6 @@ public class ControllerServlet extends HttpServlet {
 	}
 
 	private List<Kerays> ehdokasAnswers(HttpServletRequest request) {
-//		ArrayList<Yhdistys> yhdistyslista= new ArrayList<>();
-//		String ehdokasNro = request.getParameter("ehdokasNro");	
-//		Ehdokas c = new Ehdokas();
-//		c.setId(Integer.parseInt(ehdokasNro));
-//		for (int i = 0; i < 2; i++) {
-//			String vastaus = request.getParameter("vaittamanArvo"+i);
-//			String vaittama = request.getParameter("vaittamaId"+i);
-//			Vastaus a = new Vastaus(vastaus);
-//			Vaittama b = new Vaittama(vaittama);
-//			Yhdistys e = new Yhdistys(c, a, b);
-//			yhdistyslista.add(e);
-//			System.out.println("Väittämän id " + yhdistyslista);
-//		}
-//		
-//		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/yhdistys";
-//
-//		//A list of DogBreed objects to send to our web-service 
-//		Client asiakas=ClientBuilder.newClient();
-//		WebTarget wt=asiakas.target(uri);
-//		Builder b=wt.request();
-//		
-//		//Create an Entity object to send by post method
-//		Entity<ArrayList<Yhdistys>> f=Entity.entity(yhdistyslista, MediaType.APPLICATION_JSON);
-//
-//		//Create a GenericType to be able to get List of objects
-//		//This will be the second parameter of post method
-//		GenericType<List<Yhdistys>> genericList = new GenericType<List<Yhdistys>>() {};
-//		
-//		//Posting data (Entity<ArrayList<DogBreed>> e) to the given address
-//		List<Yhdistys> returnedList=b.post(f, genericList);
-//		
-//		for (Yhdistys db:returnedList) {
-//			System.out.println(db);
-//		}
 
 		ArrayList<Vaittama> vaittamalist = new ArrayList<>();
 		ArrayList<Kerays> yhdistyslista = new ArrayList<>();
@@ -425,13 +418,12 @@ public class ControllerServlet extends HttpServlet {
 
 			System.out.println(request.getParameter("ehdokasNro"));
 			
-			//String ehdokasNro = request.getParameter("ehdokasNro");
+
 			Kerays kerays = new Kerays();
 			kerays.setEhdokasid(request.getParameter("ehdokasNro"));
 			kerays.setVastausteksti(arvo);
 			kerays.setVaittamaid(i+1);
-//			kerays.setVastausteksti(String.valueOf(arvo));
-//			kerays.setVaittamaid(String.valueOf(i+1));
+			System.out.println("Keräykseen annettu ehdokasid "+kerays.getEhdokasid());
 
 			yhdistyslista.add(kerays);
 		}

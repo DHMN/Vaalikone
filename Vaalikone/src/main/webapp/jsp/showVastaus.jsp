@@ -92,7 +92,19 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                                 </tr>
                             </table>
                         </c:forEach>
+                        
+
+<c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
+	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
+	<ul>
+		<c:forEach var="fish" items="${ehdokas.liitokset}">
+			<li>YhdistysId: ${fish.id} ${fish.vaittama.getId} ${fish.vastaus} </li>
+		</c:forEach>
+	</ul>	
+</c:forEach>
         
+
+
 
                 <article>                
                     <h1>Vastauksesi</h1>
