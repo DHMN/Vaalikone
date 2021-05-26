@@ -34,10 +34,7 @@ public class Ehdokas implements Serializable{
     public Ehdokas() {
 
     }
-    
-//    public Ehdokas(String id) {
-//    	this.setId(id);
-//    }
+
     public Ehdokas(String ehdokasNro) {
     	this.setEhdokasNro(ehdokasNro);
     }

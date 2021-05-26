@@ -273,20 +273,13 @@ public class ControllerServlet extends HttpServlet {
 		List<Yhdistys> yhdistysList = readyhdistys(request);
 		List<Ehdokas> returnedList = readehdokas(request);
 		
-//		System.out.println();
-//		
-//		for (Yhdistys db:yhdistysList) {
-//			System.out.println("Yhdistyslistan ehdokas "+db.);
-//			System.out.println("Yhdistyslistan vaittama "+db.getVaittama().toString());
-//			System.out.println("Yhdistyslistan vastaus "+db.);
-//		}
-		
-		
 		ArrayList<Vaittama> list = dao.listVaittama();
 
 		request.setAttribute("list", list);
 		request.setAttribute("ehdokaslist", returnedList);
 		request.setAttribute("yhdistyslista", yhdistysList);
+		
+		
 
 		listVastausvaihtoehdot(request, response);
 

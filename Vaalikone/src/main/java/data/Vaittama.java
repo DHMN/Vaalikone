@@ -30,7 +30,7 @@ public class Vaittama implements Serializable {
 		this.teksti = teksti;
 	}
 	
-	// Konstruktori tekstillä
+	// Konstruktori tekstillä ja idllä
 	public Vaittama(String teksti, String id) {
 		this.teksti = teksti;
 		this.setId(id);
