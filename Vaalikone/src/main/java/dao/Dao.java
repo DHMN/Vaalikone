@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import conn.Connections;
 import data.Kayttaja;
 import data.Vaittama;
-import data.Vastaus;
 import data.Vastausvaihtoehdot;
 
 // Yhteyden luominen
@@ -128,18 +127,6 @@ public class Dao {
 		}
 	}
 
-	public void addVastaus(Vastaus vastaus) {
-		try {
-			String sql = "insert into vastaus (vaittama, vastaus) values (?, ?)";
-			PreparedStatement preparedStmt = conn.prepareStatement(sql);
-			preparedStmt.setInt(1, vastaus.getId());
-			preparedStmt.setString(2, vastaus.getVastausteksti());
-			preparedStmt.executeUpdate();
-
-		} catch (SQLException e) {
-
-		}
-	}
 
 	// VASTAUSVAIHTOEHTOJEN HAKEMINEN TIETOKANNASTA
 	public ArrayList<Vastausvaihtoehdot> listVastausvaihtoehdot() {

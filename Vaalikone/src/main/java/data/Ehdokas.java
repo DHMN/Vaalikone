@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -154,13 +155,17 @@ public class Ehdokas implements Serializable{
 	public void setPathPic(String pathPic) {
 		this.pathPic = pathPic;
 	}
-    
-	public List<Yhdistys> getLiitokset() {
-		return this.liitokset;
-	}
+  
 	
 	public void setLiitokset(List<Yhdistys> liitokset) {
 		this.liitokset = liitokset;
+	}
+	
+	public List<Yhdistys> getLiitokset() {
+		if (this.liitokset==null) {
+			liitokset=new ArrayList<>();
+		}
+		return this.liitokset;
 	}
   
     public String toString() {

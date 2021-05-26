@@ -26,7 +26,6 @@ import data.Ehdokas;
 import data.Kayttaja;
 import data.Kerays;
 import data.Vaittama;
-import data.Vastaus;
 import data.Vastausvaihtoehdot;
 import data.Yhdistys;
 
@@ -65,9 +64,6 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "/readtoupdate":
 				updateVaittama(request, response);
-				break;
-			case "/answers":
-				addVastaus(request, response);
 				break;
 			case "/login":
 				login(request, response);
@@ -204,15 +200,6 @@ public class ControllerServlet extends HttpServlet {
 	}
 
 	// VASTAUKSET TIETOKANTAAN
-	private void addVastaus(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-		String vastausteksti = request.getParameter("vastausteksti");
-
-		Vastaus vastaus = new Vastaus(vastausteksti);
-
-		dao.addVastaus(vastaus);
-		response.sendRedirect("hello");
-	}
 
 	// SISÄÄNKIRJAUTUMINEN
 	private void login(HttpServletRequest request, HttpServletResponse response)

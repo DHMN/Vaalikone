@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.ArrayList;
 import java.util.List;
-import data.Vastaus;
 import data.Vaittama;
 import data.Ehdokas;
 
@@ -28,21 +27,19 @@ public class Yhdistys implements Serializable {
 	@JoinColumn(name = "ehdokasid")
 	Ehdokas ehdokas;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-	@JsonBackReference(value="yh-va")
-	@JoinColumn(name = "vastausid")
-	Vastaus vastaus;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	@JsonBackReference(value="yh-vt")
 	@JoinColumn(name = "vaittamaid")
 	Vaittama vaittama;
+	
+	private String vastaus;
 
 	public Yhdistys() {
 		
 	}
 	
-	public Yhdistys(Ehdokas ehdokas, Vastaus vastaus, Vaittama vaittama) {
+	public Yhdistys(Ehdokas ehdokas, String vastaus, Vaittama vaittama) {
 		this.ehdokas = ehdokas;
 		this.vastaus = vastaus;
 		this.vaittama = vaittama;
@@ -65,11 +62,11 @@ public class Yhdistys implements Serializable {
 	}
 
 	
-	public void setVastaus(Vastaus vastaus) {
+	public void setVastaus(String vastaus) {
 		this.vastaus = vastaus;
 	}
 	
-	public Vastaus getVastaus() {
+	public String getVastaus() {
 		return this.vastaus;
 	}
 	

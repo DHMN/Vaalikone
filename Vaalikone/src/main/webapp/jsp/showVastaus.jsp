@@ -98,7 +98,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
 	<ul>
 		<c:forEach var="fish" items="${ehdokas.liitokset}">
-			<li>YhdistysId: ${fish.id} ${fish.vaittama.vaittamaid} ${fish.vastaus} </li>
+			<li>YhdistysId: ${fish.id} + ${fish.vastaus}  </li>
 		</c:forEach>
 	</ul>	
 </c:forEach>

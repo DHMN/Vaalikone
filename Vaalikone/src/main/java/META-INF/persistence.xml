@@ -3,7 +3,6 @@
 	<persistence-unit name="jpa">
 		<class>data.Ehdokas</class>
 		<class>data.Vaittama</class>
-		<class>data.Vastaus</class>
 		<class>data.Yhdistys</class>
 		
 	

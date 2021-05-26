@@ -20,7 +20,6 @@ import javax.ws.rs.core.MediaType;
 
 import data.Ehdokas;
 import data.Kerays;
-import data.Vastaus;
 import data.Yhdistys;
 import data.Vaittama;
 
@@ -123,11 +122,7 @@ public class EhdokasService {
 		for (Kerays db: list) {
 			Ehdokas f = em.find(Ehdokas.class, db.getEhdokasid());
 			Vaittama g = em.find(Vaittama.class, db.getVaittamaid());
-			Vastaus h = new Vastaus();
-			h.setVastausteksti(db.getVastausteksti());
-			em.getTransaction().begin();
-			em.persist(h);
-			em.getTransaction().commit();
+			String h = Integer.toString(db.getVastausteksti());
 			Yhdistys yhdistys = new Yhdistys(f, h, g);
 			System.out.println("Yhdistystiedot service: " + yhdistys);
 			em.getTransaction().begin();
