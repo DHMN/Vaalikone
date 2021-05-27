@@ -97,8 +97,23 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
 	<ul>
+		<c:set var="total" value="${0}"/>
 		<c:forEach var="fish" items="${ehdokas.liitokset}">
-			<li>YhdistysId: ${fish.id} + ${fish.vastaus}  </li>
+			<c:forEach var="vastaukset" items="${paramValues.vastausteksti}">
+				<li>YhdistysId: ${fish.id} Ehdokkaan vastaus: ${fish.vastaus}  </li>
+				
+				<c:choose>
+    				<c:when test="${fish.vastaus} < ${vastaukset}">
+       					<c:set var="total" value="${total + (vastaukset - fish.vastaus)}" />
+       					<li>Vastaukset yhteensä ${total}</li>
+    				</c:when>    
+   				<c:otherwise>
+       					<c:set var="total" value="${total + (fish.vastaus -  vastaukset)}" />
+        			<li>Vastaukset yhteensä ${total}</li>
+    			</c:otherwise>
+				</c:choose>
+					
+			</c:forEach>
 		</c:forEach>
 	</ul>	
 </c:forEach>
@@ -109,11 +124,18 @@ if((request.getSession(false).getAttribute("Admin") == null) )
                     <h1>Vastauksesi</h1>
                     <br>                    
                     <c:forEach var="kerays" items="${requestScope.yhdistyslist}">
-	<li>Vaittama: <c:out value="${kerays.vaittamaid}"/>  Vastaus: <c:out value="${kerays.vastausteksti}"/></li>
-</c:forEach>
+						<li>Vaittama: <c:out value="${kerays.vaittamaid}"/>  Vastaus: <c:out value="${kerays.vastausteksti}"/></li>
+					</c:forEach>
                     <c:forEach var="vastaukset" items="${paramValues.vastausteksti}">
 						<li><font color="#008000"><c:out value="${vastaukset}"/></font></li>
 					</c:forEach>
+					
+<%! int month=5; %>
+<% if(month==2){ %>
+<a>Its February</a>
+<% }else{ %>
+<a>Any month other than February</a>
+<%} %>
                     
                 </article>
 
