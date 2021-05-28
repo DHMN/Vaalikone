@@ -118,6 +118,9 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 <c:set var="totals" value="${0}"/>
 <c:set var="en" value="${0}"/>
 <c:set var="en2" value="${0}"/>
+    		<%
+			ArrayList al = new ArrayList();
+			%>
 				                    
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
@@ -147,6 +150,10 @@ if((request.getSession(false).getAttribute("Admin") == null) )
     			<c:set var="en" value="${ehdokas.ehdokasNro}" />
     		</c:when> 
     		<c:when test="${total == totals}">
+       		<%
+			al.add("en");
+			al.add("A");
+			%>
     			<c:set var="en2" value="${ehdokas.ehdokasNro}" />
     		</c:when>    
 		</c:choose>
