@@ -117,13 +117,14 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 				                    <h1>Tomin testit</h1>	
 <c:set var="totals" value="${0}"/>
 <c:set var="en" value="${0}"/>
+<c:set var="en2" value="${0}"/>
 				                    
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
 	<ul>
 		<c:set var="total" value="${0}"/>
 		<c:forEach var="fish" items="${ehdokas.liitokset}" varStatus="counter">
-			    <c:forEach var="kerays" items="${requestScope.yhdistyslist}" varStatus="strike">
+			<c:forEach var="kerays" items="${requestScope.yhdistyslist}" varStatus="strike">
 				<c:choose>
     				<c:when test="${fish.vastaus <= kerays.vastausteksti && counter.index == strike.index}">
        					<li>Ehdokkaan vastaus: ${fish.vastaus}</li>
@@ -135,16 +136,18 @@ if((request.getSession(false).getAttribute("Admin") == null) )
     					<li>Sinun vastaus: <c:out value="${kerays.vastausteksti}"/></li>
        					<c:set var="total" value="${total + (fish.vastaus - kerays.vastausteksti)}" />
     				</c:when>    
-				</c:choose>
-				
+				</c:choose>	
 			</c:forEach>
 			<br>
 		</c:forEach>
 		<li>Yhteispisteet ${total}</li>
 		<c:choose>
-    		<c:when test="${total <= totals}">
+    		<c:when test="${total < totals}">
     			<c:set var="totals" value="${total}" />
     			<c:set var="en" value="${ehdokas.ehdokasNro}" />
+    		</c:when> 
+    		<c:when test="${total == totals}">
+    			<c:set var="en2" value="${ehdokas.ehdokasNro}" />
     		</c:when>    
 		</c:choose>
 		<br>
@@ -153,9 +156,10 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 		<c:choose>
-    		<c:when test="${ehdokas.ehdokasNro eq en}">
-       			<li>Paras ehdokas sinulle: <li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li></li>
+    		<c:when test="${ehdokas.ehdokasNro eq en || ehdokas.ehdokasNro eq en2}">
+       			<li>Paras ehdokas sinulle: ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
     		</c:when>  
+  
     	</c:choose> 
 </c:forEach>
                     
