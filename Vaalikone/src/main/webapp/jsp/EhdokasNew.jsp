@@ -87,8 +87,10 @@
                         <br>
                     </form>
 <ol>
-
-<form action="./rest/ehdokasservice/fileupload" method="post" enctype="multipart/form-data">
+<br>
+<form action="../rest/ehdokasservice/fileupload" method="post" enctype="multipart/form-data">
+	<p><b>Ehdokasnumero: </b>
+                            <input type='number' name='ehdokasNro'> </p><br> 
     Select a file : <input type="file" name="file" accept=".png" /><br>
     <input type="submit" value="Upload" />
 </form>

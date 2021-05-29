@@ -191,15 +191,21 @@ public class EhdokasService {
 		@Path("/fileupload")
 		@Consumes({MediaType.MULTIPART_FORM_DATA})
 		public Response uploadFile( @FormDataParam("file") InputStream fileInputStream,
-	            @FormDataParam("file") FormDataContentDisposition fileMetaData, @Context ServletContext sc) 
+	            @FormDataParam("file") FormDataContentDisposition fileMetaData,@FormDataParam("ehdokasNro") int ehdokasNro, @Context ServletContext sc) 
 	            		throws Exception
 		{
-			String UPLOAD_PATH=sc.getRealPath("/");
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			Ehdokas f = em.find(Ehdokas.class, ehdokasNro);
+			f.setPathPic("C:/temp/"+ ehdokasNro+".png");
+			em.merge(f);
+			em.getTransaction().commit();
+			String UPLOAD_PATH="C:/temp";
 		    try{
 		        int read = 0;
 		        byte[] bytes = new byte[1024];
 		 
-		        OutputStream out = new FileOutputStream(new File(UPLOAD_PATH + "/"+fileMetaData.getFileName()));
+		        OutputStream out = new FileOutputStream(new File(UPLOAD_PATH + "/"+ehdokasNro + ".png"));
 		        while ((read = fileInputStream.read(bytes)) != -1) 
 		        {
 		            out.write(bytes, 0, read);
