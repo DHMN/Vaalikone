@@ -87,6 +87,12 @@
                         <br>
                     </form>
 <ol>
+
+<form action="./rest/ehdokasservice/fileupload" method="post" enctype="multipart/form-data">
+    Select a file : <input type="file" name="file" accept=".png" /><br>
+    <input type="submit" value="Upload" />
+</form>
+
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<li>${ehdokas} <a href='../deleteehdokas?id=${ehdokas.id}'>Delete</a> <a href='../readtoupdateehdokas?id=${ehdokas.id}'>Update</a></li>
 </c:forEach>

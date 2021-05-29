@@ -28,6 +28,12 @@
 		  <param-name>jersey.config.server.provider.packages</param-name>
 		  <param-value>rest</param-value>
 		</init-param>
+		
+		<!-- Because of Upload -->
+<init-param>
+	<param-name>jersey.config.server.provider.classnames</param-name>
+	<param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+</init-param>	
 		<!--
 			This tells the server to load REST service when the server starts
 		-->
