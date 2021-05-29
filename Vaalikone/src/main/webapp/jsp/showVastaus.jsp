@@ -95,6 +95,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
+	<img src="/${ehdokas.ehdokasNro}.png" alt="Ehdokas${ehdokas.ehdokasNro} ">
 	<ul>
 		<c:forEach var="fish" items="${ehdokas.liitokset}">
 			<li>YhdistysId: ${fish.id} + ${fish.vastaus}  </li>
@@ -119,7 +120,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 <c:set var="en" value="${0}"/>
 <c:set var="en2" value="${0}"/>
 				                   <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counterr">
-                            <table class="table table-striped"> 
+                            <table class=""> 
                                                             <tr>
                                     <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /><input type='hidden' name='vaittamaId${counter.count}' value='${vaittama.id}'></b></th>
                                 </tr>
@@ -127,11 +128,11 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<table class="table">
      <tr>
-	 <th><b>${ehdokas.ehdokasNro}. ${ehdokas.puolue}<br>${ehdokas.etuNimi} ${ehdokas.sukuNimi}</b></th>
-	 <th><b>Sinä vastasit</b></th>
+	 <th class="w-50"><b>${ehdokas.ehdokasNro}. ${ehdokas.puolue}<br>${ehdokas.etuNimi} ${ehdokas.sukuNimi}</b></th>
+	 <th class="w-50"><b>Sinä vastasit</b></th>
 	 </tr>
 	 </table>
-	 <table class="table">
+	 <table class="table table-striped">
 	 
 		<c:set var="total" value="${0}"/>
 		<c:forEach var="fish" items="${ehdokas.liitokset}" varStatus="counter">
@@ -142,14 +143,14 @@ if((request.getSession(false).getAttribute("Admin") == null) )
        					    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
        							<c:choose>
                             		<c:when test="${vastausvaihtoehdot.id == fish.vastaus}">
-                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+                            			<th class="w-50"><c:out value="${vastausvaihtoehdot.vv}" /></th>
     								</c:when> 
     							</c:choose> 
                             </c:forEach> 
        						<c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
        							<c:choose>
                             		<c:when test="${vastausvaihtoehdot.id == kerays.vastausteksti}">
-                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+                            			<th clas="w-50"><c:out value="${vastausvaihtoehdot.vv}" /></th>
     								</c:when> 
     							</c:choose> 
                             </c:forEach> 
@@ -163,14 +164,14 @@ if((request.getSession(false).getAttribute("Admin") == null) )
        					    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
        							<c:choose>
                             		<c:when test="${vastausvaihtoehdot.id == fish.vastaus}">
-                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+                            			<th class="w-50"><c:out value="${vastausvaihtoehdot.vv}" /></th>
     								</c:when> 
     							</c:choose> 
                             </c:forEach> 
        						<c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
        							<c:choose>
                             		<c:when test="${vastausvaihtoehdot.id == kerays.vastausteksti}">
-                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+                            			<th class="w-50"><c:out value="${vastausvaihtoehdot.vv}" /></th>
     								</c:when> 
     							</c:choose> 
                             </c:forEach> 
@@ -181,7 +182,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 			</c:forEach>
 		</c:forEach>
 		</table>
-		<table class="table">
+		<table class="table table-striped">
 		<tr><th>Yhteispisteet ${total}</th></tr>
 		</table>
 		<c:choose>
@@ -192,8 +193,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
     		<c:when test="${total == totals}">
     			<c:set var="en2" value="${ehdokas.ehdokasNro}" />
     		</c:when>    
-		</c:choose>
-	</ul>	
+		</c:choose>	
 </c:forEach>
 </c:forEach>
 
