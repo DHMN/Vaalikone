@@ -118,55 +118,90 @@ if((request.getSession(false).getAttribute("Admin") == null) )
 <c:set var="totals" value="${0}"/>
 <c:set var="en" value="${0}"/>
 <c:set var="en2" value="${0}"/>
-    		<%
-			ArrayList al = new ArrayList();
-			%>
-				                    
+				                   <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counterr">
+                            <table class="table table-striped"> 
+                                                            <tr>
+                                    <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /><input type='hidden' name='vaittamaId${counter.count}' value='${vaittama.id}'></b></th>
+                                </tr>
+                            </table>
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
-	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
-	<ul>
+	<table class="table">
+     <tr>
+	 <th><b>${ehdokas.ehdokasNro}. ${ehdokas.puolue}<br>${ehdokas.etuNimi} ${ehdokas.sukuNimi}</b></th>
+	 <th><b>Sinä vastasit</b></th>
+	 </tr>
+	 </table>
+	 <table class="table">
+	 
 		<c:set var="total" value="${0}"/>
 		<c:forEach var="fish" items="${ehdokas.liitokset}" varStatus="counter">
 			<c:forEach var="kerays" items="${requestScope.yhdistyslist}" varStatus="strike">
 				<c:choose>
-    				<c:when test="${fish.vastaus <= kerays.vastausteksti && counter.index == strike.index}">
-       					<li>Ehdokkaan vastaus: ${fish.vastaus}</li>
-       					<li>Sinun vastaus: <c:out value="${kerays.vastausteksti}"/></li>
+    				<c:when test="${fish.vastaus <= kerays.vastausteksti && counter.index == strike.index && counter.index == counterr.index}">
+     					<tr>
+       					    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
+       							<c:choose>
+                            		<c:when test="${vastausvaihtoehdot.id == fish.vastaus}">
+                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+    								</c:when> 
+    							</c:choose> 
+                            </c:forEach> 
+       						<c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
+       							<c:choose>
+                            		<c:when test="${vastausvaihtoehdot.id == kerays.vastausteksti}">
+                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+    								</c:when> 
+    							</c:choose> 
+                            </c:forEach> 
+       					</tr>
+
        					<c:set var="total" value="${total + (kerays.vastausteksti - fish.vastaus)}" />
     				</c:when>  
-    				<c:when test="${fish.vastaus > kerays.vastausteksti && counter.index == strike.index}">
-    					<li>Ehdokkaan vastaus: ${fish.vastaus}</li>
-    					<li>Sinun vastaus: <c:out value="${kerays.vastausteksti}"/></li>
+    				<c:when test="${fish.vastaus > kerays.vastausteksti && counter.index == strike.index && counter.index == counterr.index}">
+
+     					<tr>
+       					    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
+       							<c:choose>
+                            		<c:when test="${vastausvaihtoehdot.id == fish.vastaus}">
+                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+    								</c:when> 
+    							</c:choose> 
+                            </c:forEach> 
+       						<c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}">
+       							<c:choose>
+                            		<c:when test="${vastausvaihtoehdot.id == kerays.vastausteksti}">
+                            			<th><c:out value="${vastausvaihtoehdot.vv}" /></th>
+    								</c:when> 
+    							</c:choose> 
+                            </c:forEach> 
+       					</tr>
        					<c:set var="total" value="${total + (fish.vastaus - kerays.vastausteksti)}" />
     				</c:when>    
 				</c:choose>	
 			</c:forEach>
-			<br>
 		</c:forEach>
-		<li>Yhteispisteet ${total}</li>
+		</table>
+		<table class="table">
+		<tr><th>Yhteispisteet ${total}</th></tr>
+		</table>
 		<c:choose>
     		<c:when test="${total < totals}">
     			<c:set var="totals" value="${total}" />
     			<c:set var="en" value="${ehdokas.ehdokasNro}" />
     		</c:when> 
     		<c:when test="${total == totals}">
-       		<%
-			al.add("en");
-			al.add("A");
-			%>
     			<c:set var="en2" value="${ehdokas.ehdokasNro}" />
     		</c:when>    
 		</c:choose>
-		<br>
 	</ul>	
+</c:forEach>
 </c:forEach>
 
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 		<c:choose>
     		<c:when test="${ehdokas.ehdokasNro eq en || ehdokas.ehdokasNro eq en2}">
        			<li>Paras ehdokas sinulle: ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
-    		</c:when>  
-  
+    		</c:when>    
     	</c:choose> 
 </c:forEach>
                     
