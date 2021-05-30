@@ -130,6 +130,7 @@ public class EhdokasService {
 		//but here we just modify it to be sure, that it is usable
 		EntityManager em=emf.createEntityManager();
 		for (Kerays db: list) {
+			if(db.ehdokasid != 0) {
 			Ehdokas f = em.find(Ehdokas.class, db.getEhdokasid());
 			Vaittama g = em.find(Vaittama.class, db.getVaittamaid());
 			String h = Integer.toString(db.getVastausteksti());
@@ -138,6 +139,7 @@ public class EhdokasService {
 			em.getTransaction().begin();
 			em.persist(yhdistys);//The actual insertion line
 			em.getTransaction().commit();
+		}
 		}
 		return list;
 		//list = readYhdistys();
@@ -185,6 +187,19 @@ public class EhdokasService {
 			return list;
 		
 	}
+	
+	@GET
+	@Path("/showinfo/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Ehdokas showInfo(@PathParam("id") int id) {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Ehdokas f = em.find(Ehdokas.class, id);
+		em.getTransaction().commit();
+		return f;
+	}
+
 	
 
 		@POST

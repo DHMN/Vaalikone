@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="data.Vastausvaihtoehdot" %>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Vaalikone</title>
+    <title>Ehdokkaat</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -16,13 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Mandali&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/styles.css">
-<% //In case, if Admin session is not set, redirect to Login page
-if((request.getSession(false).getAttribute("Admin")!= null) )
-{
-%>
-<jsp:forward page="/jsp/VaittamaList.jsp"></jsp:forward>
-<%} %>
+    <link rel="stylesheet" href="../css/styles.css">
+
 </head>
 
 <body>
@@ -34,8 +26,8 @@ if((request.getSession(false).getAttribute("Admin")!= null) )
         <div class="row">
             <div class="col-sm-12 header">
                 <header class="bg-text">
-                    <h1>Väittämien hallinta</h1>
-                    <h2>ESIKATSELE VÄITTÄMIÄ</h2>
+                    <h1>Ehdokkaat</h1>
+                    <h2>Tarkastele ehdokkaita</h2>
                 </header>
             </div>
         </div>
@@ -64,40 +56,21 @@ if((request.getSession(false).getAttribute("Admin")!= null) )
                 </nav>
             </div>
         </div>
+        <!-- NAVIGOINTI LOPPUU --></div>
+        </div>
         <!-- NAVIGOINTI LOPPUU -->
 
         <!-- PÄÄSISÄLTÖ ALKAA -->
         <div class="row narrow">
             <div class="col-md-12 article">
-            
-                  <article>                
-                    <h1>Vaalikone</h1>
+				<article>
+                  <h1>Ehdokkaan tiedot</h1>
                     <br>
-                    <form action='../ehdokasAnswers' method='post'>
-                    <input type="hidden" id="ehdokasNro" name="ehdokasNro" ><br>
-                    <c:set var="count" value="0" scope="page" />
-                        <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counter">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /><input type='hidden' name='vaittamaId${counter.count}' value='${vaittama.id}'></b></th>
-                                </tr>
-                            </table>
-                            <table class="table">
-                                <tr>
-                                    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}" varStatus="counter">
-                                    	<th>
-                                    		<input type='radio' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
-                                        	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
-                                        	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
-                                        	<th><input type='hidden' name='vaittamanArvo${vaittama.id}' value='${vastausvaihtoehdot.id}'></th>
-                                    	</th>
-                                    </c:forEach> 
-                                </tr>
-                            </table>
-                        </c:forEach>
-                        <input type='submit' name='ok' value='Send'>
-                    </form>
-                   
+                    <img src="C:/temp/"+${requestScope.ehdokas.ehdokasNro}+".png">
+                    <p>Ehdokasnumero: ${requestScope.ehdokas.ehdokasNro}</p>
+                    <p>Puolue: ${requestScope.ehdokas.puolue}</p>
+                    <p>Nimi: ${requestScope.ehdokas.etuNimi} ${requestScope.ehdokas.sukuNimi}</p>
+                    <p>Miksi eduskuntaan? : ${requestScope.ehdokas.miksi}</p>
                     
                 </article>
             </div>

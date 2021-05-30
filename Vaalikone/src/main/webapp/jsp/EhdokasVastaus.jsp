@@ -66,11 +66,11 @@
 				<article>
                   <h1>Ehdokkaat</h1>
                     <br>
-<ul>
+
 <c:forEach var="yhdistys" items="${requestScope.vastauslist}">
-	<li> ${yhdistys.vaittama.id}. ${yhdistys.vastaus.vastausteksti}</li>
+	<p> Vaittama: <c:out value ="${yhdistys.vaittama.getStringId()}"/> Vastaus: ${yhdistys.vastaus}</p>
 </c:forEach>
-</ul>
+
 
 
                 </article>

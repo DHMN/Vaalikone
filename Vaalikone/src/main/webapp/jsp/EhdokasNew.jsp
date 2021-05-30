@@ -14,7 +14,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
-
+<% //In case, if Admin session is not set, redirect to Login page
+if((request.getSession(false).getAttribute("Admin")== null) )
+{
+%>
+<jsp:forward page="/jsp/login.jsp"></jsp:forward>
+<%} %>
 </head>
 
 <body>

@@ -31,7 +31,7 @@ public class Yhdistys implements Serializable {
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	@JsonBackReference(value="yh-vt")
 	@JoinColumn(name = "vaittamaid")
-	Vaittama vaittama;
+	public Vaittama vaittama;
 	
 	private String vastaus;
 

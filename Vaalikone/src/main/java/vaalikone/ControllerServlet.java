@@ -110,6 +110,14 @@ public class ControllerServlet extends HttpServlet {
 				RequestDispatcher rf = request.getRequestDispatcher("./jsp/EhdokasVastaus.jsp");
 				rf.forward(request, response);
 				break;
+				
+			case "/showinfo":
+				Ehdokas h = showInfo(request);
+				request.setAttribute("ehdokas", h);
+				RequestDispatcher rj = request.getRequestDispatcher("./jsp/EhdokasInfo.jsp");
+				rj.forward(request, response);
+				return;
+				
 
 
 			default:
@@ -436,6 +444,16 @@ public class ControllerServlet extends HttpServlet {
 
 		List<Yhdistys> returnedList = b.get(genericList);
 		return returnedList;
+	}
+	
+	private Ehdokas showInfo(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String uri = "http://127.0.0.1:8080/rest/ehdokasservice/showinfo/" + id;
+		Client c = ClientBuilder.newClient();
+		WebTarget wt = c.target(uri);
+		Builder b = wt.request();
+		Ehdokas fish = b.get(Ehdokas.class);
+		return fish;
 	}
 
 }

@@ -17,12 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
-<% //In case, if Admin session is not set, redirect to Login page
-if((request.getSession(false).getAttribute("Admin") == null) )
-{
-%>
-<jsp:forward page="/jsp/BasicList.jsp"></jsp:forward>
-<%} %>
+
 </head>
 
 <body>
@@ -70,52 +65,10 @@ if((request.getSession(false).getAttribute("Admin") == null) )
         <div class="row narrow">
             <div class="col-md-12 article">
          <h1>Kiitos vastauksesta!</h1>
-                    <br>
-                    <c:set var="count" value="0" scope="page" />
-                        <c:forEach var="vaittama" items="${requestScope.list}" varStatus="counter">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th><b><c:out value="${counter.count}" /> <c:out value="${vaittama.teksti}" /><input type='hidden' name='vaittamaId${counter.count}' value='${vaittama.id}'></b></th>
-                                </tr>
-                            </table>
-                            <table class="table">
-                                <tr>
-                                    <c:forEach var="vastausvaihtoehdot" items="${requestScope.list2}" varStatus="counter">
-                                    	<th>
-                                    	<input type='checkbox' name='vastausteksti${vaittama.id}' value='${vastausvaihtoehdot.vv}'>
-                                        	<label> <c:out value="${vastausvaihtoehdot.vv}" /></label>
-                                        	<p> <c:out value="${vastausvaihtoehdot.id}" /></p>
-                                        	<th><input type='hidden' name='vaittamanArvo${vaittama.id}' value='${vastausvaihtoehdot.id}'></th>
-                                    	</th>
-                                    </c:forEach> 
-                                </tr>
-                            </table>
-                        </c:forEach>
-                        
-
-<c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
-	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
-	<img src="/${ehdokas.ehdokasNro}.png" alt="Ehdokas${ehdokas.ehdokasNro} ">
-	<ul>
-		<c:forEach var="fish" items="${ehdokas.liitokset}">
-			<li>YhdistysId: ${fish.id} + ${fish.vastaus}  </li>
-		</c:forEach>
-	</ul>	
-</c:forEach>
-
-
-
-                <article>                
-                    <h1>Vastauksesi</h1>
-                    <br>                    
-                    <c:forEach var="kerays" items="${requestScope.yhdistyslist}">
-	<li>Vaittama: <c:out value="${kerays.vaittamaid}"/>  Vastaus: <c:out value="${kerays.vastausteksti}"/></li>
-</c:forEach>
+               <article>                
+    			
 					
-					
-					
-					
-				                    <h1>Tomin testit</h1>	
+				                    <h2>Vastausten vertailu</h2>	
 <c:set var="totals" value="${0}"/>
 <c:set var="en" value="${0}"/>
 <c:set var="en2" value="${0}"/>
@@ -204,6 +157,28 @@ if((request.getSession(false).getAttribute("Admin") == null) )
     		</c:when>    
     	</c:choose> 
 </c:forEach>
+
+             <h2>Vastauksesi</h2>
+                    <br>                    
+                    <c:forEach var="kerays" items="${requestScope.yhdistyslist}">
+	<li>Vaittama: <c:out value="${kerays.vaittamaid}"/>  Vastaus: <c:out value="${kerays.vastausteksti}"/></li>
+</c:forEach>
+         
+         
+         <h2>Ehdokkaiden vastaukset:</h2>
+
+                        
+
+<c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
+	<p> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></p>
+	<img src="/${ehdokas.ehdokasNro}.png" alt="Ehdokas${ehdokas.ehdokasNro} ">
+	<ul>
+		<c:forEach var="fish" items="${ehdokas.liitokset}" varStatus="thecount">
+			<p> Vaittama: ${thecount.count} Vastaus: ${fish.vastaus}  </p>
+		</c:forEach>
+	</ul>	
+</c:forEach>
+
                     
                 </article>
 

@@ -12,8 +12,8 @@ import java.util.List;
 public class Vaittama implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	private String teksti;
+	public int id;
+	public String teksti;
 	
 	//bi-directional many-to-many association to vastaukset
 	@OneToMany(mappedBy = "vaittama", cascade = {CascadeType.PERSIST,CascadeType.MERGE})

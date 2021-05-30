@@ -3,9 +3,9 @@ package data;
 import java.io.Serializable;
 
 public class Kerays implements Serializable {
-	int ehdokasid;
-	int vaittamaid;
-	int vastausteksti;
+	public int ehdokasid;
+	public int vaittamaid;
+	public int vastausteksti;
 	
 	public Kerays() {
 		
