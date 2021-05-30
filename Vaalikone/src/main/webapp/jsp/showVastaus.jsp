@@ -152,9 +152,12 @@
 
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 		<c:choose>
-    		<c:when test="${ehdokas.ehdokasNro eq en || ehdokas.ehdokasNro eq en2}">
+    		<c:when test="${ehdokas.ehdokasNro eq en}">
        			<li>Paras ehdokas sinulle: ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
     		</c:when>    
+    		    		<c:when test="${ehdokas.ehdokasNro eq en2}">
+       			<li>Paras ehdokas sinulle: ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
+    		</c:when>  
     	</c:choose> 
 </c:forEach>
 
@@ -171,7 +174,7 @@
 
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<p> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></p>
-	<img src="/${ehdokas.ehdokasNro}.png" alt="Ehdokas${ehdokas.ehdokasNro} ">
+	<img src="//C:/temp/${ehdokas.ehdokasNro}.png" alt="Ehdokas${ehdokas.ehdokasNro} ">
 	<ul>
 		<c:forEach var="fish" items="${ehdokas.liitokset}" varStatus="thecount">
 			<p> Vaittama: ${thecount.count} Vastaus: ${fish.vastaus}  </p>

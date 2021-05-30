@@ -35,7 +35,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 @Path("/ehdokasservice")
 public class EhdokasService {
-	
+
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
 
 	// TÄMÄ HAKEE KAIKKI KALAT
@@ -57,13 +57,13 @@ public class EhdokasService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Ehdokas> addEhdokas(Ehdokas ehdokas) {
-        EntityManager em = emf.createEntityManager();
-        System.out.println("Ehdokas servicelle asti tulee");
-        em.getTransaction().begin();
-        em.persist(ehdokas);
-        em.getTransaction().commit();
-        List<Ehdokas> list = readEhdokas();
-        return list;
+		EntityManager em = emf.createEntityManager();
+		System.out.println("Ehdokas servicelle asti tulee");
+		em.getTransaction().begin();
+		em.persist(ehdokas);
+		em.getTransaction().commit();
+		List<Ehdokas> list = readEhdokas();
+		return list;
 	}
 
 	// TÄMÄ PÄIVITTÄÄ KALAN
@@ -75,7 +75,7 @@ public class EhdokasService {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		Ehdokas f = em.find(Ehdokas.class, ehdokas.getId());
-		System.out.println("Ehdokkaan id"+ehdokas.getId());
+		System.out.println("Ehdokkaan id" + ehdokas.getId());
 		System.out.println("Ehdokas uudet tietdot" + f);
 		if (f != null) {
 			System.out.println("Ehdokas tiedot ennen mergeä: " + f);
@@ -119,32 +119,30 @@ public class EhdokasService {
 		return f;
 	}
 
-	
 	@POST
 	@Path("/yhdistys")
-	//Syö keräyslistaa jolla hakee tarvittavat ja persistaa
-	@Consumes(MediaType.APPLICATION_JSON)//Method receives object as a JSON string
-	@Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
+	// Syö keräyslistaa jolla hakee tarvittavat ja persistaa
+	@Consumes(MediaType.APPLICATION_JSON) // Method receives object as a JSON string
+	@Produces(MediaType.APPLICATION_JSON) // Method returns object as a JSON string
 	public ArrayList<Kerays> yhdistys(ArrayList<Kerays> list) {
-		//The parameter list could be saved into a database or a file
-		//but here we just modify it to be sure, that it is usable
-		EntityManager em=emf.createEntityManager();
-		for (Kerays db: list) {
-			if(db.ehdokasid != 0) {
-			Ehdokas f = em.find(Ehdokas.class, db.getEhdokasid());
-			Vaittama g = em.find(Vaittama.class, db.getVaittamaid());
-			String h = Integer.toString(db.getVastausteksti());
-			Yhdistys yhdistys = new Yhdistys(f, h, g);
-			System.out.println("Yhdistystiedot service: " + yhdistys);
-			em.getTransaction().begin();
-			em.persist(yhdistys);//The actual insertion line
-			em.getTransaction().commit();
-		}
+		// The parameter list could be saved into a database or a file
+		// but here we just modify it to be sure, that it is usable
+		EntityManager em = emf.createEntityManager();
+		for (Kerays db : list) {
+			if (db.ehdokasid != 0) {
+				Ehdokas f = em.find(Ehdokas.class, db.getEhdokasid());
+				Vaittama g = em.find(Vaittama.class, db.getVaittamaid());
+				String h = Integer.toString(db.getVastausteksti());
+				Yhdistys yhdistys = new Yhdistys(f, h, g);
+				System.out.println("Yhdistystiedot service: " + yhdistys);
+				em.getTransaction().begin();
+				em.persist(yhdistys);// The actual insertion line
+				em.getTransaction().commit();
+			}
 		}
 		return list;
-		//list = readYhdistys();
 	}
-	
+
 	// TÄMÄ HAKEE KAIKKI KALAT
 	@GET
 	@Path("/readyhdistys")
@@ -155,39 +153,39 @@ public class EhdokasService {
 		em.getTransaction().begin();
 		List<Yhdistys> list = em.createQuery("select xyx from Yhdistys xyx").getResultList();
 		em.getTransaction().commit();
-		
-		
+
 		return list;
 	}
-	
+
 	// TÄMÄ LISÄÄ KALAN
 	@POST
 	@Path("/addyhdistys")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Yhdistys> addyhdistys(Yhdistys yhdistys) {
-        EntityManager em = emf.createEntityManager();
-        System.out.println("Ehdokas servicelle asti tulee");
-        em.getTransaction().begin();
-        em.persist(yhdistys);
-        em.getTransaction().commit();
-        List<Yhdistys> list = readYhdistys();
-        return list;
+		EntityManager em = emf.createEntityManager();
+		System.out.println("Ehdokas servicelle asti tulee");
+		em.getTransaction().begin();
+		em.persist(yhdistys);
+		em.getTransaction().commit();
+		List<Yhdistys> list = readYhdistys();
+		return list;
 	}
-	
+
 	@GET
 	@Path("/showanswers/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Yhdistys> showanswers(@PathParam("id") int id) {
-		 EntityManager em=emf.createEntityManager();
-		    em.getTransaction().begin();
-		    List<Yhdistys> list=em.createQuery("select a from Yhdistys a where a.ehdokas.id = :id").setParameter("id",id).getResultList();
-		    em.getTransaction().commit();
-			return list;
-		
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		List<Yhdistys> list = em.createQuery("select a from Yhdistys a where a.ehdokas.id = :id").setParameter("id", id)
+				.getResultList();
+		em.getTransaction().commit();
+		return list;
+
 	}
-	
+
 	@GET
 	@Path("/showinfo/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -200,42 +198,35 @@ public class EhdokasService {
 		return f;
 	}
 
-	
+	@POST
+	@Path("/fileupload")
+	@Consumes({ MediaType.MULTIPART_FORM_DATA })
+	public Response uploadFile(@FormDataParam("file") InputStream fileInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileMetaData, @FormDataParam("ehdokasNro") int ehdokasNro,
+			@Context ServletContext sc) throws Exception {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Ehdokas f = em.find(Ehdokas.class, ehdokasNro);
+		f.setPathPic("C:/temp/" + ehdokasNro + ".png");
 
-		@POST
-		@Path("/fileupload")
-		@Consumes({MediaType.MULTIPART_FORM_DATA})
-		public Response uploadFile( @FormDataParam("file") InputStream fileInputStream,
-	            @FormDataParam("file") FormDataContentDisposition fileMetaData,@FormDataParam("ehdokasNro") int ehdokasNro, @Context ServletContext sc) 
-	            		throws Exception
-		{
-			EntityManager em = emf.createEntityManager();
-			em.getTransaction().begin();
-			Ehdokas f = em.find(Ehdokas.class, ehdokasNro);
-			f.setPathPic("C:/temp/"+ ehdokasNro+".png");
-			em.merge(f);
-			em.getTransaction().commit();
-			String UPLOAD_PATH="C:/temp";
-		    try{
-		        int read = 0;
-		        byte[] bytes = new byte[1024];
-		 
-		        OutputStream out = new FileOutputStream(new File(UPLOAD_PATH + "/"+ehdokasNro + ".png"));
-		        while ((read = fileInputStream.read(bytes)) != -1) 
-		        {
-		            out.write(bytes, 0, read);
-		        }
-		        out.flush();
-		        out.close();
-		        
-		    } 
-		    catch (IOException e){
-		        throw new WebApplicationException("Error while uploading file. Please try again !!");
-		    }
-		    return Response.ok("Data uploaded successfully !!").build();
+		em.merge(f);
+		em.getTransaction().commit();
+		String UPLOAD_PATH = "C:/temp";
+		
+		try {
+			int read = 0;
+			byte[] bytes = new byte[1024];
+
+			OutputStream out = new FileOutputStream(new File(UPLOAD_PATH + "/" + ehdokasNro + ".png"));
+			while ((read = fileInputStream.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+			out.flush();
+			out.close();
+
+		} catch (IOException e) {
+			throw new WebApplicationException("Error while uploading file. Please try again !!");
 		}
+		return Response.ok("Data uploaded successfully !!").build();
 	}
-	
-	
-	
-
+}
