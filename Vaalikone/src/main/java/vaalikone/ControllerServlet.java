@@ -106,6 +106,7 @@ public class ControllerServlet extends HttpServlet {
 			case "/showanswers":
 				String id1 = request.getParameter("id1");
 				list3 = showAnswers(request);
+				request.setAttribute("id1", id1);
 				request.setAttribute("vastauslist", list3);
 				RequestDispatcher rf = request.getRequestDispatcher("./jsp/EhdokasVastaus.jsp");
 				rf.forward(request, response);
