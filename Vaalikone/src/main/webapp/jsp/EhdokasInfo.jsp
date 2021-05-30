@@ -66,7 +66,7 @@
 				<article>
                   <h1>Ehdokkaan tiedot</h1>
                     <br>
-                    <img src="C:/temp/"+${requestScope.ehdokas.ehdokasNro}+".png">
+                    <img src="../kuvat/${requestScope.ehdokas.ehdokasNro}.png">
                     <p>Ehdokasnumero: ${requestScope.ehdokas.ehdokasNro}</p>
                     <p>Puolue: ${requestScope.ehdokas.puolue}</p>
                     <p>Nimi: ${requestScope.ehdokas.etuNimi} ${requestScope.ehdokas.sukuNimi}</p>

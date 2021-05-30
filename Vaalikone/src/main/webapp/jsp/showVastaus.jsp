@@ -174,7 +174,7 @@
 
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
 	<p> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></p>
-	<img src="//C:/temp/${ehdokas.ehdokasNro}.png" alt="Ehdokas${ehdokas.ehdokasNro} ">
+	<img src="../kuvat/${requestScope.ehdokas.ehdokasNro}.png" alt="Ehdokas${ehdokas.ehdokasNro} ">
 	<ul>
 		<c:forEach var="fish" items="${ehdokas.liitokset}" varStatus="thecount">
 			<p> Vaittama: ${thecount.count} Vastaus: ${fish.vastaus}  </p>

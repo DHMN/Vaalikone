@@ -211,7 +211,7 @@ public class EhdokasService {
 
 		em.merge(f);
 		em.getTransaction().commit();
-		String UPLOAD_PATH = "C:/temp";
+		String UPLOAD_PATH = sc.getRealPath("/kuvat/");
 		
 		try {
 			int read = 0;
