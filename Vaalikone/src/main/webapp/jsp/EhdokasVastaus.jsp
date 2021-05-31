@@ -66,12 +66,42 @@
 				<article>
                   <h1>Ehdokkaan numero <c:out value="${requestScope.id1}"/> vastaukset</h1>
                     <br>
-
+						<table class="table table-striped">	
+						                        <tr>
+                            <th><b>Väittämä</b></th>
+                            <th><b>Vastaus</b></th>
+                        </tr>	
 <c:forEach var="yhdistys" items="${requestScope.vastauslist}" varStatus="counter">
-	<p> Vaittama: <c:out value ="${counter.count}"/> Vastaus: ${yhdistys.vastaus}</p>
+	<c:forEach var="vaittama" items="${requestScope.list}" varStatus="strike">
+		<c:choose>
+			<c:when test="${counter.index == strike.index}">
+				<tr>
+					<th>${vaittama.teksti}</th>
+					<th>
+					<c:choose>
+					<c:when test="${yhdistys.vastaus == 1}">
+						Täysin eri mieltä
+					</c:when>
+					<c:when test="${yhdistys.vastaus == 2}">
+						Eri mieltä
+					</c:when>
+					<c:when test="${yhdistys.vastaus == 3}">
+						Neutraali
+					</c:when>
+					<c:when test="${yhdistys.vastaus == 4}">
+						Samaa mieltä
+					</c:when>
+					<c:when test="${yhdistys.vastaus == 5}">
+						Täysin samaa mieltä
+					</c:when>
+					</c:choose>
+					</th>
+				</tr>
+			</c:when>
+		</c:choose>
+	</c:forEach>
 </c:forEach>
-
-
+</table>
 
                 </article>
             </div>

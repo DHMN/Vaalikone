@@ -66,11 +66,26 @@
 				<article>
                   <h1>Ehdokkaat</h1>
                     <br>
-<ul>
+						<table class="table table-striped">	
+						                        <tr>
+                            <th><b>Ehdokasnumero</b></th>
+                            <th><b>Puolue</b></th>
+                            <th><b>Etunimi</b></th>
+                            <th><b>Sukunimi</b></th>
+                            <th><b>Lisätiedot</b></th>
+                            <th><b>Vastaukset</b></th>
+                        </tr>						
 <c:forEach var="ehdokas" items="${requestScope.ehdokaslist}">
-	<li> ${ehdokas.ehdokasNro}. ${ehdokas.puolue} ${ehdokas.etuNimi} ${ehdokas.sukuNimi} <a href='../showinfo?id=${ehdokas.id}'>Tiedot</a> <a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></li>
+<tr>
+	<th>${ehdokas.ehdokasNro}</th>
+	<th>${ehdokas.puolue}</th>
+	<th>${ehdokas.etuNimi}</th>
+	<th>${ehdokas.sukuNimi}</th>
+	<th><a href='../showinfo?id=${ehdokas.id}'>Tiedot</a></th>
+	<th><a href='../showanswers?id1=${ehdokas.id}'>Vastaukset</a></th>
+</tr>
 </c:forEach>
-</ul>
+</table>
 
 
                 </article>
